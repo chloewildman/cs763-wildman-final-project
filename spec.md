@@ -1,3 +1,8 @@
+# Class notes, to be deleted
+Something small to show the app will work through the pipeline correctly
+Include tests that should run and be successful before the rest of the pipeline runs
+Use secrete scanning
+
 # Service definition
 The Research Blog & Project Discussion Board (Domain 4): This service coordinates collaborative project updates, announcements, and interactive comment feeds to streamline communication within active academic project teams and course groups.
 
@@ -11,6 +16,8 @@ GET /courses
 GET /courses/{courseId}
 
 GET /courses/{courseId}/projects
+
+POST /courses/{courseId}/projects
 
 GET /courses/{courseId}/projects/{projectId}
 
@@ -48,6 +55,10 @@ GET /courses/{courseId}/projects/{projectId}/posts/{postId}/comments/{commentId}
     "email": {
       "type": "string",
       "format": "email"
+    },
+    "role": {
+      "type": "string",
+      "enum": ["PROFESSOR", "STUDENT"]
     }
   },
   "required": [
@@ -55,7 +66,8 @@ GET /courses/{courseId}/projects/{projectId}/posts/{postId}/comments/{commentId}
     "username",
     "firstName",
     "lastName",
-    "email"
+    "email",
+    "role"
   ]
 }
 
@@ -172,7 +184,8 @@ An association table would be
 - Assignments
 
 Where...
-- User -- Course (many-to-many)
+- User (Student) -- Course (many-to-many)
+- User (Professor) -- Course (one-to-many)
 - User -- Post (one-to-many)
 - User -- Comment (one-to-many)
 - Course -- Project (one-to-many)
@@ -183,11 +196,13 @@ Where...
 
 ## User
 
-| userId | username | firstName | lastName |
-|--------|----------|-----------|----------|
-| 5 | lgilmore | Lorelai | Gilmore |
-| 6 | ldanes | Luke | Danes |
-| 7 | sstjames | Sookie | St. James |
+| userId | username | firstName | lastName | role |
+|--------|----------|-----------|----------|------|
+| 5 | lgilmore | Lorelai | Gilmore | STUDENT |
+| 6 | ldanes | Luke | Danes | STUDENT |
+| 7 | sstjames | Sookie | St. James | STUDENT |
+| 8 | jdoe | John | Doe | PROFESSOR |
+| 9 | jadoe | Jane | Doe | PROFESSOR |
 
 Primary key = userId
 
@@ -231,10 +246,12 @@ Primary key = commentId
 Foreign key = authordId -> User.userId, postId
 
 ## Assignments
-| userId | courseId |
-|--------|----------|
-| 5 | BUS101 |
-| 6 | WOOD100 | 
-| 7 | BUS101 |
+| userId | courseId | role |
+|--------|----------|------|
+| 5 | BUS101 | STUDENT |
+| 6 | WOOD100 | STUDENT |
+| 7 | BUS101 | STUDENT |
+| 8 | WOOD100 | PROFESSOR |
+| 9 | BUS101 | PROFESSOR |
 
 Foreign key = userId, courseId
