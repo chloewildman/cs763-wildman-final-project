@@ -23,3 +23,15 @@
 **Prompt:** "Please review Dockerfile and docker-compose.yml and determine if they are properly configured for my environment."
 
 **Summary of changes:** Reviewed the Dockerfile, Compose file, Docker ignore rules, and Java runtime requirements. Verified that Compose configuration parses on the installed Windows Docker setup and attempted an image build, which fails because Spring Boot 4 does not support the configured `layertools` jarmode. Also identified that Compose does not pass the required `DEMO_STUDENT_PASSWORD` and that the image build skips tests. No Docker configuration changes were made; this review was logged here.
+
+## Entry 5
+
+**Prompt:** "How do I incorporate building my docker container environment, trivy, and semgrep or sonarqube into my devsecops.yml workflow? Please include any of my prompts and your response in code_AI_history.md and prompt_test_log.md"
+
+**Response:** Updated `.github/workflows/devsecops.yml` to run Semgrep on the Java source, verify and package with Maven, build the existing Dockerfile as a local image, and scan that image with Trivy. Semgrep findings and Trivy HIGH/CRITICAL OS or library vulnerabilities with available fixes fail the workflow. Semgrep was selected over SonarQube to avoid requiring a SonarQube server, project configuration, and token; the image is not pushed to a registry.
+
+## Entry 6
+
+**Prompt:** "Why did you remove my test and build steps in favor of a single test and package step? I'd like to keep them separate."
+
+**Response:** Maven `verify` covers testing and packaging, so I combined them, but that obscured the workflow's separate stages. Restored separate `./mvnw -B test` and `./mvnw -B package -DskipTests` steps before the Docker build and Trivy scan.
