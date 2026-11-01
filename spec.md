@@ -9,9 +9,13 @@ The Research Blog & Project Discussion Board (Domain 4): This service coordinate
 # Endpoints
 GET /users
 
+POST /users
+
 GET /users/{userId}
 
 GET /courses
+
+POST /courses
 
 GET /courses/{courseId}
 
@@ -45,10 +49,38 @@ GET /courses/{courseId}/projects/{projectId}/posts/{postId}/comments/{commentId}
 - Acceptance tests must verify that collection endpoints return arrays, empty collections return `[]`, created resources retain the parent ID from the URL, and a child requested beneath the wrong parent returns `404`.
 - The smoke test in the delivery requirements must run after the service starts and before later pipeline stages.
 
-# Open Decisions
-- [NEEDS CLARIFICATION] Authentication and authorization: specify how the caller is identified, which users may read or create each resource, and whether `authorId` is derived from the caller or supplied in the request.
-- [NEEDS CLARIFICATION] Collection behavior: specify supported filters, default sort order, pagination, and maximum page size (or state that collections are unpaginated).
-- [NEEDS CLARIFICATION] Field constraints: specify length limits for names, titles, and bodies, plus any uniqueness rules for usernames, emails, and course names.
+# Authorization & User Stories
+- Users in the ADMIN role can create courses and assign professors so that professors can manage their courses.
+- Users in the ADMIN role are the only users that can view the endpoint that displays all users so that they can manage users easily.
+- Users in the ADMIN role can edit courses so that they can update assigned professors if that changes.
+- Users in the ADMIN role can delete courses so that it is removed if the course is canceled and the professor is unavailable.
+- Users in the ADMIN role can create users and assign roles so that other users can access the application in an authorized manner.
+- Users in the PROFESSOR role can only view projects they have been assigned to by an ADMIN.
+- Users in the PROFESSOR role can edit their courses (such as course name) so that they can keep information current.
+- Users in the PROFESSOR role can delete their courses so that it is removed if the course is canceled.
+- Users in the PROFESSOR role can create projects in their courses so that the professor and their students can make posts and comments there.
+- Users in the PROFESSOR role can edit projects so that the project information is current.
+- Users in the PROFESSOR role can delete projects so that canceled projects are removed.
+- Users in the PROFESSOR role can deactive student users so that unenrolled students can no longer access the application.
+- Users in the STUDENT role can only view projects they have been assigned to by an ADMIN.
+- Users in the PROFESSOR or STUDENT role can create posts in their projects so that they can update fellow students or ask questions.
+- Users in the PROFESSOR or STUDENT role can edit their posts so that they can correct mistakes in their initial post.
+- Users in the PROFESSOR or STUDENT role can add comments on posts so that they can discuss with other students.
+- Users in the PROFESSOR role can hide posts and comments so that inappropriate use of the application is hidden from other users.
+
+# Collection Behavior
+- When returning lists of data:
+  - Users: Provide the list in alphabetical order based on last name.
+  - Courses: Provide the list in descending chronological order based on timestamp.
+  - Projects: Provide the list in descending chronological order based on timestamp.
+  - Posts: Provide the list in descending chronological order based on timestamp.
+  - Comments: Provide the list after the post body in ascending chronological order based on timestamp.
+
+
+# Field constraints
+- Usernames: 16 characters maximum
+- Standard text fields (titles, names, email): 50 characters maximum
+- Post/comment body: 2,000 character maximum
 
 # JSON Schemas
 
@@ -74,7 +106,7 @@ GET /courses/{courseId}/projects/{projectId}/posts/{postId}/comments/{commentId}
     },
     "role": {
       "type": "string",
-      "enum": ["PROFESSOR", "STUDENT"]
+      "enum": ["PROFESSOR", "STUDENT", "ADMIN"]
     }
   },
   "required": [
@@ -237,6 +269,7 @@ Association table:
 | 7 | sstjames | Sookie | St. James | sookie@example.edu | STUDENT |
 | 8 | jdoe | John | Doe | john.doe@example.edu | PROFESSOR |
 | 9 | jadoe | Jane | Doe | jane.doe@example.edu | PROFESSOR |
+| 10 | admin | Admin | Admin | admin@example.edu | ADMIN |
 
 Primary key = userId
 
@@ -287,6 +320,8 @@ Foreign keys = authorId -> User.userId, postId -> Post.postId
 | 7 | 22 | STUDENT |
 | 8 | 23 | PROFESSOR |
 | 9 | 22 | PROFESSOR |
+| 10 | 22 | ADMIN |
+| 10 | 23 | ADMIN |
 
 Primary key = (`userId`, `courseId`)
 
