@@ -17,3 +17,15 @@
 **Prompt:** "Why did you remove my test and build steps in favor of a single test and package step? I'd like to keep them separate."
 
 **Response:** Maven `verify` covers testing and packaging, so I combined them, but that obscured the workflow's separate stages. Restored separate `./mvnw -B test` and `./mvnw -B package -DskipTests` steps before the Docker build and Trivy scan.
+
+## Entry 4
+
+**Prompt:** "Why does the semgrep output in github show " • Findings: 4 (4 blocking)" if non-blocking?"
+
+**Response:** The "blocking" label describes the findings, but GitHub determines whether the workflow step fails from Semgrep's exit code. The workflow runs `semgrep scan` without `--error`, so findings alone do not fail it; Semgrep documents that this CLI command exits 0 by default when a scan completes, even when it reports findings. `semgrep ci` has different default behavior.
+
+## Entry 5
+
+**Prompt:** "I'm receiving the following warnings. Please help me move away from deprecated resources. [actions/checkout@v4 and actions/setup-python@v5 target Node.js 20; setup-java v4 is deprecated and should migrate to v5.]"
+
+**Response:** Updated the workflow's maintained GitHub actions to `actions/checkout@v7`, `actions/setup-java@v6`, and `actions/setup-python@v7`. These use current supported runtimes and preserve the existing Java 25, Python 3.12, Maven, Semgrep, Docker, and Trivy steps. The Trivy action was unchanged because it was not named in the deprecation warnings.
