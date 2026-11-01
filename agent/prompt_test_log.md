@@ -47,3 +47,27 @@
 **Prompt:** "I'm receiving the following warnings. Please help me move away from deprecated resources. [actions/checkout@v4 and actions/setup-python@v5 target Node.js 20; setup-java v4 is deprecated and should migrate to v5.]"
 
 **Summary of changes:** Updated the workflow's maintained GitHub actions to `actions/checkout@v7`, `actions/setup-java@v6`, and `actions/setup-python@v7`. These use current supported runtimes and preserve the existing Java 25, Python 3.12, Maven, Semgrep, Docker, and Trivy steps. The Trivy action was unchanged because it was not named in the deprecation warnings.
+
+## Entry 9
+
+**Prompt:** "Please review the current modifications I'm drafting in the src/main/objects folder. I am refactoring how this code is designed. Consult my spec.md document which contains an "Assignments" table I want to produce. How do I use Spring Boot, JPA, and these classes to accomplish that?"
+
+**Summary of changes:** Reviewed the draft JPA entities against `spec.md`. Recommended representing `Assignments` as its own entity with an embedded composite key and `@MapsId` relationships because it has a `role` column; aligning `INSTRUCTOR` with the spec's `PROFESSOR`; avoiding a duplicate professor relationship on `Course`; adding repositories and replacing the existing map-backed service; and preserving UTC timestamps with `Instant`. The 11 existing tests pass, but they do not verify assignment persistence. No source changes were made.
+
+## Entry 10
+
+**Prompt:** "How do I configure a connection with SQLite?"
+
+**Summary of changes:** Explained the SQLite JDBC and Hibernate community dialect dependencies for Spring Boot 4.1.2, the datasource URL/driver/dialect properties, use of a persistent file path and Docker volume, and keeping H2 test-only if needed. No application configuration was changed.
+
+## Entry 11
+
+**Prompt:** "In CommentService.java, I am currently using a series of .get() to access the course, which isn't very readable. How would you recommend refactoring this? Perhaps a separate service for authorization?"
+
+**Summary of changes:** Recommended a focused course-authorization service because `CourseService` repeats the membership check, with authorization based on user/course IDs and a repository existence query. For comments, use an authorization-aware repository query or course-id projection instead of traversing `Comment -> Post -> Project -> Course -> Users`; avoid `Collection.contains` on entities without ID-based equality, use constructor injection, and handle missing comments explicitly. No source changes were made.
+
+## Entry 12
+
+**Prompt:** "Why is maven no longer compiling?"
+
+**Summary of changes:** Diagnosed Maven compile errors as test class `EndpointTests.java` being placed in `src/main/java`, where test-scoped Spring test dependencies are unavailable. Recommended moving it to the matching package under `src/test/java`; the archived service file is commented out and is not the cause. No Java files were changed.

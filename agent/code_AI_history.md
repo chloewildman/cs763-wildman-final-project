@@ -29,3 +29,27 @@
 **Prompt:** "I'm receiving the following warnings. Please help me move away from deprecated resources. [actions/checkout@v4 and actions/setup-python@v5 target Node.js 20; setup-java v4 is deprecated and should migrate to v5.]"
 
 **Response:** Updated the workflow's maintained GitHub actions to `actions/checkout@v7`, `actions/setup-java@v6`, and `actions/setup-python@v7`. These use current supported runtimes and preserve the existing Java 25, Python 3.12, Maven, Semgrep, Docker, and Trivy steps. The Trivy action was unchanged because it was not named in the deprecation warnings.
+
+## Entry 6
+
+**Prompt:** "Please review the current modifications I'm drafting in the src/main/objects folder. I am refactoring how this code is designed. Consult my spec.md document which contains an "Assignments" table I want to produce. How do I use Spring Boot, JPA, and these classes to accomplish that?"
+
+**Response:** Reviewed the draft JPA entities against `spec.md`. Recommended representing `Assignments` as its own entity with an embedded composite key and `@MapsId` relationships because it has a `role` column; aligning `INSTRUCTOR` with the spec's `PROFESSOR`; avoiding a duplicate professor relationship on `Course`; adding repositories and replacing the existing map-backed service; and preserving UTC timestamps with `Instant`. The 11 existing tests pass, but they do not verify assignment persistence. No source changes were made.
+
+## Entry 7
+
+**Prompt:** "How do I configure a connection with SQLite?"
+
+**Response:** For this Spring Boot 4.1.2 project, add Xerial's `sqlite-jdbc` driver and Hibernate's `hibernate-community-dialects`, then configure an explicit `jdbc:sqlite:` datasource URL, `org.sqlite.JDBC`, and `org.hibernate.community.dialect.SQLiteDialect`. Spring Boot's dependency management supplies compatible versions. Use a file-backed database, keep H2 test-only if needed, and mount the database directory as a persistent volume when running in Docker.
+
+## Entry 8
+
+**Prompt:** "In CommentService.java, I am currently using a series of .get() to access the course, which isn't very readable. How would you recommend refactoring this? Perhaps a separate service for authorization?"
+
+**Response:** Recommended a focused course-authorization service because `CourseService` repeats the membership check, with authorization based on user/course IDs and a repository existence query. For comments, use an authorization-aware repository query or course-id projection instead of traversing `Comment -> Post -> Project -> Course -> Users`; avoid `Collection.contains` on entities without ID-based equality, use constructor injection, and handle missing comments explicitly. No source changes were made.
+
+## Entry 9
+
+**Prompt:** "Why is maven no longer compiling?"
+
+**Response:** Maven compiles `src/main/java` with production dependencies, but the new `tests/EndpointTests.java` is under that source root and imports Spring test classes available only on the test classpath. Move it to the matching package under `src/test/java`; the archived service file is commented out and is not the cause.
