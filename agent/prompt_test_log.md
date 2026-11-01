@@ -17,3 +17,9 @@
 **Prompt:** "Thank you. Now, please review spec.md and use the instructions there to generate a bare bones version of that application using the Java/Spring Boot stack that only demonstrates how a student might interact with the application. Include tests to demonstrate that a student can do what the specs say a student can do, and tests that demonstrate a student cannot do anything that they aren't explicitly listed as being able to to do. Log this prompt and a summary of any code you write in the prompt_test_log.md file, as well as in the code_AI_history.md file."
 
 **Summary of changes:** Added a Spring Boot student-only REST API with HTTP Basic authentication, in-memory sample data, assigned-project access checks, post creation/editing, and comments. Added integration tests for permitted student flows, ownership and assignment restrictions, and denied operations. Updated demo run instructions and logged this request in both requested history files.
+
+## Entry 4
+
+**Prompt:** "Please review Dockerfile and docker-compose.yml and determine if they are properly configured for my environment."
+
+**Summary of changes:** Reviewed the Dockerfile, Compose file, Docker ignore rules, and Java runtime requirements. Verified that Compose configuration parses on the installed Windows Docker setup and attempted an image build, which fails because Spring Boot 4 does not support the configured `layertools` jarmode. Also identified that Compose does not pass the required `DEMO_STUDENT_PASSWORD` and that the image build skips tests. No Docker configuration changes were made; this review was logged here.
