@@ -37,22 +37,9 @@ COPY ./src src/
 RUN --mount=type=bind,source=pom.xml,target=pom.xml \
     --mount=type=cache,target=/root/.m2 \
     ./mvnw package && \
-    mv target/$(./mvnw help:evaluate -Dexpression=project.artifactId -q -DforceStdout)-$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout).jar target/app.jar
+    mv target/*.jar target/app.jar
 
-################################################################################
-
-# Create a stage for extracting the application into separate layers.
-# Take advantage of Spring Boot's layer tools and Docker's caching by extracting
-# the packaged application into separate layers that can be copied into the final stage.
-# See Spring's docs for reference:
-# https://docs.spring.io/spring-boot/docs/current/reference/html/container-images.html
-FROM package as extract
-
-WORKDIR /build
-
-RUN java -Djarmode=tools -jar target/app.jar extract --destination target/extracted
-
-################################################################################
+#################################################################################
 
 # Create a new stage for running the application that contains the minimal
 # runtime dependencies for the application. This often uses a different base
@@ -80,11 +67,8 @@ RUN adduser \
 USER appuser
 
 # Copy the executable from the "package" stage.
-COPY --from=extract build/target/extracted/dependencies/ ./
-COPY --from=extract build/target/extracted/spring-boot-loader/ ./
-COPY --from=extract build/target/extracted/snapshot-dependencies/ ./
-COPY --from=extract build/target/extracted/application/ ./
+COPY --from=package /build/target/app.jar app.jar
 
 EXPOSE 8080
 
-ENTRYPOINT [ "java", "org.springframework.boot.loader.launch.JarLauncher" ]
+ENTRYPOINT ["java","-jar","app.jar"]
