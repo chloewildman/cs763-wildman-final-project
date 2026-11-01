@@ -53,3 +53,22 @@
 **Prompt:** "Why is maven no longer compiling?"
 
 **Response:** Maven compiles `src/main/java` with production dependencies, but the new `tests/EndpointTests.java` is under that source root and imports Spring test classes available only on the test classpath. Move it to the matching package under `src/test/java`; the archived service file is commented out and is not the cause.
+
+## Entry 10
+
+**Prompt:** "Now that I've had practice, and the repository is designed in a way that I am more familiar with, I need to reduce what's happening. The professor said that there does not need to be concrete functionality, just certain components, perhaps a dummy service. What is the simplest design you would recommend with a single test.
+Please ignore the README file. Log my prompt and your response in the code_AI_history.md and prompt_test_log.md files."
+
+**Response:** I recommend one minimal vertical slice: keep the Spring Boot application, add a `DemoController`, a `DemoService` that returns a fixed message, and a small response record/DTO. Expose one `GET /api/demo` endpoint returning JSON such as `{"message":"Demo service is running"}`. Use one `@SpringBootTest` with `@AutoConfigureMockMvc` to call the endpoint and assert HTTP 200 and the response message; that verifies the controller, service wiring, and JSON response together. With no persistent behavior to demonstrate, leave out JPA, repositories, database setup, authentication, and the multi-resource CRUD API. No application code was changed.
+
+## Entry 11
+
+**Prompt:** "Is there a simple option that uses some of the requirement information from spec.md?"
+
+**Response:** Yes. A small requirement-based vertical slice is `GET /courses/{courseId}/projects`. Keep a `ProjectController`, a `ProjectService` that returns one or two fixed in-memory projects, and a response DTO with the `Project` fields from `spec.md`: `projectId`, `projectTitle`, `courseId`, and `projectCreationTimestamp`. One MockMvc integration test can assert HTTP 200, `application/json`, an array response, the expected `courseId`, and the project fields (and, with two fixtures, descending timestamp order). This demonstrates the controller/service/DTO components and several explicit API requirements without JPA, a database, authentication, or full CRUD. No application code was changed.
+
+## Entry 12
+
+**Prompt:** "Thank you. Can you please make this change?"
+
+**Response:** Reduced the active application to `GET /courses/{courseId}/projects`, backed by an in-memory `ProjectService` and a `ProjectResponse` DTO matching the project fields in `spec.md`. Removed the other active CRUD endpoints, security, JPA entities/repositories, and database configuration/dependencies. Added one MockMvc test covering the JSON project array, course ID and fields, descending timestamps, an empty collection, and an unknown-course 404. `.\mvnw.cmd -B test` passes (1 test).

@@ -1,75 +1,32 @@
 package edu.bu.met.wildmancs763.cs763_wildman_final_project.services;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
-import edu.bu.met.wildmancs763.cs763_wildman_final_project.entities.User;
-import edu.bu.met.wildmancs763.cs763_wildman_final_project.entities.Course;
-import edu.bu.met.wildmancs763.cs763_wildman_final_project.entities.Project;
-import edu.bu.met.wildmancs763.cs763_wildman_final_project.repositories.ProjectRepository;
-import edu.bu.met.wildmancs763.cs763_wildman_final_project.repositories.CourseRepository;
+import edu.bu.met.wildmancs763.cs763_wildman_final_project.dto.ProjectResponse;
 
 @Service
 public class ProjectService {
-    private final ProjectRepository projectRepository;
-    private final AuthorizationService authorizationService;
-    private final CourseRepository courseRepository;
 
-    public ProjectService(ProjectRepository projectRepository, AuthorizationService authorizationService, CourseRepository courseRepository) {
-        this.projectRepository = projectRepository;
-        this.authorizationService = authorizationService;
-        this.courseRepository = courseRepository;
-    }
+	private static final Set<Integer> DEMO_COURSE_IDS = Set.of(1, 2);
+	private static final List<ProjectResponse> PROJECTS = List.of(
+			new ProjectResponse(102, "Research planning", 1, Instant.parse("2026-03-01T10:00:00Z")),
+			new ProjectResponse(101, "Initial topic selection", 1, Instant.parse("2026-02-01T10:00:00Z")));
 
-    public List<Project> getProjects(int courseId, User user) {
-        return projectRepository.getProjects(courseId, user);
-    }
+	public List<ProjectResponse> getProjects(int courseId) {
+		if (!DEMO_COURSE_IDS.contains(courseId)) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Course not found");
+		}
 
-    public Project getProject(int projectId, User user) {
-        Project project = projectRepository.findById(projectId)
-                .orElseThrow();
-
-        int courseId = project.getCourse()
-                .getCourseId();
-
-        authorizationService.requireCourseAccess(
-                user.getUserId(),
-                courseId);
-
-        return project;
-    }
-
-    public Project createProject(int courseId, Project project, User user) {
-
-        authorizationService.requireCourseManagementAccess(user, courseId);
-
-        Course course = courseRepository.findById(courseId).orElseThrow();
-
-        project.setCourse(course);
-        project.setProjectCreationTimestamp(LocalDateTime.now());
-
-        return projectRepository.save(project);
-    }
-
-    public Project updateProject(int projectId, Project updatedProject, User user) {
-
-        Project project = projectRepository.findById(projectId).orElseThrow();
-
-        authorizationService.requireCourseManagementAccess(user, project.getCourse().getCourseId());
-
-        project.setProjectTitle(updatedProject.getProjectTitle());
-
-        return projectRepository.save(project);
-    }
-
-    public void deleteProject(int projectId, User user) {
-
-        Project project = projectRepository.findById(projectId).orElseThrow();
-
-        authorizationService.requireCourseManagementAccess(user, project.getCourse().getCourseId());
-
-        projectRepository.delete(project);
-    }
+		return PROJECTS.stream()
+				.filter(project -> project.courseId() == courseId)
+				.sorted(Comparator.comparing(ProjectResponse::projectCreationTimestamp).reversed())
+				.toList();
+	}
 }
