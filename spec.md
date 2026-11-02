@@ -1,7 +1,16 @@
-# Class notes, to be deleted
-Something small to show the app will work through the pipeline correctly
-Include tests that should run and be successful before the rest of the pipeline runs
-Use secrete scanning
+# Contribution Header
+## For spec.md:
+AI Contribution Weight: 15% 
+Human Contribution: 85%
+See prompt log -- some of the AI suggestions provided at that point were eventually removed/changed.
+
+## Contribution to codebase:
+AI Contribution Weight: 97% 
+Human Contribution: 3%
+
+## Contribution to scored deliverables:
+AI Contribution Weight: 5%
+Human Contribution: 95%
 
 # Service definition
 The Research Blog & Project Discussion Board (Domain 4): This service coordinates collaborative project updates, announcements, and interactive comment feeds to streamline communication within active academic project teams and course groups.
@@ -19,11 +28,15 @@ POST /courses
 
 GET /courses/{courseId}
 
+PUT /courses/{courseId}
+
 GET /courses/{courseId}/projects
 
 POST /courses/{courseId}/projects
 
 GET /courses/{courseId}/projects/{projectId}
+
+PUT /courses/{courseId}/projects/{projectId}
 
 GET /courses/{courseId}/projects/{projectId}/posts
 
@@ -31,41 +44,35 @@ POST /courses/{courseId}/projects/{projectId}/posts
 
 GET /courses/{courseId}/projects/{projectId}/posts/{postId}
 
+PUT /courses/{courseId}/projects/{projectId}/posts/{postId}
+
 GET /courses/{courseId}/projects/{projectId}/posts/{postId}/comments
 
 POST /courses/{courseId}/projects/{projectId}/posts/{postId}/comments
 
 GET /courses/{courseId}/projects/{projectId}/posts/{postId}/comments/{commentId}
 
-# API Behavior and Acceptance Criteria
-- All successful responses use `application/json`.
-- A collection `GET` returns a JSON array, including an empty array when there are no matching resources. A single-resource `GET` returns one JSON object.
-- A successful `GET` returns HTTP `200`. A successful `POST` returns HTTP `201` and the created resource representation.
-- A request with an invalid body or invalid field value returns HTTP `400`. A request for a missing resource, or a child resource that does not belong to the parent in the URL, returns HTTP `404`.
-- `POST /courses/{courseId}/projects` accepts `projectTitle`; the course association comes from `{courseId}`.
-- `POST /courses/{courseId}/projects/{projectId}/posts` accepts `postTitle` and `postBody`; the project association comes from `{projectId}`.
-- `POST /courses/{courseId}/projects/{projectId}/posts/{postId}/comments` accepts `commentBody`; the post association comes from `{postId}`.
-- The service generates resource IDs and creation timestamps.
-- Acceptance tests must verify that collection endpoints return arrays, empty collections return `[]`, created resources retain the parent ID from the URL, and a child requested beneath the wrong parent returns `404`.
-- The smoke test in the delivery requirements must run after the service starts and before later pipeline stages.
+PUT /courses/{courseId}/projects/{projectId}/posts/{postId}/comments/{commentId}
 
 # Authorization & User Stories
 - Users in the ADMIN role can create courses and assign professors so that professors can manage their courses.
 - Users in the ADMIN role are the only users that can view the endpoint that displays all users so that they can manage users easily.
+- Users in the ADMIN role can suspend users so that inactive or poorly behaved users can be removed from the application.
 - Users in the ADMIN role can edit courses so that they can update assigned professors if that changes.
 - Users in the ADMIN role can delete courses so that it is removed if the course is canceled and the professor is unavailable.
 - Users in the ADMIN role can create users and assign roles so that other users can access the application in an authorized manner.
-- Users in the PROFESSOR role can only view projects they have been assigned to by an ADMIN.
-- Users in the PROFESSOR role can edit their courses (such as course name) so that they can keep information current.
+- Users in the ADMIN role can create, edit, and delete projects, posts, and comments for troubleshooting and testing purposes.
+- Users in the PROFESSOR role can only view courses they have been assigned to by an ADMIN.
+- Users in the PROFESSOR role can edit their courses so that they can keep information current.
 - Users in the PROFESSOR role can delete their courses so that it is removed if the course is canceled.
 - Users in the PROFESSOR role can create projects in their courses so that the professor and their students can make posts and comments there.
 - Users in the PROFESSOR role can edit projects so that the project information is current.
 - Users in the PROFESSOR role can delete projects so that canceled projects are removed.
-- Users in the PROFESSOR role can deactive student users so that unenrolled students can no longer access the application.
-- Users in the STUDENT role can only view projects they have been assigned to by an ADMIN.
-- Users in the PROFESSOR or STUDENT role can create posts in their projects so that they can update fellow students or ask questions.
-- Users in the PROFESSOR or STUDENT role can edit their posts so that they can correct mistakes in their initial post.
-- Users in the PROFESSOR or STUDENT role can add comments on posts so that they can discuss with other students.
+- Users in the STUDENT role can only view projects in the courses they have been assigned to by an ADMIN.
+- Users in the STUDENT role can only view courses they have been assigned to by and ADMIN.
+- Users in the PROFESSOR or STUDENT role can create posts in projects that are part of their course so that they can update fellow students or ask questions.
+- Users in the PROFESSOR or STUDENT role can edit their own posts so that they can correct mistakes in their initial post.
+- Users in the PROFESSOR or STUDENT role can add comments on posts that are part of their assigned courses so that they can discuss with other students.
 - Users in the PROFESSOR role can hide posts and comments so that inappropriate use of the application is hidden from other users.
 
 # Collection Behavior
@@ -75,7 +82,6 @@ GET /courses/{courseId}/projects/{projectId}/posts/{postId}/comments/{commentId}
   - Projects: Provide the list in descending chronological order based on timestamp.
   - Posts: Provide the list in descending chronological order based on timestamp.
   - Comments: Provide the list after the post body in ascending chronological order based on timestamp.
-
 
 # Field constraints
 - Usernames: 16 characters maximum
@@ -313,15 +319,15 @@ Primary key = commentId
 Foreign keys = authorId -> User.userId, postId -> Post.postId
 
 ## Assignments
-| userId | courseId | role |
-|--------|----------|------|
-| 5 | 22 | STUDENT |
-| 6 | 23 | STUDENT |
-| 7 | 22 | STUDENT |
-| 8 | 23 | PROFESSOR |
-| 9 | 22 | PROFESSOR |
-| 10 | 22 | ADMIN |
-| 10 | 23 | ADMIN |
+| userId | courseId |
+|--------|----------|
+| 5 | 22 |
+| 6 | 23 |
+| 7 | 22 |
+| 8 | 23 |
+| 9 | 22 |
+| 10 | 22 |
+| 10 | 23 |
 
 Primary key = (`userId`, `courseId`)
 
