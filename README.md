@@ -43,7 +43,7 @@ I followed the process below for this assignment:
   - Review the AI code, provide comments on my understanding, and modify/add to it where I felt it was appropriate. I also noted where I identified an improvement, did not implement in the code for sake of time, but did update the spec.md document for clarity.
   - Review my spec.md document more thoroughly, clarify, remove, and add information as I felt was necessary.
   - You can review the initial changes here: https://github.com/chloewildman/cs763-wildman-final-project/commit/afdbcbc104c8898262d508a3f6e93e19b94492ca
-- I then asked the agent to review the deliverables and confirm whether requirements were met. It provided feedback, and I made modifications on my own.
+- I asked the agent to review the deliverables and confirm whether requirements were met. It provided feedback, and I made modifications on my own.
 
 ## Deliverables
 - spec.md: A detailed architectural design document mapping out your proposed REST endpoints, payload schemas, and database entity relationships. (20%)
