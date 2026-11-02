@@ -313,15 +313,15 @@ Primary key = commentId
 Foreign keys = authorId -> User.userId, postId -> Post.postId
 
 ## Assignments
-| userId | courseId |
-|--------|----------|
-| 5 | 22 | 
-| 6 | 23 | 
-| 7 | 22 | 
-| 8 | 23 |
-| 9 | 22 |
-| 10 | 22 |
-| 10 | 23 |
+| userId | courseId | role |
+|--------|----------|------|
+| 5 | 22 | STUDENT |
+| 6 | 23 | STUDENT |
+| 7 | 22 | STUDENT |
+| 8 | 23 | PROFESSOR |
+| 9 | 22 | PROFESSOR |
+| 10 | 22 | ADMIN |
+| 10 | 23 | ADMIN |
 
 Primary key = (`userId`, `courseId`)
 
