@@ -1,9 +1,6 @@
 # Chloe Wildman CS763 Project 1 Assignment
 
 ## Contribution Header
-AI Contribution Weight: 0%
-
-Human Contribution: 100%
 
 ### For README.md:
 AI Contribution Weight: 0%
