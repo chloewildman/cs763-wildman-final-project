@@ -6,7 +6,7 @@
 
 **Code summary:** Added a Spring Boot REST API limited to student-visible projects, posts, and comments. Implemented HTTP Basic demo authentication, in-memory seed data, per-student course assignment checks, post ownership checks, request validation, and deny-by-default authorization for all other routes and methods. Added integration tests for successful student actions and denied/unassigned actions. Added local run instructions in `README.md`.
 
-Original AI generated code is here: https://github.com/chloewildman/cs763-wildman-final-project/releases/tag/AI-AGENT-BUILD--Initial-app-and-tests-from-specs 
+Original AI generated code is here: https://github.com/chloewildman/cs763-wildman-final-project/commit/7d0ccc6c6d2f1d3818a5321bb81513fa7569adfa
 
 ## Entry 2
 
