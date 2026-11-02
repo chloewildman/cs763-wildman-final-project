@@ -13,9 +13,9 @@ AI Contribution Weight: 97%
 Human Contribution: 3%
 
 ### Contribution to scored deliverables:
-AI Contribution Weight: 5%
+AI Contribution Weight: 10%
 
-Human Contribution: 95%
+Human Contribution: 90%
 
 ## Explanation
 This app is intended to be a bare bones example of how a student might interact with the Research Blog & Project Discussion Board (Domain 4), such as course/project/post/comment access and adding/editing posts and comments.
@@ -42,13 +42,15 @@ I followed the process below for this assignment:
 - After reverting back, this practice allowed me to:
   - Review the AI code, provide comments on my understanding, and modify/add to it where I felt it was appropriate. I also noted where I identified an improvement, did not implement in the code for sake of time, but did update the spec.md document for clarity.
   - Review my spec.md document more thoroughly, clarify, remove, and add information as I felt was necessary.
+  - You can review the initial changes here: https://github.com/chloewildman/cs763-wildman-final-project/commit/afdbcbc104c8898262d508a3f6e93e19b94492ca
+- I then asked the agent to review the deliverables and confirm whether requirements were met. It provided feedback, and I made modifications on my own.
 
 ## Deliverables
 - spec.md: A detailed architectural design document mapping out your proposed REST endpoints, payload schemas, and database entity relationships. (20%)
   - <b>See spec.md in root folder</b>
 - Agent_environment.md: the exact configuration of their autonomous developer AI agent, including the exact tool use and its operational mode, the LLM model, the hyperparameters and configuration, and host environment, etc. (20%)
   - <b>See Agent_environment.md in 'agent' subfolder.</b>
-- Prompt_test_log.md: the initial prompts and generated code to show the AI developer agent is working (10%)
+- prompt_test_log.md: the initial prompts and generated code to show the AI developer agent is working (10%)
   - <b>See prompt_test_log.md in 'agent' subfolder.</b>
 - .github/workflows/devsecops.yml: A fully functional GitHub Actions pipeline script configured for your chosen tech stack.(30%)
   - <b>See .github/workflows/devsecops.yml and corresponding pipeline in Actions tab in repository.</b>

@@ -1,7 +1,7 @@
 # Contribution Header
 ## For spec.md:
-AI Contribution Weight: 15% 
-Human Contribution: 85%
+AI Contribution Weight: 20% 
+Human Contribution: 80%
 See prompt log -- some of the AI suggestions provided at that point were eventually removed/changed.
 
 ## Contribution to codebase:
@@ -9,8 +9,8 @@ AI Contribution Weight: 97%
 Human Contribution: 3%
 
 ## Contribution to scored deliverables:
-AI Contribution Weight: 5%
-Human Contribution: 95%
+AI Contribution Weight: 10%
+Human Contribution: 90%
 
 # Service definition
 The Research Blog & Project Discussion Board (Domain 4): This service coordinates collaborative project updates, announcements, and interactive comment feeds to streamline communication within active academic project teams and course groups.
@@ -22,6 +22,12 @@ POST /users
 
 GET /users/{userId}
 
+PUT /users/{userId}
+
+DELETE /users/{userId}
+
+GET /users/{userId}/courses
+
 GET /courses
 
 POST /courses
@@ -29,6 +35,14 @@ POST /courses
 GET /courses/{courseId}
 
 PUT /courses/{courseId}
+
+DELETE /courses/{courseId}
+
+GET /courses/{courseId}/assignments
+
+POST /courses/{courseId}/assignments
+
+DELETE /courses/{courseId}/assignments/{userId}
 
 GET /courses/{courseId}/projects
 
@@ -38,6 +52,8 @@ GET /courses/{courseId}/projects/{projectId}
 
 PUT /courses/{courseId}/projects/{projectId}
 
+DELETE /courses/{courseId}/projects/{projectId}
+
 GET /courses/{courseId}/projects/{projectId}/posts
 
 POST /courses/{courseId}/projects/{projectId}/posts
@@ -45,6 +61,8 @@ POST /courses/{courseId}/projects/{projectId}/posts
 GET /courses/{courseId}/projects/{projectId}/posts/{postId}
 
 PUT /courses/{courseId}/projects/{projectId}/posts/{postId}
+
+DELETE /courses/{courseId}/projects/{projectId}/posts/{postId}
 
 GET /courses/{courseId}/projects/{projectId}/posts/{postId}/comments
 
@@ -54,14 +72,16 @@ GET /courses/{courseId}/projects/{projectId}/posts/{postId}/comments/{commentId}
 
 PUT /courses/{courseId}/projects/{projectId}/posts/{postId}/comments/{commentId}
 
+DELETE /courses/{courseId}/projects/{projectId}/posts/{postId}/comments/{commentId}
+
 # Authorization & User Stories
 - Users in the ADMIN role can create courses and assign professors so that professors can manage their courses.
 - Users in the ADMIN role are the only users that can view the endpoint that displays all users so that they can manage users easily.
-- Users in the ADMIN role can suspend users so that inactive or poorly behaved users can be removed from the application.
+- Users in the ADMIN role can delete users so that students that were given access mistakenly can be removed.
 - Users in the ADMIN role can edit courses so that they can update assigned professors if that changes.
 - Users in the ADMIN role can delete courses so that it is removed if the course is canceled and the professor is unavailable.
 - Users in the ADMIN role can create users and assign roles so that other users can access the application in an authorized manner.
-- Users in the ADMIN role can create, edit, and delete projects, posts, and comments for troubleshooting and testing purposes.
+- Users in the ADMIN role can create, edit, and delete projects, posts, and comments for troubleshooting and moderating purposes.
 - Users in the PROFESSOR role can only view courses they have been assigned to by an ADMIN.
 - Users in the PROFESSOR role can edit their courses so that they can keep information current.
 - Users in the PROFESSOR role can delete their courses so that it is removed if the course is canceled.
@@ -73,7 +93,6 @@ PUT /courses/{courseId}/projects/{projectId}/posts/{postId}/comments/{commentId}
 - Users in the PROFESSOR or STUDENT role can create posts in projects that are part of their course so that they can update fellow students or ask questions.
 - Users in the PROFESSOR or STUDENT role can edit their own posts so that they can correct mistakes in their initial post.
 - Users in the PROFESSOR or STUDENT role can add comments on posts that are part of their assigned courses so that they can discuss with other students.
-- Users in the PROFESSOR role can hide posts and comments so that inappropriate use of the application is hidden from other users.
 
 # Collection Behavior
 - When returning lists of data:
@@ -88,7 +107,7 @@ PUT /courses/{courseId}/projects/{projectId}/posts/{postId}/comments/{commentId}
 - Standard text fields (titles, names, email): 50 characters maximum
 - Post/comment body: 2,000 character maximum
 
-# JSON Schemas
+# JSON Object Schemas
 
 ## User
 {
@@ -240,6 +259,100 @@ PUT /courses/{courseId}/projects/{projectId}/posts/{postId}/comments/{commentId}
     "commentTimestamp",
     "commentBody"
   ]
+}
+
+# JSON Payload Schemas
+## Users
+### POST & PUT request
+{
+  "username": "lgilmore",
+  "firstName": "Lorelai",
+  "lastName": "Gilmore",
+  "email": "lgilmore@example.com",
+  "role": "STUDENT"
+}
+
+### Response
+{
+  "userId": 5,
+  "username": "lgilmore",
+  "firstName": "Lorelai",
+  "lastName": "Gilmore",
+  "email": "lgilmore@example.com",
+  "role": "STUDENT"
+}
+
+## Course
+### POST & PUT request
+{
+  "courseName": "BUS101",
+  "courseTitle": "Business 101"
+}
+
+### Response
+{
+  "courseId": 22,
+  "courseName": "BUS101",
+  "courseTitle": "Business 101",
+  "courseCreationTimestamp": "2000-08-05T00:00:00Z"
+}
+
+## Project
+### POST & PUT request
+{
+  "projectTitle": "Grant Proposal Project"
+}
+
+### Response
+{
+  "projectId": 43,
+  "projectTitle": "Grant Proposal Project",
+  "courseId": 22,
+  "projectCreationTimestamp": "2000-09-01T13:12:00Z"
+}
+
+## Post
+### POST & PUT request
+{
+  "postTitle": "Reschedule meeting?",
+  "postBody": "I'm running late! Can we move the meeting to 9:30?"
+}
+
+### Response
+{
+  "postId": 1,
+  "postTitle": "Reschedule meeting?",
+  "authorId": 5,
+  "projectId": 43,
+  "postTimestamp": "2000-09-05T08:57:00Z",
+  "postBody": "I'm running late! Can we move the meeting to 9:30?"
+}
+
+## Comment
+### POST & PUT request
+{
+  "commentBody": "Oh gosh that is so like you! (: Happy to reschedule!"
+}
+
+### Response
+{
+  "commentId": 1,
+  "authorId": 7,
+  "postId": 1,
+  "commentTimestamp": "2000-09-05T09:01:00Z",
+  "commentBody": "Oh gosh that is so like you! (: Happy to reschedule!"
+}
+
+## Assignment
+### POST request
+{
+  "userId": 5
+}
+
+### Response
+{
+  "userId": 5,
+  "courseId": 22
 }
 
 # Database Models
