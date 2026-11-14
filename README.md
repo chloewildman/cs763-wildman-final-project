@@ -67,6 +67,9 @@ I followed the process below for this assignment:
 - Git commit: Each commit should be labeled to track the evolution of contributions over time.
   - AI AGENT BUILD: [Feature Name] – Used for code blocks written by the autonomous agent loop (or left to the agent's native auto-commit messages).
   - HUMAN MOD: [Feature Name] – Used when the student manually edits or patches code by hand.
-    - <b>See tags -- the following tags should be ignored because they were during commits I made prior to reverting: . Let me know if I should just delete these.</b>
+    - <b>See tags -- the following tags should be ignored because they were during commits I made prior to/while reverting: 
+      - HUMAN-MOD--Refactor-Code-for-Traditional-OOP
+      - AI-AGENT-BUILD--Simplest-Hello-World-Example
+      - HUMAN--Revert-to-original</b>
 - Document & Conceptual Logging: For every written markdown deliverable submitted (e.g. spec.md, threat-model.md, and the final-project-report.md), the very first page must feature a mandatory AI Usage Log disclosing the conceptual AI contribution percentage and the exact design aid prompts. Students can either share the AI chat link or an appendix exported by AI tool.
   - <b>Logs are found in prompt_test_log.md and code_AI_history.md. Both md documents estimate contributions to the md itself and to the overall assignment, broken out by codebase vs. scored deliverables according to the assignment doc.</b>
