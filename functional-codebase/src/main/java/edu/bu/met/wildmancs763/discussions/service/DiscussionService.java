@@ -14,6 +14,7 @@ import edu.bu.met.wildmancs763.discussions.domain.PostCategory;
 import edu.bu.met.wildmancs763.discussions.domain.ScopeType;
 import edu.bu.met.wildmancs763.discussions.repository.DiscussionCommentRepository;
 import edu.bu.met.wildmancs763.discussions.repository.DiscussionPostRepository;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -41,9 +42,10 @@ public class DiscussionService {
         this.commentRepository = commentRepository;
     }
 
-    public PostResponse createPost(PostRequest request) {
+    public PostResponse createPost(PostRequest request, String authorHandle) {
         DiscussionPost post = new DiscussionPost();
         applyPostRequest(post, request);
+        post.setAuthorHandle(authorHandle);
         return toPostResponse(postRepository.save(post));
     }
 
@@ -77,14 +79,18 @@ public class DiscussionService {
         return toPostResponse(requireVisiblePost(postId));
     }
 
-    public PostResponse updatePost(UUID postId, PostRequest request) {
+    public PostResponse updatePost(
+            UUID postId, PostRequest request, String authorHandle, boolean administrator) {
         DiscussionPost post = requirePost(postId);
+        ensureCanManage(post.getAuthorHandle(), authorHandle, administrator);
         applyPostRequest(post, request);
         return toPostResponse(postRepository.saveAndFlush(post));
     }
 
-    public void deletePost(UUID postId) {
-        postRepository.delete(requirePost(postId));
+    public void deletePost(UUID postId, String authorHandle, boolean administrator) {
+        DiscussionPost post = requirePost(postId);
+        ensureCanManage(post.getAuthorHandle(), authorHandle, administrator);
+        postRepository.delete(post);
     }
 
     @Transactional(readOnly = true)
@@ -109,7 +115,7 @@ public class DiscussionService {
                 .toList();
     }
 
-    public CommentResponse createComment(UUID postId, CommentRequest request) {
+    public CommentResponse createComment(UUID postId, CommentRequest request, String authorHandle) {
         DiscussionPost post = requireVisiblePost(postId);
         DiscussionComment parent = null;
         if (request.parentCommentId() != null) {
@@ -123,7 +129,7 @@ public class DiscussionService {
         comment.setPost(post);
         comment.setParentComment(parent);
         comment.setMessage(request.message().trim());
-        comment.setAuthorHandle(request.authorHandle().trim());
+        comment.setAuthorHandle(authorHandle);
         return toCommentResponse(commentRepository.save(comment));
     }
 
@@ -154,17 +160,26 @@ public class DiscussionService {
         return toCommentResponse(comment);
     }
 
-    public CommentResponse updateComment(UUID postId, UUID commentId, CommentUpdateRequest request) {
+    public CommentResponse updateComment(
+            UUID postId,
+            UUID commentId,
+            CommentUpdateRequest request,
+            String authorHandle,
+            boolean administrator) {
         DiscussionComment comment = requireComment(postId, commentId);
         if (!isVisible(comment)) {
             throw new ResourceNotFoundException("Comment not found.");
         }
+        ensureCanManage(comment.getAuthorHandle(), authorHandle, administrator);
         comment.setMessage(request.message().trim());
         return toCommentResponse(commentRepository.saveAndFlush(comment));
     }
 
-    public void deleteComment(UUID postId, UUID commentId) {
-        commentRepository.delete(requireComment(postId, commentId));
+    public void deleteComment(
+            UUID postId, UUID commentId, String authorHandle, boolean administrator) {
+        DiscussionComment comment = requireComment(postId, commentId);
+        ensureCanManage(comment.getAuthorHandle(), authorHandle, administrator);
+        commentRepository.delete(comment);
     }
 
     public PostResponse moderatePost(UUID postId, ModerationStatus status) {
@@ -217,7 +232,6 @@ public class DiscussionService {
         post.setTitle(request.title().trim());
         post.setBody(request.body().trim());
         post.setCategory(request.category());
-        post.setAuthorHandle(request.authorHandle().trim());
         post.setTags(new ArrayList<>(normalizedTags));
         post.setScopeType(scopeType);
         post.setScopeId(scopeId.trim());
@@ -251,14 +265,20 @@ public class DiscussionService {
             return false;
         }
         DiscussionComment parent = comment.getParentComment();
-        return parent == null || isVisible(parent);
+        while (parent != null) {
+            if (parent.getModerationStatus() == ModerationStatus.HIDDEN_BY_MODERATOR) {
+                return false;
+            }
+            parent = parent.getParentComment();
+        }
+        return true;
     }
 
     private Predicate<DiscussionPost> matchesKeyword(String keyword) {
         if (!StringUtils.hasText(keyword)) {
             return post -> true;
         }
-        String normalized = keyword.toLowerCase(Locale.ROOT);
+        String normalized = keyword.trim().toLowerCase(Locale.ROOT);
         return post -> contains(post.getTitle(), normalized)
                 || contains(post.getBody(), normalized)
                 || post.getTags().stream().anyMatch(tag -> contains(tag, normalized));
@@ -268,7 +288,7 @@ public class DiscussionService {
         if (!StringUtils.hasText(keyword)) {
             return comment -> true;
         }
-        String normalized = keyword.toLowerCase(Locale.ROOT);
+        String normalized = keyword.trim().toLowerCase(Locale.ROOT);
         return comment -> contains(comment.getMessage(), normalized);
     }
 
@@ -279,6 +299,12 @@ public class DiscussionService {
 
     private boolean matchesAuthor(String actual, String requested) {
         return !StringUtils.hasText(requested) || actual.equalsIgnoreCase(requested.trim());
+    }
+
+    private void ensureCanManage(String contentAuthor, String actor, boolean administrator) {
+        if (!administrator && !contentAuthor.equalsIgnoreCase(actor)) {
+            throw new AccessDeniedException("Only the author or an administrator can edit or delete this content.");
+        }
     }
 
     private boolean withinRange(OffsetDateTime value, OffsetDateTime from, OffsetDateTime to) {

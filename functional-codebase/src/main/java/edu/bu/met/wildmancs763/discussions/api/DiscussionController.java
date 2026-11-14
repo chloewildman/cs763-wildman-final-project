@@ -15,6 +15,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -42,8 +43,10 @@ public class DiscussionController {
     }
 
     @PostMapping("/posts")
-    public ResponseEntity<PostResponse> createPost(@Valid @RequestBody PostRequest request) {
-        PostResponse response = discussionService.createPost(request);
+    public ResponseEntity<PostResponse> createPost(
+            @Valid @RequestBody PostRequest request,
+            Authentication authentication) {
+        PostResponse response = discussionService.createPost(request, authentication.getName());
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest()
                         .path("/{postId}")
                         .buildAndExpand(response.id())
@@ -73,13 +76,19 @@ public class DiscussionController {
     }
 
     @PutMapping("/posts/{postId}")
-    public PostResponse updatePost(@PathVariable UUID postId, @Valid @RequestBody PostRequest request) {
-        return discussionService.updatePost(postId, request);
+    public PostResponse updatePost(
+            @PathVariable UUID postId,
+            @Valid @RequestBody PostRequest request,
+            Authentication authentication) {
+        return discussionService.updatePost(
+                postId, request, authentication.getName(), isAdministrator(authentication));
     }
 
     @DeleteMapping("/posts/{postId}")
-    public ResponseEntity<Void> deletePost(@PathVariable UUID postId) {
-        discussionService.deletePost(postId);
+    public ResponseEntity<Void> deletePost(
+            @PathVariable UUID postId,
+            Authentication authentication) {
+        discussionService.deletePost(postId, authentication.getName(), isAdministrator(authentication));
         return ResponseEntity.noContent().build();
     }
 
@@ -99,8 +108,10 @@ public class DiscussionController {
     @PostMapping("/posts/{postId}/comments")
     public ResponseEntity<CommentResponse> createComment(
             @PathVariable UUID postId,
-            @Valid @RequestBody CommentRequest request) {
-        CommentResponse response = discussionService.createComment(postId, request);
+            @Valid @RequestBody CommentRequest request,
+            Authentication authentication) {
+        CommentResponse response = discussionService.createComment(
+                postId, request, authentication.getName());
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest()
                         .path("/{commentId}")
                         .buildAndExpand(response.id())
@@ -149,15 +160,19 @@ public class DiscussionController {
     public CommentResponse updateComment(
             @PathVariable UUID postId,
             @PathVariable UUID commentId,
-            @Valid @RequestBody CommentUpdateRequest request) {
-        return discussionService.updateComment(postId, commentId, request);
+            @Valid @RequestBody CommentUpdateRequest request,
+            Authentication authentication) {
+        return discussionService.updateComment(
+                postId, commentId, request, authentication.getName(), isAdministrator(authentication));
     }
 
     @DeleteMapping("/posts/{postId}/comments/{commentId}")
     public ResponseEntity<Void> deleteComment(
             @PathVariable UUID postId,
-            @PathVariable UUID commentId) {
-        discussionService.deleteComment(postId, commentId);
+            @PathVariable UUID commentId,
+            Authentication authentication) {
+        discussionService.deleteComment(
+                postId, commentId, authentication.getName(), isAdministrator(authentication));
         return ResponseEntity.noContent().build();
     }
 
@@ -174,5 +189,10 @@ public class DiscussionController {
             @PathVariable UUID commentId,
             @Valid @RequestBody ModerationRequest request) {
         return discussionService.moderateComment(postId, commentId, request.status());
+    }
+
+    private boolean isAdministrator(Authentication authentication) {
+        return authentication.getAuthorities().stream()
+                .anyMatch(authority -> "ROLE_ADMIN".equals(authority.getAuthority()));
     }
 }

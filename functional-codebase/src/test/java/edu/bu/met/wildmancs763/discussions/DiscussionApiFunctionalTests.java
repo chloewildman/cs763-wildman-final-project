@@ -1,11 +1,16 @@
 package edu.bu.met.wildmancs763.discussions;
 
+import jakarta.servlet.http.Cookie;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.regex.Matcher;
@@ -23,7 +28,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
+@SpringBootTest(properties = {
+        "spring.datasource.url=jdbc:h2:mem:discussions-test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE",
+        "spring.jpa.hibernate.ddl-auto=create-drop",
+        "app.bootstrap-admin.username=admin",
+        "app.bootstrap-admin.password=Bootstrap-admin-password-123"
+})
 @AutoConfigureMockMvc
 @Transactional
 class DiscussionApiFunctionalTests {
@@ -31,9 +41,16 @@ class DiscussionApiFunctionalTests {
     @Autowired
     private MockMvc mockMvc;
 
+    private MockHttpSession userSession;
+
+    @BeforeEach
+    void registerAndLoginResearcher() throws Exception {
+        userSession = registerAndLogin("researcher", "Researcher-password-123");
+    }
+
     @Test
     void createsPostsAndSupportsScopedSearchAndTimeline() throws Exception {
-        mockMvc.perform(post("/api/v1/discussions/posts")
+        mockMvc.perform(withCsrf(post("/api/v1/discussions/posts"), userSession)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(postJson("Lab meeting notes", "Dataset review is Friday",
                                 "PROJECT_UPDATE_BLOG", "project-42")))
@@ -59,7 +76,7 @@ class DiscussionApiFunctionalTests {
 
     @Test
     void rejectsBlankPostTitlesAndAmbiguousScopes() throws Exception {
-        mockMvc.perform(post("/api/v1/discussions/posts")
+        mockMvc.perform(withCsrf(post("/api/v1/discussions/posts"), userSession)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
@@ -73,7 +90,7 @@ class DiscussionApiFunctionalTests {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.error").value(containsString("title")));
 
-        mockMvc.perform(post("/api/v1/discussions/posts")
+        mockMvc.perform(withCsrf(post("/api/v1/discussions/posts"), userSession)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(postJsonWithTwoScopes()))
                 .andExpect(status().isBadRequest())
@@ -84,10 +101,13 @@ class DiscussionApiFunctionalTests {
     void createsNestedCommentsFiltersStreamsAndExportsTextManifest() throws Exception {
         UUID postId = createPostAndGetId();
         UUID rootCommentId = createCommentAndGetId(
-                postId, "{\"message\":\"The data looks good\",\"authorHandle\":\"alice\"}");
+                postId, "{\"message\":\"The data looks good\"}");
+        MockHttpSession researcherSession = userSession;
+        userSession = registerAndLogin("bob", "Bob-account-password-123");
         UUID replyId = createCommentAndGetId(
-                postId, "{\"message\":\"Thanks for reviewing\",\"authorHandle\":\"bob\","
+                postId, "{\"message\":\"Thanks for reviewing\","
                         + "\"parentCommentId\":\"" + rootCommentId + "\"}");
+        userSession = researcherSession;
 
         mockMvc.perform(get("/api/v1/discussions/posts/{postId}/comments", postId)
                         .param("authorHandle", "bob"))
@@ -101,16 +121,16 @@ class DiscussionApiFunctionalTests {
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_PLAIN))
                 .andExpect(header().string("Content-Disposition", containsString("attachment")))
-                .andExpect(content().string(containsString("alice | The data looks good")))
+                .andExpect(content().string(containsString("researcher | The data looks good")))
                 .andExpect(content().string(containsString("bob | Thanks for reviewing")));
 
         mockMvc.perform(get("/api/v1/discussions/posts/{postId}/comments/{commentId}", postId, replyId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.parentCommentId").value(rootCommentId.toString()));
 
-        mockMvc.perform(post("/api/v1/discussions/posts/{postId}/comments", postId)
+        mockMvc.perform(withCsrf(post("/api/v1/discussions/posts/{postId}/comments", postId), userSession)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"message\":\" \",\"authorHandle\":\"alice\"}"))
+                        .content("{\"message\":\" \"}"))
                 .andExpect(status().isBadRequest());
     }
 
@@ -118,23 +138,26 @@ class DiscussionApiFunctionalTests {
     void moderationHidesCommentBranchesAndPostsUntilReactivated() throws Exception {
         UUID postId = createPostAndGetId();
         UUID rootCommentId = createCommentAndGetId(
-                postId, "{\"message\":\"Parent\",\"authorHandle\":\"alice\"}");
+                postId, "{\"message\":\"Parent\"}");
         createCommentAndGetId(
-                postId, "{\"message\":\"Nested reply\",\"authorHandle\":\"bob\","
+                postId, "{\"message\":\"Nested reply\","
                         + "\"parentCommentId\":\"" + rootCommentId + "\"}");
 
-        mockMvc.perform(patch("/api/v1/discussions/posts/{postId}/comments/{commentId}/moderation",
-                        postId, rootCommentId)
+        userSession = login("admin", "Bootstrap-admin-password-123");
+        mockMvc.perform(withCsrf(patch("/api/v1/discussions/posts/{postId}/comments/{commentId}/moderation",
+                        postId, rootCommentId), userSession)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"status\":\"hidden_by_moderator\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.moderationStatus").value("hidden_by_moderator"));
 
+        userSession = login("researcher", "Researcher-password-123");
         mockMvc.perform(get("/api/v1/discussions/posts/{postId}/comments", postId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(0));
 
-        mockMvc.perform(patch("/api/v1/discussions/posts/{postId}/moderation", postId)
+        userSession = login("admin", "Bootstrap-admin-password-123");
+        mockMvc.perform(withCsrf(patch("/api/v1/discussions/posts/{postId}/moderation", postId), userSession)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"status\":\"hidden_by_moderator\"}"))
                 .andExpect(status().isOk());
@@ -146,12 +169,13 @@ class DiscussionApiFunctionalTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(0));
 
-        mockMvc.perform(patch("/api/v1/discussions/posts/{postId}/moderation", postId)
+        mockMvc.perform(withCsrf(patch("/api/v1/discussions/posts/{postId}/moderation", postId), userSession)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"status\":\"reported\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.moderationStatus").value("reported"));
 
+        userSession = login("researcher", "Researcher-password-123");
         mockMvc.perform(get("/api/v1/discussions/posts/{postId}", postId))
                 .andExpect(status().isOk());
     }
@@ -160,16 +184,15 @@ class DiscussionApiFunctionalTests {
     void updatesAndDeletesPostsAndCommentsAndReportsMissingResources() throws Exception {
         UUID postId = createPostAndGetId();
         UUID commentId = createCommentAndGetId(
-                postId, "{\"message\":\"Initial response\",\"authorHandle\":\"alice\"}");
+                postId, "{\"message\":\"Initial response\"}");
 
-        mockMvc.perform(put("/api/v1/discussions/posts/{postId}", postId)
+        mockMvc.perform(withCsrf(put("/api/v1/discussions/posts/{postId}", postId), userSession)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
                                 {
                                   "title": "Updated title",
                                   "body": "Updated body",
                                   "category": "ACADEMIC_ANNOUNCEMENT",
-                                  "authorHandle": "researcher",
                                   "tags": ["research"],
                                   "courseId": "course-9"
                                 }
@@ -178,16 +201,20 @@ class DiscussionApiFunctionalTests {
                 .andExpect(jsonPath("$.title").value("Updated title"))
                 .andExpect(jsonPath("$.courseId").value("course-9"));
 
-        mockMvc.perform(put("/api/v1/discussions/posts/{postId}/comments/{commentId}", postId, commentId)
+        mockMvc.perform(withCsrf(
+                        put("/api/v1/discussions/posts/{postId}/comments/{commentId}", postId, commentId),
+                        userSession)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"message\":\"Edited response\"}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.message").value("Edited response"));
 
-        mockMvc.perform(delete("/api/v1/discussions/posts/{postId}/comments/{commentId}", postId, commentId))
+        mockMvc.perform(withCsrf(
+                        delete("/api/v1/discussions/posts/{postId}/comments/{commentId}", postId, commentId),
+                        userSession))
                 .andExpect(status().isNoContent());
 
-        mockMvc.perform(delete("/api/v1/discussions/posts/{postId}", postId))
+        mockMvc.perform(withCsrf(delete("/api/v1/discussions/posts/{postId}", postId), userSession))
                 .andExpect(status().isNoContent());
 
         mockMvc.perform(get("/api/v1/discussions/posts/{postId}", postId))
@@ -211,8 +238,111 @@ class DiscussionApiFunctionalTests {
                 .andExpect(status().isNotFound());
     }
 
+    @Test
+    void registrationCannotAssignPrivilegedRolesAndAuthorsComeFromLogin() throws Exception {
+        mockMvc.perform(get("/api/v1/auth/me").session(userSession))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.username").value("researcher"))
+                .andExpect(jsonPath("$.role").value("STUDENT"));
+
+        mockMvc.perform(withCsrf(post("/api/v1/discussions/posts"), null)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(postJson("Anonymous post", "Must sign in",
+                                "PROJECT_UPDATE_BLOG", "project-42")))
+                .andExpect(status().isUnauthorized());
+
+        String postBody = """
+                {
+                  "title": "Identity check",
+                  "body": "The author is supplied by the session.",
+                  "category": "PROJECT_UPDATE_BLOG",
+                  "authorHandle": "spoofed",
+                  "projectId": "project-42"
+                }
+                """;
+        String postResponse = mockMvc.perform(withCsrf(post("/api/v1/discussions/posts"), userSession)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(postBody))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.authorHandle").value("researcher"))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+        UUID postId = extractId(postResponse);
+
+        mockMvc.perform(withCsrf(post("/api/v1/auth/register"), null)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"username":"student2","password":"Student-account-password-123","role":"ADMIN"}
+                                """))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.role").value("STUDENT"));
+
+        MockHttpSession studentSession = login("student2", "Student-account-password-123");
+        mockMvc.perform(withCsrf(put("/api/v1/discussions/posts/{postId}", postId), studentSession)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "title": "Unauthorized edit",
+                                  "body": "This should not be allowed.",
+                                  "category": "PROJECT_UPDATE_BLOG",
+                                  "projectId": "project-42"
+                                }
+                                """))
+                .andExpect(status().isForbidden());
+
+        mockMvc.perform(withCsrf(patch("/api/v1/discussions/posts/{postId}/moderation", postId),
+                        studentSession)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"status\":\"hidden_by_moderator\"}"))
+                .andExpect(status().isForbidden());
+
+        mockMvc.perform(withCsrf(post("/api/v1/admin/users"), studentSession)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"username":"faculty","password":"Faculty-account-password-123","role":"FACULTY"}
+                                """))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void facultyCanModerateAndAdminCanProvisionAccounts() throws Exception {
+        UUID postId = createPostAndGetId();
+        userSession = login("admin", "Bootstrap-admin-password-123");
+        mockMvc.perform(withCsrf(post("/api/v1/admin/users"), userSession)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"username":"faculty","password":"Faculty-account-password-123","role":"FACULTY"}
+                                """))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.role").value("FACULTY"));
+
+        userSession = login("faculty", "Faculty-account-password-123");
+        mockMvc.perform(withCsrf(patch("/api/v1/discussions/posts/{postId}/moderation", postId),
+                        userSession)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"status\":\"reported\"}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.moderationStatus").value("reported"));
+    }
+
+    @Test
+    void rejectsWeakPasswordsAndDuplicateUsernames() throws Exception {
+        mockMvc.perform(withCsrf(post("/api/v1/auth/register"), null)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"username\":\"shortpass\",\"password\":\"too-short\"}"))
+                .andExpect(status().isBadRequest());
+
+        mockMvc.perform(withCsrf(post("/api/v1/auth/register"), null)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"username":"RESEARCHER","password":"Another-password-123"}
+                                """))
+                .andExpect(status().isConflict());
+    }
+
     private UUID createPostAndGetId() throws Exception {
-        String response = mockMvc.perform(post("/api/v1/discussions/posts")
+        String response = mockMvc.perform(withCsrf(post("/api/v1/discussions/posts"), userSession)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(postJson("Research update", "Shared project progress",
                                 "PROJECT_UPDATE_BLOG", "project-42")))
@@ -224,7 +354,8 @@ class DiscussionApiFunctionalTests {
     }
 
     private UUID createCommentAndGetId(UUID postId, String requestBody) throws Exception {
-        String response = mockMvc.perform(post("/api/v1/discussions/posts/{postId}/comments", postId)
+        String response = mockMvc.perform(withCsrf(
+                        post("/api/v1/discussions/posts/{postId}/comments", postId), userSession)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestBody))
                 .andExpect(status().isCreated())
@@ -248,7 +379,6 @@ class DiscussionApiFunctionalTests {
                   "title": "%s",
                   "body": "%s",
                   "category": "%s",
-                  "authorHandle": "researcher",
                   "tags": ["research", "weekly"],
                   "projectId": "%s"
                 }
@@ -261,10 +391,56 @@ class DiscussionApiFunctionalTests {
                   "title": "Announcement",
                   "body": "Body",
                   "category": "ACADEMIC_ANNOUNCEMENT",
-                  "authorHandle": "faculty",
                   "projectId": "project-1",
                   "labId": "lab-1"
                 }
                 """;
+    }
+
+    private MockHttpSession registerAndLogin(String username, String password) throws Exception {
+        String registration = """
+                {"username":"%s","password":"%s"}
+                """.formatted(username, password);
+        mockMvc.perform(withCsrf(post("/api/v1/auth/register"), null)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(registration))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.role").value("STUDENT"));
+        return login(username, password);
+    }
+
+    private MockHttpSession login(String username, String password) throws Exception {
+        MvcResult result = mockMvc.perform(withCsrf(post("/api/v1/auth/login"), null)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"username":"%s","password":"%s"}
+                                """.formatted(username, password)))
+                .andExpect(status().isOk())
+                .andReturn();
+        return (MockHttpSession) result.getRequest().getSession(false);
+    }
+
+    private MockHttpServletRequestBuilder withCsrf(
+            MockHttpServletRequestBuilder request,
+            MockHttpSession session) throws Exception {
+        MockHttpServletRequestBuilder tokenRequest = get("/api/v1/auth/csrf");
+        if (session != null) {
+            tokenRequest.session(session);
+        }
+        MvcResult tokenResult = mockMvc.perform(tokenRequest)
+                .andExpect(status().isOk())
+                .andReturn();
+        Matcher tokenMatcher = Pattern.compile("\"token\"\\s*:\\s*\"([^\"]+)\"")
+                .matcher(tokenResult.getResponse().getContentAsString());
+        if (!tokenMatcher.find()) {
+            throw new IllegalStateException("CSRF response did not contain a token.");
+        }
+        String token = tokenMatcher.group(1);
+        Cookie cookie = tokenResult.getResponse().getCookie("XSRF-TOKEN");
+        request.cookie(cookie).header("X-XSRF-TOKEN", token);
+        if (session != null) {
+            request.session(session);
+        }
+        return request;
     }
 }

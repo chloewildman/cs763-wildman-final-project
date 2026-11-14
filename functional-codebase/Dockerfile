@@ -19,10 +19,14 @@ RUN adduser \
     --no-create-home \
     --uid "${UID}" \
     appuser
+WORKDIR /app
+RUN mkdir -p /app/data && chown appuser:appuser /app/data
+
 USER appuser
 
-WORKDIR /app
 COPY --from=package /build/target/app.jar app.jar
+
+VOLUME ["/app/data"]
 
 EXPOSE 8080
 
