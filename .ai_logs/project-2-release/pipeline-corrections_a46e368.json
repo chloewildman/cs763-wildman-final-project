@@ -1,0 +1,558 @@
+{
+  "responderUsername": "GitHub Copilot",
+  "initialLocation": "panel",
+  "requests": [
+    {
+      "requestId": "request_d50feee8-deb7-4c37-93aa-461ae5ce7e6c",
+      "message": {
+        "parts": [
+          {
+            "range": {
+              "start": 0,
+              "endExclusive": 160
+            },
+            "editorRange": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 1,
+              "endColumn": 161
+            },
+            "text": "Please review the devsecops.yml file in the .github/workflows/ directory. What needs to be corrected so that the tests in functional-codebase will run properly?",
+            "kind": "text"
+          }
+        ],
+        "text": "Please review the devsecops.yml file in the .github/workflows/ directory. What needs to be corrected so that the tests in functional-codebase will run properly?"
+      },
+      "variableData": {
+        "variables": []
+      },
+      "response": [
+        {
+          "kind": "thinking",
+          "id": "9a73559c-4925-42e2-917e-5e032f42fb90",
+          "value": "**Reviewing workflow and configuration**\n\nThe user's request is about reviewing, not necessarily making changes. I need to inspect the workflow and the functional-codebase to check for any issues. It seems to relate to validating tests, and I'm thinking about runtime validation, but the focus is on reviewing the configuration. I'll look for the necessary files, such as the workflow and directory files. Additionally, I might need to check the git status for any relevant changes, but it may not be necessary to use GitHub if it's only a matter of viewing the files directly.\n\n**Identifying file paths**\n\nI need to mention the existing file links and use a commentary preamble with my tool calls. It sounds like viewing the workflow and root directory in parallel could be the way to go. I'll check the directory structure up to two levels to identify the path to the test folder. Also, I want to make sure I look at both the .github/workflows and the functional-codebase areas to get a comprehensive view of everything that's there.",
+          "reasoningTimingSource": "provider",
+          "reasoningStartedAt": 1794677402472,
+          "reasoningDurationMs": 2985
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/.github/workflows/devsecops.yml)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/.github/workflows/devsecops.yml)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\.github\\\\workflows\\\\devsecops.yml\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/.github/workflows/devsecops.yml b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/.github/workflows/devsecops.yml\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/.github/workflows/devsecops.yml\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/.github/workflows/devsecops.yml\n@@ -1,72 +1,72 @@\n name: DevSecOps Pipeline\n \n on:\n   push:\n     branches:\n       - main\n   pull_request:\n     branches:\n       - main\n \n permissions:\n   contents: read\n \n jobs:\n   build:\n     runs-on: ubuntu-latest\n     env:\n       IMAGE_NAME: cs763-student-demo:${{ github.sha }}\n     steps:\n       - name: Check out source\n         uses: actions/checkout@v7\n       - name: Set up Java 25\n         uses: actions/setup-java@v6\n         with:\n           distribution: temurin\n           java-version: '25'\n           cache: maven\n       - name: Make Maven wrapper executable\n         run: chmod +x mvnw\n       - name: Set up Python for Semgrep\n         uses: actions/setup-python@v7\n         with:\n           python-version: '3.12'\n       - name: Install Semgrep\n         run: python -m pip install --disable-pip-version-check semgrep\n       - name: Run tests\n         working-directory: ./functional-codebase\n         run: ./mvnw -B test\n       - name: Scan source with Semgrep\n         run: semgrep scan --config p/default --metrics=off ./functional-codebase\n       - name: Package application\n         working-directory: ./functional-codebase\n         run: ./mvnw -B package -DskipTests\n       - name: Cache SonarQube packages\n         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0\n         with:\n           path: ~/.sonar/cache\n           key: ${{ runner.os }}-sonar\n           restore-keys: ${{ runner.os }}-sonar\n       - name: Cache Maven packages\n         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0\n         with:\n           path: ~/.m2\n           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}\n           restore-keys: ${{ runner.os }}-m2\n       - name: Run SonarQube analysis\n         working-directory: ./functional-codebase\n         env:\n           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FUNCTIONAL }}\n         run: ./mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=chloewildman_cs763-functional-codebase\n       - name: Build Docker image\n         run: docker build --tag \"$IMAGE_NAME\" ./functional-codebase\n       - name: Scan Docker image with Trivy\n         uses: aquasecurity/trivy-action@v0.36.0\n         with:\n           image-ref: ${{ env.IMAGE_NAME }}\n           format: table\n           exit-code: '0'\n           ignore-unfixed: true\n           vuln-type: os,library\n           severity: CRITICAL,HIGH\n \n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "toolCallId": "call_ZImvWIV52WfLp5Q93hMvj4U7",
+          "toolId": "view",
+          "summary": {
+            "kind": "unknown"
+          },
+          "startedAt": 1794677405471,
+          "completedAt": 1794677405852
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\functional-codebase\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase\ncreate file mode 100644\nindex 0000000..0000000\n--- a/dev/null\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase\n@@ -1,0 +1,5 @@\n Dockerfile\n README.md\n pom.xml\n src\n target\n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "toolCallId": "call_bMaCW0i2pwlRYbhFwTXX8E44",
+          "toolId": "view",
+          "summary": {
+            "kind": "unknown"
+          },
+          "startedAt": 1794677405485,
+          "completedAt": 1794677405837
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project\ncreate file mode 100644\nindex 0000000..0000000\n--- a/dev/null\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project\n@@ -1,0 +1,21 @@\n .ai_logs\n .dockerignore\n .git\n .gitattributes\n .github\n .gitignore\n .mvn\n .vscode\n Agent_environment.md\n Dockerfile\n Prompt_test_log.md\n README.md\n archive\n docker-compose.yml\n functional-codebase\n mvnw\n mvnw.cmd\n pipeline logs\n pom.xml\n spec.md\n target\n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "toolCallId": "call_bTLZDePKSWVSSzadNclnXUJE",
+          "toolId": "view",
+          "summary": {
+            "kind": "unknown"
+          },
+          "startedAt": 1794677405489,
+          "completedAt": 1794677405813
+        },
+        {
+          "kind": "thinking",
+          "id": "18a520e4-4c65-4817-8fac-b36d88f9f835",
+          "value": "**Evaluating project structure**\n\nI see there may be an initial issue with the `mvnw` file in the repository root and the working directory as `functional-codebase`. It seems the wrapper isn't listed there. The root has the executable but may not have the correct configuration. I wonder if I can use `../mvnw -f pom.xml` for testing. I'll need to check the `pom.xml` and `README` for module references or potential nested Maven projects. The user is asking for a review, which suggests I should focus on analysis rather than direct edits.\n\n**Troubleshooting Maven setup**\n\nI need to change `run: ../mvnw -B test`, which refers to the wrapper at the root, or consider checking the Maven installation action to use `mvn` instead. The `chmod +x mvnw` command at the root should be fine. It's possible that the Java setup is targeting Java 25, which may be creating issues with the tests. I'll check the `pom.xml` for package and test layout, as well as any relevant information in the `README`. I'll also look into the permissions and file listings in the functional directory.",
+          "reasoningTimingSource": "provider",
+          "reasoningStartedAt": 1794677408845,
+          "reasoningDurationMs": 3574,
+          "generatedTitle": "Reviewed project structure and troubleshot Maven setup"
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/pom.xml)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/pom.xml)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\functional-codebase\\\\pom.xml\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/pom.xml b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/pom.xml\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/pom.xml\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/pom.xml\n@@ -1,91 +1,91 @@\n <?xml version=\"1.0\" encoding=\"UTF-8\"?>\n <project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n \txsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd\">\n \t<modelVersion>4.0.0</modelVersion>\n \t<parent>\n \t\t<groupId>org.springframework.boot</groupId>\n \t\t<artifactId>spring-boot-starter-parent</artifactId>\n \t\t<version>4.1.2</version>\n \t\t<relativePath/> <!-- lookup parent from repository -->\n \t</parent>\n \t<groupId>edu.bu.met.wildmancs763</groupId>\n \t<artifactId>cs763-wildman-final-project</artifactId>\n \t<version>0.0.1-SNAPSHOT</version>\n \t<name>cs763-wildman-final-project</name>\n \t<description/>\n \t<url/>\n \t<licenses>\n \t\t<license/>\n \t</licenses>\n \t<developers>\n \t\t<developer/>\n \t</developers>\n \t<scm>\n \t\t<connection/>\n \t\t<developerConnection/>\n \t\t<tag/>\n \t\t<url/>\n \t</scm>\n \t<properties>\n \t\t<java.version>25</java.version>\n \t\t<sonar.organization>chloewildman</sonar.organization>\n \t</properties>\n \t<dependencies>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-h2console</artifactId>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-actuator</artifactId>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-data-jpa</artifactId>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-webmvc</artifactId>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-jackson</artifactId>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-validation</artifactId>\n \t\t</dependency>\n \n \t\t<dependency>\n \t\t\t<groupId>com.h2database</groupId>\n \t\t\t<artifactId>h2</artifactId>\n \t\t\t<scope>runtime</scope>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-actuator-test</artifactId>\n \t\t\t<scope>test</scope>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-data-jpa-test</artifactId>\n \t\t\t<scope>test</scope>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-webmvc-test</artifactId>\n \t\t\t<scope>test</scope>\n \t\t</dependency>\n \t</dependencies>\n \n \t<build>\n \t\t<plugins>\n \t\t\t<plugin>\n \t\t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t\t<artifactId>spring-boot-maven-plugin</artifactId>\n \t\t\t</plugin>\n \t\t</plugins>\n \t</build>\n \n </project>\n \n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "toolCallId": "call_uL6m5ZuxwwiXyel9pPXiHlIb",
+          "toolId": "view",
+          "summary": {
+            "kind": "unknown"
+          },
+          "startedAt": 1794677412427,
+          "completedAt": 1794677412781
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/README.md)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/README.md)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\functional-codebase\\\\README.md\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/README.md b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/README.md\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/README.md\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/README.md\n@@ -1,38 +1,38 @@\n # Research Blog & Project Discussion Board\n \n Spring Boot REST service for scoped academic announcements, project update posts, nested comments, moderation, search, and timeline reads.\n \n ## Run and test\n \n From the repository root:\n \n ```powershell\n .\\mvnw.cmd -f functional-codebase\\pom.xml spring-boot:run\n .\\mvnw.cmd -f functional-codebase\\pom.xml test\n ```\n \n The service listens on port `8080` and uses an in-memory H2 database. To build and run the container with `functional-codebase` as the build context:\n \n ```powershell\n docker build -t research-discussion-board functional-codebase\n docker run --rm -p 8080:8080 research-discussion-board\n ```\n \n ## API\n \n All routes are under `/api/v1/discussions`.\n \n | Method | Route | Purpose |\n | --- | --- | --- |\n | `POST`, `GET` | `/posts` | Create/list posts; list supports `keyword`, `projectId`, `courseId`, `labId`, `category`, `authorHandle`, `from`, and `to`. |\n | `GET`, `PUT`, `DELETE` | `/posts/{postId}` | Read, replace, or delete a post. |\n | `GET` | `/scopes/{projects\\|courses\\|labs}/{scopeId}/timeline` | Read a chronological scoped timeline; accepts `keyword`, `category`, `from`, and `to`. |\n | `POST`, `GET` | `/posts/{postId}/comments` | Create/list nested comments; listing supports `keyword`, `authorHandle`, `from`, and `to`. Use `?format=text` to download a text manifest. |\n | `GET`, `PUT`, `DELETE` | `/posts/{postId}/comments/{commentId}` | Read, edit, or delete a comment. |\n | `PATCH` | `/posts/{postId}/moderation` | Set a post status to `active`, `reported`, or `hidden_by_moderator`. |\n | `PATCH` | `/posts/{postId}/comments/{commentId}/moderation` | Set a comment moderation status. |\n \n Post categories are `ACADEMIC_ANNOUNCEMENT` and `PROJECT_UPDATE_BLOG`. A post request must provide exactly one of `projectId`, `courseId`, or `labId`. Comment requests use `message`, `authorHandle`, and an optional `parentCommentId`. Hiding a post hides its comment stream; hiding a comment also hides its recursive replies.\n \n The specification does not define an authentication or faculty identity provider. Moderation routes currently perform status management without role authorization and must be protected by the institution's authentication layer before public deployment.\n \n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "toolCallId": "call_N7OQaEZ9b7iiBEFZI1l3fwXT",
+          "toolId": "view",
+          "summary": {
+            "kind": "unknown"
+          },
+          "startedAt": 1794677412433,
+          "completedAt": 1794677412807
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/pom.xml)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/pom.xml)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\pom.xml\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/pom.xml b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/pom.xml\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/pom.xml\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/pom.xml\n@@ -1,96 +1,96 @@\n <?xml version=\"1.0\" encoding=\"UTF-8\"?>\n <project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n \txsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd\">\n \t<modelVersion>4.0.0</modelVersion>\n \t<parent>\n \t\t<groupId>org.springframework.boot</groupId>\n \t\t<artifactId>spring-boot-starter-parent</artifactId>\n \t\t<version>4.1.2</version>\n \t\t<relativePath/> <!-- lookup parent from repository -->\n \t</parent>\n \t<groupId>edu.bu.met.wildmancs763</groupId>\n \t<artifactId>cs763-wildman-final-project</artifactId>\n \t<version>0.0.1-SNAPSHOT</version>\n \t<name>cs763-wildman-final-project</name>\n \t<description/>\n \t<url/>\n \t<licenses>\n \t\t<license/>\n \t</licenses>\n \t<developers>\n \t\t<developer/>\n \t</developers>\n \t<scm>\n \t\t<connection/>\n \t\t<developerConnection/>\n \t\t<tag/>\n \t\t<url/>\n \t</scm>\n \t<properties>\n \t\t<java.version>25</java.version>\n \t\t<sonar.organization>chloewildman</sonar.organization>\n \t</properties>\n \t<dependencies>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-h2console</artifactId>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-actuator</artifactId>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-data-jpa</artifactId>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-webmvc</artifactId>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-security</artifactId>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-validation</artifactId>\n \t\t</dependency>\n \n \t\t<dependency>\n \t\t\t<groupId>com.h2database</groupId>\n \t\t\t<artifactId>h2</artifactId>\n \t\t\t<scope>runtime</scope>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-actuator-test</artifactId>\n \t\t\t<scope>test</scope>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-data-jpa-test</artifactId>\n \t\t\t<scope>test</scope>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-webmvc-test</artifactId>\n \t\t\t<scope>test</scope>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-security-test</artifactId>\n \t\t\t<scope>test</scope>\n \t\t</dependency>\n \t</dependencies>\n \n \t<build>\n \t\t<plugins>\n \t\t\t<plugin>\n \t\t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t\t<artifactId>spring-boot-maven-plugin</artifactId>\n \t\t\t</plugin>\n \t\t</plugins>\n \t</build>\n \n </project>\n \n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "toolCallId": "call_IWOSA8Rhce1CWlRi1uOGOWAv",
+          "toolId": "view",
+          "summary": {
+            "kind": "unknown"
+          },
+          "startedAt": 1794677412441,
+          "completedAt": 1794677412793
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Find files matching `functional-codebase/**/mvnw*`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "toolSpecificData": {
+            "kind": "search"
+          },
+          "toolCallId": "call_BJag1OHJii9QRzRKKBm6T4nV",
+          "toolId": "glob",
+          "summary": {
+            "kind": "search",
+            "queries": [
+              "functional-codebase/**/mvnw*"
+            ],
+            "searchKind": "files"
+          },
+          "startedAt": 1794677412445,
+          "completedAt": 1794677412835
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Find files matching `functional-codebase/src/test/**`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "toolSpecificData": {
+            "kind": "search"
+          },
+          "toolCallId": "call_Chj6FbxDCbMhjNMhlMQvylTR",
+          "toolId": "glob",
+          "summary": {
+            "kind": "search",
+            "queries": [
+              "functional-codebase/src/test/**"
+            ],
+            "searchKind": "files"
+          },
+          "startedAt": 1794677412449,
+          "completedAt": 1794677412824
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/.github/workflows/devsecops.yml)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Search for `working-directory:|mvnw|Make Maven wrapper`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "toolSpecificData": {
+            "kind": "search"
+          },
+          "toolCallId": "call_nMLROBoDPFV3m9S0Plu5HUZ8",
+          "toolId": "rg",
+          "summary": {
+            "kind": "search",
+            "queries": [
+              "working-directory:|mvnw|Make Maven wrapper"
+            ],
+            "searchKind": "text"
+          },
+          "startedAt": 1794677417264,
+          "completedAt": 1794677417965
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/test)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Search for `mvnw|DiscussionApiFunctionalTests`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "toolSpecificData": {
+            "kind": "search"
+          },
+          "toolCallId": "call_NPnI8iU5uYvvLNEo2DI87Atd",
+          "toolId": "rg",
+          "summary": {
+            "kind": "search",
+            "queries": [
+              "mvnw|DiscussionApiFunctionalTests"
+            ],
+            "searchKind": "text"
+          },
+          "startedAt": 1794677421384,
+          "completedAt": 1794677422119
+        },
+        {
+          "value": "The workflow runs Maven from `functional-codebase`, but calls `./mvnw` there. The wrapper is at the repository root, and the `chmod +x mvnw` step makes that root-level wrapper executable. As written, the test step will fail because `functional-codebase/mvnw` does not exist.\n\nChange the command at [devsecops.yml:38](C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/.github/workflows/devsecops.yml:38) to `../mvnw -B test`. Apply the same path correction to the package and Sonar steps at [devsecops.yml:43](C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/.github/workflows/devsecops.yml:43) and [devsecops.yml:60](C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/.github/workflows/devsecops.yml:60), since they also run from `functional-codebase`.\n\nThis matches the root-wrapper invocation documented in [README.md:11](C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/README.md:11). The functional test class is present at [DiscussionApiFunctionalTests.java:29](C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/test/java/edu/bu/met/wildmancs763/discussions/DiscussionApiFunctionalTests.java:29).",
+          "isTrusted": false,
+          "supportThemeIcons": false,
+          "supportHtml": false
+        }
+      ],
+      "agent": {
+        "id": "agent-host-copilotcli",
+        "name": "agent-host-copilotcli",
+        "fullName": "Copilot",
+        "description": "Copilot SDK agent running in the local agent host process",
+        "extensionId": {
+          "value": "vscode.agent-host",
+          "_lower": "vscode.agent-host"
+        },
+        "extensionPublisherId": "vscode",
+        "extensionDisplayName": "Agent Host",
+        "isDefault": false,
+        "isDynamic": true,
+        "isCore": true,
+        "metadata": {
+          "themeIcon": {
+            "id": "copilot"
+          }
+        },
+        "slashCommands": [],
+        "locations": [
+          "panel"
+        ],
+        "modes": [
+          "agent",
+          "ask"
+        ],
+        "disambiguation": []
+      },
+      "timestamp": 1794677395539,
+      "modelId": "agent-host-copilotcli:gpt-6-luna",
+      "modelConfiguration": {
+        "thinkingLevel": "high",
+        "contextSize": 272000,
+        "vscode.modelConfiguration.thinkingLevel.source": "explicit",
+        "vscode.modelConfiguration.contextSize.source": "default"
+      },
+      "modeInfo": {
+        "kind": "agent",
+        "isBuiltin": true,
+        "telemetryModeId": "agent",
+        "telemetryModeName": "agent",
+        "permissionLevel": "default"
+      },
+      "responseId": "response_4f3961ff-3b35-4d10-8972-ba7602be7f6d",
+      "result": {
+        "timings": {
+          "firstProgress": 6792,
+          "totalElapsed": 32590
+        },
+        "details": "GPT-6 Luna • 0.5 credits"
+      },
+      "followups": [],
+      "modelState": {
+        "value": 1,
+        "completedAt": 1794677428283
+      },
+      "contentReferences": [],
+      "codeCitations": [],
+      "responseTimestamp": 1794677395539,
+      "timeSpentWaiting": 0,
+      "promptTokens": 30146,
+      "completionTokens": 2311,
+      "lastCallCompletionTokens": 614,
+      "copilotCredits": 0.4604545,
+      "modelTotals": [
+        {
+          "model": "GPT-6 Luna",
+          "inputTokens": 139115,
+          "cachedTokens": 121217,
+          "outputTokens": 2311
+        }
+      ],
+      "sessionCopilotCredits": 0.3935785,
+      "sessionCopilotCreditsStatus": "complete",
+      "elapsedMs": 32744
+    }
+  ]
+}
