@@ -46,8 +46,7 @@ public class SecurityConfiguration {
     SecurityFilterChain securityFilterChain(
             HttpSecurity http,
             SecurityContextRepository securityContextRepository,
-            CsrfTokenRepository csrfTokenRepository) throws Exception {
-        http
+            CsrfTokenRepository csrfTokenRepository) throws Exception {http
                 .securityContext(context -> context.securityContextRepository(securityContextRepository))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .csrf(csrf -> csrf.csrfTokenRepository(csrfTokenRepository))
