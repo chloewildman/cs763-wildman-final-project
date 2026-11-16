@@ -49,7 +49,7 @@ I've placed a ! in the flag column of the highest risk surfaces.
 | Endpoint | Method | Auth Required | User Input | Risks | Flag |
 |----------|--------|---------------|------------|-------|------|
 | /register | POST | No | username, password | Username enumeration (CWE-204), missing authorization (CWE-862), no rate limit (CWE-400) | ! |
-| /admin/users | POST | Yes, admin only | Risks would relate to a compromised admin/facult account due to username enumeration (CWE-204) and weak password policy (CWE-521), but still high risk due to impact of creating other admin users | ! | 
+| /admin/users | POST | Yes, admin only | username, password, role | Risks would relate to a compromised admin/facult account due to username enumeration (CWE-204) and weak password policy (CWE-521), but still high risk due to impact of creating other admin users | ! | 
 | /login | POST | No | username, password | Weak password policy (CWE-521), no rate limit (CWE-400) | ! |
 | /me | GET | Yes | None | None | |
 | /logout | POST | Yes | None | None | |
