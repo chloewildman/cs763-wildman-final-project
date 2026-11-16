@@ -1,10 +1,16 @@
 # Security Analysis
 
 ## Security requirements
-- Authorization controls
-    - Registration should be controlled by admins only, not publicly.
-    - Users should be assigned to courses and projects, and should only be able to access/post to those endpoints.
-    - Mass downloads such as the comment manifest should be restricted to faculty and admins.
+- Passwords must contain at least 16 characters with an uppercase letter, lowercase letter, number and special character.
+- All endpoints other than the login endpoint must require authentication, including GET requests.
+- Accounts must be delineated into role-based access control (RBAC) through admin, faculty, and student roles.
+- All account provisioning must only be controlled by admins.
+- Actuator endpoints must only be accessible by admins.
+- Faculty and student users must be assigned to courses and projects, and must only be able to access/post to those assigned endpoints.
+- Mass downloads such as the comment manifest must be restricted to faculty and admin roles.
+- All user input that may contain HTML markup (rich text) must be sanitized of malicious tags at the input stage.
+- Only the author of a post may be permitted to modify it. Even administrators may not modify other posts while moderation privileges are present.
+- Users must be restricted to no more than 50 API requests per minute.
 
 ## Abuse cases
 - AC1: As an attacker, I want to be able to access high-privilege capabilities so that add other high-privilege users, edit/delete other user's posts, and access the moderation endpoint.
