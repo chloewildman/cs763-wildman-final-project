@@ -16,17 +16,27 @@
 - AC1: As an attacker, I want to be able to access high-privilege capabilities so that add other high-privilege users, edit/delete other user's posts, and access the moderation endpoint.
 - AC2: As an attacker, I want to be able to access credential information so that I can begin finding valid credentials of users with high-privilege capabilities.
 - AC3: As an attacker, I want to be able to serve malicious content so that I can deface the site or expand the attack to legitimate users.
-- AC4: As an attacker, I want to be able to remotely take down the site so that legitimate users can no longer access it.
+- AC4: As an attacker, I want to be able to disrupt availability of the application so that legitimate users can no longer use it.
 - AC5: As an attacker, I want to be able to craft malicious inputs so that I can get the application to return valuable information from the database.
 - AC6: As an attacker, I want to be able to gain information about the system so that I can better plan my attacks.
 - AC7: As an attacker, I want to be able to find sensitive information about users or the organization so that I can better plan my attacks.
 
 ## Attack trees
+I tried to focus the contents of these attack trees on potentially exploitable weaknesses in the application, so there is not any focus in these trees on social engineering/physical security.
 ### AC1
+See [AC1 Attack Tree in docs](functional-codebase/docs/Attack%20Trees%20PA2%20-%20AC1.png)
+
+Or: ![AC1 Attack Tree in docs](functional-codebase/docs/Attack%20Trees%20PA2%20-%20AC1.png)
 
 ### AC3
+See [AC3 Attack Tree in docs](functional-codebase/docs/Attack%20Trees%20PA2%20-%20AC3.png)
+
+Or: ![AC3 Attack Tree in docs](functional-codebase/docs/Attack%20Trees%20PA2%20-%20AC3.png)
 
 ### AC4
+See [AC4 Attack Tree in docs](functional-codebase/docs/Attack%20Trees%20PA2%20-%20AC4.png)
+
+Or: ![AC4 Attack Tree in docs](functional-codebase/docs/Attack%20Trees%20PA2%20-%20AC4.png)
 
 ## Attack surface mapping
 
