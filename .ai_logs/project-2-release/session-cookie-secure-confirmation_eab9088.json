@@ -1,0 +1,514 @@
+{
+  "responderUsername": "GitHub Copilot",
+  "initialLocation": "panel",
+  "requests": [
+    {
+      "requestId": "663cdbad-0301-49a3-898e-9a2194dd4a9a",
+      "message": {
+        "parts": [
+          {
+            "range": {
+              "start": 0,
+              "endExclusive": 202
+            },
+            "editorRange": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 4,
+              "endColumn": 54
+            },
+            "text": "In functional-codebase, application-properties, I see the following setting.\r\nserver.servlet.session.cookie.secure=${SESSION_COOKIE_SECURE:false}\r\n\r\nIs this intentional and related to local development?",
+            "kind": "text"
+          }
+        ],
+        "text": "In functional-codebase, application-properties, I see the following setting.\r\nserver.servlet.session.cookie.secure=${SESSION_COOKIE_SECURE:false}\r\n\r\nIs this intentional and related to local development?"
+      },
+      "variableData": {
+        "variables": [
+          {
+            "kind": "file",
+            "id": "file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/sast-triage-report.md",
+            "name": "file:sast-triage-report.md",
+            "value": {
+              "$mid": 1,
+              "fsPath": "c:\\Users\\wildm\\Documents\\Projects\\cs763-wildman-final-project\\cs763-wildman-final-project\\sast-triage-report.md",
+              "_sep": 1,
+              "external": "file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/sast-triage-report.md",
+              "path": "/c:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/sast-triage-report.md",
+              "scheme": "file"
+            }
+          }
+        ]
+      },
+      "response": [
+        {
+          "kind": "thinking",
+          "id": "bde38426-01ed-4baf-a90b-1785613fc82a",
+          "value": "**Investigating Configuration Needs**\n\nI need to respond to a user’s request by inspecting the configuration and reporting back. Their question doesn’t require implementation but possibly a repository file. It seems I should look for tagged AST triage reports, but that might not be relevant. I should search app properties via a tool. I’ll explore Java files, focusing on .properties without needing any Java code. I also need to consider potential security implications and defaults. My approach will involve fewer than five tool calls for direct exploration.",
+          "reasoningTimingSource": "provider",
+          "reasoningStartedAt": 1794770191238,
+          "reasoningDurationMs": 1581,
+          "generatedTitle": "Investigating Configuration Needs"
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_btMIRe3hA0586zPhhI7nSrbS",
+          "toolId": "rg",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Search for `SESSION_COOKIE_SECURE|server\\.servlet\\.session\\.cookie\\.secure|functional-cod...`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Search for `SESSION_COOKIE_SECURE|server\\.servlet\\.session\\.cookie\\.secure|functional-cod...`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "search",
+            "queries": [
+              "SESSION_COOKIE_SECURE|server\\.servlet\\.session\\.cookie\\.secure|functional-codebase"
+            ],
+            "searchKind": "text"
+          },
+          "toolSpecificData": {
+            "kind": "search"
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_lZk7vP13awDivuhoLoNFEM8V",
+          "toolId": "powershell",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Running `git status --short; Get-ChildItem -Force | Select-Object -ExpandProperty Name`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "command"
+          },
+          "toolSpecificData": {
+            "kind": "terminal",
+            "commandLine": {
+              "original": "git status --short; Get-ChildItem -Force | Select-Object -ExpandProperty Name"
+            },
+            "editable": false,
+            "intention": "Check repository state and top-level files",
+            "language": "powershell",
+            "terminalCommandOutput": {
+              "text": "M .ai_logs/conceptual_journal.md\r\n M README.md\r\n D functional-codebase/README.md\r\n D functional-codebase/USER_GUIDE.md\r\n M functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/security/SecurityConfiguration.java\r\n D spec.md\r\n?? .ai_logs/project-2-release/inputchecks.json\r\n?? functional-codebase/data/\r\n?? functional-codebase/spec.md\r\n?? project-1/\r\n?? sast-triage-report.md\r\n?? security-analysis.md\r\n.ai_logs\r\n.git\r\n.github\r\n.mvn\r\n.vscode\r\narchive\r\nfunctional-codebase\r\npipeline logs\r\nproject-1\r\ntarget\r\n.dockerignore\r\n.gitattributes\r\n.gitignore\r\nAgent_environment.md\r\ndocker-compose.yml\r\nDockerfile\r\nmvnw\r\nmvnw.cmd\r\npom.xml\r\nPrompt_test_log.md\r\nREADME.md\r\nsast-triage-report.md\r\nsecurity-analysis.md\r\n"
+            },
+            "terminalCommandState": {
+              "exitCode": 0
+            }
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "thinking",
+          "id": "ba0df710-75f5-4803-b5b6-c087d98c3ef2",
+          "value": "**Narrowing file inspection**\n\nI need to focus on the user's question, inspecting targeted files specifically. The output is quite large due to various files in the database. I should use rg with narrow globs to narrow things down. The application properties are probably in functional-codebase/src/main/resources. I also want to list application properties and check the docker compose workflow. It might help to inspect the report too, especially if it’s tagged and relevant to the question about the settings.",
+          "reasoningTimingSource": "provider",
+          "reasoningStartedAt": 1794770199091,
+          "reasoningDurationMs": 1780,
+          "generatedTitle": "Narrowing file inspection"
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_DKPZQbVFAG6mDGYI1EZXedaD",
+          "toolId": "glob",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Find files matching `functional-codebase/**/application*.properties`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Find files matching `functional-codebase/**/application*.properties`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "search",
+            "queries": [
+              "functional-codebase/**/application*.properties"
+            ],
+            "searchKind": "files"
+          },
+          "toolSpecificData": {
+            "kind": "search"
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_lqz8cmfW7776FutRvcfskA13",
+          "toolId": "rg",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Search for `SESSION_COOKIE_SECURE|server\\.servlet\\.session\\.cookie\\.secure`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Search for `SESSION_COOKIE_SECURE|server\\.servlet\\.session\\.cookie\\.secure`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "search",
+            "queries": [
+              "SESSION_COOKIE_SECURE|server\\.servlet\\.session\\.cookie\\.secure"
+            ],
+            "searchKind": "text"
+          },
+          "toolSpecificData": {
+            "kind": "search"
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_JFrAQIbunwIRucmBKjl11Fqb",
+          "toolId": "rg",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Search for `SESSION_COOKIE_SECURE|COOKIE_SECURE|secure cookie|session cookie`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Search for `SESSION_COOKIE_SECURE|COOKIE_SECURE|secure cookie|session cookie`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "search",
+            "queries": [
+              "SESSION_COOKIE_SECURE|COOKIE_SECURE|secure cookie|session cookie"
+            ],
+            "searchKind": "text"
+          },
+          "toolSpecificData": {
+            "kind": "search"
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_VHVr3AIShtALzTzyDxUfH3na",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/docker-compose.yml)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/docker-compose.yml)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\docker-compose.yml\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/docker-compose.yml b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/docker-compose.yml\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/docker-compose.yml\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/docker-compose.yml\n@@ -1,49 +1,49 @@\n # Comments are provided throughout this file to help you get started.\n # If you need more help, visit the Docker Compose reference guide at\n # https://docs.docker.com/go/compose-spec-reference/\n \n # Here the instructions define your application as a service called \"server\".\n # This service is built from the Dockerfile in the current directory.\n # You can add other services your application may depend on here, such as a\n # database or a cache. For examples, see the Awesome Compose repository:\n # https://github.com/docker/awesome-compose\n services:\n   server:\n     build:\n       context: .\n     ports:\n       - 8080:8080\n     environment:\n       DEMO_STUDENT_PASSWORD: test-password\n # The commented out section below is an example of how to define a PostgreSQL\n # database that your application can use. `depends_on` tells Docker Compose to\n # start the database before your application. The `db-data` volume persists the\n # database data between container restarts. The `db-password` secret is used\n # to set the database password. You must create `db/password.txt` and add\n # a password of your choosing to it before running `docker compose up`.\n #     depends_on:\n #       db:\n #         condition: service_healthy\n #   db:\n #     image: postgres:18\n #     restart: always\n #     user: postgres\n #     secrets:\n #       - db-password\n #     volumes:\n #       - db-data:/var/lib/postgresql\n #     environment:\n #       - POSTGRES_DB=example\n #       - POSTGRES_PASSWORD_FILE=/run/secrets/db-password\n #     expose:\n #       - 5432\n #     healthcheck:\n #       test: [ \"CMD\", \"pg_isready\" ]\n #       interval: 10s\n #       timeout: 5s\n #       retries: 5\n # volumes:\n #   db-data:\n # secrets:\n #   db-password:\n #     file: db/password.txt\n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_bWjlzCwUIO1YhyKpcP6IhI3m",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/Dockerfile)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/Dockerfile)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\Dockerfile\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/Dockerfile b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/Dockerfile\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/Dockerfile\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/Dockerfile\n@@ -1,74 +1,74 @@\n # syntax=docker/dockerfile:1\n \n # Comments are provided throughout this file to help you get started.\n # If you need more help, visit the Dockerfile reference guide at\n # https://docs.docker.com/go/dockerfile-reference/\n \n ################################################################################\n \n # Create a stage for resolving and downloading dependencies.\n FROM eclipse-temurin:25-jdk-jammy as deps\n \n WORKDIR /build\n \n # Copy the mvnw wrapper with executable permissions.\n COPY --chmod=0755 mvnw mvnw\n COPY .mvn/ .mvn/\n \n # Download dependencies as a separate step to take advantage of Docker's caching.\n # Leverage a cache mount to /root/.m2 so that subsequent builds don't have to\n # re-download packages.\n RUN --mount=type=bind,source=pom.xml,target=pom.xml \\\n     --mount=type=cache,target=/root/.m2 ./mvnw dependency:go-offline -DskipTests\n \n ################################################################################\n \n # Create a stage for building the application based on the stage with downloaded dependencies.\n # This Dockerfile is optimized for Java applications that output an uber jar, which includes\n # all the dependencies needed to run your app inside a JVM. If your app doesn't output an uber\n # jar and instead relies on an application server like Apache Tomcat, you'll need to update this\n # stage with the correct filename of your package and update the base image of the \"final\" stage\n # use the relevant app server, e.g., using tomcat (https://hub.docker.com/_/tomcat/) as a base image.\n FROM deps as package\n \n WORKDIR /build\n \n COPY ./src src/\n RUN --mount=type=bind,source=pom.xml,target=pom.xml \\\n     --mount=type=cache,target=/root/.m2 \\\n     ./mvnw package && \\\n     mv target/*.jar target/app.jar\n \n #################################################################################\n \n # Create a new stage for running the application that contains the minimal\n # runtime dependencies for the application. This often uses a different base\n # image from the install or build stage where the necessary files are copied\n # from the install stage.\n #\n # The example below uses eclipse-temurin's JRE image as the foundation for running the app.\n # By specifying the \"25-jre-jammy\" tag, it will also use whatever happens to be the\n # most recent version of that tag when you build your Dockerfile.\n # If reproducibility is important, consider using a specific digest SHA, like\n # eclipse-temurin@sha256:99cede493dfd88720b610eb8077c8688d3cca50003d76d1d539b0efc8cca72b4.\n FROM eclipse-temurin:25-jre-jammy AS final\n \n # Create a non-privileged user that the app will run under.\n # See https://docs.docker.com/go/dockerfile-user-best-practices/\n ARG UID=10001\n RUN adduser \\\n     --disabled-password \\\n     --gecos \"\" \\\n     --home \"/nonexistent\" \\\n     --shell \"/sbin/nologin\" \\\n     --no-create-home \\\n     --uid \"${UID}\" \\\n     appuser\n USER appuser\n \n # Copy the executable from the \"package\" stage.\n COPY --from=package /build/target/app.jar app.jar\n \n EXPOSE 8080\n \n ENTRYPOINT [\"java\",\"-jar\",\"app.jar\"]\n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_gkFz6zovSh1Kbe0Bq6hxcDbf",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/resources/application.properties)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/resources/application.properties)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\functional-codebase\\\\src\\\\main\\\\resources\\\\application.properties\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/resources/application.properties b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/resources/application.properties\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/resources/application.properties\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/resources/application.properties\n@@ -1,12 +1,12 @@\n spring.application.name=research-discussion-board\n spring.datasource.url=${DATABASE_URL:jdbc:h2:file:./data/discussions;DB_CLOSE_ON_EXIT=FALSE}\n spring.datasource.username=${DATABASE_USERNAME:sa}\n spring.datasource.password=${DATABASE_PASSWORD:}\n spring.jpa.hibernate.ddl-auto=update\n spring.jpa.open-in-view=false\n spring.jpa.properties.hibernate.jdbc.time_zone=UTC\n spring.h2.console.enabled=false\n server.servlet.session.cookie.same-site=lax\n server.servlet.session.cookie.secure=${SESSION_COOKIE_SECURE:false}\n management.endpoints.web.exposure.include=health,info\n \n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_OcbtMDe3xLhjUqEJjeRjBaiX",
+          "toolId": "rg",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Search for `SESSION_COOKIE_SECURE|server\\.servlet\\.session\\.cookie\\.secure|Cookie secure ...`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Search for `SESSION_COOKIE_SECURE|server\\.servlet\\.session\\.cookie\\.secure|Cookie secure ...`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "search",
+            "queries": [
+              "SESSION_COOKIE_SECURE|server\\.servlet\\.session\\.cookie\\.secure|Cookie secure flag|Secure flag"
+            ],
+            "searchKind": "text"
+          },
+          "toolSpecificData": {
+            "kind": "search"
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "value": "\n\n**Task completed:**\n\nYes—this is intentional for plain-HTTP local development: `SESSION_COOKIE_SECURE` overrides the setting, and the fallback `false` lets browsers send session cookies over HTTP. The Docker Compose config exposes port 8080 without TLS, so it uses that fallback. For any HTTPS deployment, including one where TLS ends at a reverse proxy, set `SESSION_COOKIE_SECURE=true`; otherwise the cookie lacks the Secure flag. So the finding is a local-dev exception, not automatically a false positive for every deployment. See [application.properties](C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/resources/application.properties), [docker-compose.yml](C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/docker-compose.yml), and [sast-triage-report.md](C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/sast-triage-report.md).",
+          "isTrusted": false,
+          "supportThemeIcons": false,
+          "supportHtml": false,
+          "supportAlertSyntax": false
+        }
+      ],
+      "agent": {
+        "id": "agent-host-copilotcli",
+        "name": "agent-host-copilotcli",
+        "fullName": "Copilot",
+        "description": "Copilot SDK agent running in the local agent host process",
+        "extensionId": {
+          "value": "vscode.agent-host",
+          "_lower": "vscode.agent-host"
+        },
+        "extensionPublisherId": "vscode",
+        "extensionDisplayName": "Agent Host",
+        "isDefault": false,
+        "isDynamic": true,
+        "isCore": true,
+        "metadata": {
+          "themeIcon": {
+            "id": "copilot"
+          }
+        },
+        "slashCommands": [],
+        "locations": [
+          "panel"
+        ],
+        "modes": [
+          "agent",
+          "ask"
+        ],
+        "disambiguation": []
+      },
+      "timestamp": 1794770188023,
+      "modelId": "agent-host-copilotcli:gpt-6-luna",
+      "responseId": "response_a53df2d3-f867-4934-925e-8563091566e1",
+      "result": {
+        "details": "GPT-6 Luna • 0.4 credits"
+      },
+      "responseMarkdownInfo": [],
+      "modelState": {
+        "value": 1,
+        "completedAt": 1794770216867
+      },
+      "contentReferences": [],
+      "codeCitations": [],
+      "responseTimestamp": 1794843239099,
+      "timeSpentWaiting": 0,
+      "promptTokens": 29134,
+      "completionTokens": 1790,
+      "lastCallCompletionTokens": 840,
+      "promptTokenDetails": [
+        {
+          "category": "System",
+          "label": "System prompt",
+          "percentageOfPrompt": 41
+        },
+        {
+          "category": "User Context",
+          "label": "Tool Results",
+          "percentageOfPrompt": 9
+        },
+        {
+          "category": "System",
+          "label": "Tool Definitions",
+          "percentageOfPrompt": 44
+        },
+        {
+          "category": "User Context",
+          "label": "Messages",
+          "percentageOfPrompt": 5
+        }
+      ],
+      "copilotCredits": 0.390712,
+      "modelTotals": [
+        {
+          "model": "GPT-6 Luna",
+          "inputTokens": 108226,
+          "cachedTokens": 91442,
+          "outputTokens": 1790
+        }
+      ],
+      "sessionCopilotCredits": 0.390712,
+      "sessionCopilotCreditsStatus": "complete",
+      "elapsedMs": 28844
+    }
+  ]
+}

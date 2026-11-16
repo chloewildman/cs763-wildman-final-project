@@ -1,0 +1,1551 @@
+{
+  "responderUsername": "GitHub Copilot",
+  "initialLocation": "panel",
+  "requests": [
+    {
+      "requestId": "dd08b5af-d4f5-47f0-822f-29b5bc940867",
+      "message": {
+        "parts": [
+          {
+            "range": {
+              "start": 0,
+              "endExclusive": 1560
+            },
+            "editorRange": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 28,
+              "endColumn": 45
+            },
+            "text": "Please review the code in functional-codebase. Then, review the blurb below. When you're done, in chat, please provide me with an initial attack surface mapping for this application.\r\nBased on the [OWASP attack surface cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Attack_Surface_Analysis_Cheat_Sheet.html), the attack surface of an application is:\r\n\r\n1. the sum of all paths for data/commands into and out of the application, and\r\n2. the code that protects these paths (including resource connection and authentication, authorization, activity logging, data validation and encoding)\r\n3. all valuable data used in the application, including secrets and keys, intellectual property, critical business data, personal data and PII, and\r\n4. the code that protects these data (including encryption and checksums, access auditing, and data integrity and operational security controls).\r\nThe following entry and exit points will contribute to the attack surface:\r\n\r\n- UI forms and fields\r\n- HTTP headers and cookies\r\n- APIs\r\n- Files\r\n- Databases\r\n- Other local storage\r\n- Email or other kinds of messages\r\n- Run-time arguments\r\n- Application specific entry/exit points\r\nDepending on its functionality or type of data it handles, it may fall into one of the following categories:\r\n\r\n- Login/authentication entry points\r\n- Admin interfaces\r\n- Inquiries and search functions\r\n- Data entry (CRUD) forms\r\n- Business workflows\r\n- Transactional interfaces/APIs\r\n- Operational command and monitoring interfaces/APIs\r\n- Interfaces with other applications/systems",
+            "kind": "text"
+          }
+        ],
+        "text": "Please review the code in functional-codebase. Then, review the blurb below. When you're done, in chat, please provide me with an initial attack surface mapping for this application.\r\nBased on the [OWASP attack surface cheat sheet](https://cheatsheetseries.owasp.org/cheatsheets/Attack_Surface_Analysis_Cheat_Sheet.html), the attack surface of an application is:\r\n\r\n1. the sum of all paths for data/commands into and out of the application, and\r\n2. the code that protects these paths (including resource connection and authentication, authorization, activity logging, data validation and encoding)\r\n3. all valuable data used in the application, including secrets and keys, intellectual property, critical business data, personal data and PII, and\r\n4. the code that protects these data (including encryption and checksums, access auditing, and data integrity and operational security controls).\r\nThe following entry and exit points will contribute to the attack surface:\r\n\r\n- UI forms and fields\r\n- HTTP headers and cookies\r\n- APIs\r\n- Files\r\n- Databases\r\n- Other local storage\r\n- Email or other kinds of messages\r\n- Run-time arguments\r\n- Application specific entry/exit points\r\nDepending on its functionality or type of data it handles, it may fall into one of the following categories:\r\n\r\n- Login/authentication entry points\r\n- Admin interfaces\r\n- Inquiries and search functions\r\n- Data entry (CRUD) forms\r\n- Business workflows\r\n- Transactional interfaces/APIs\r\n- Operational command and monitoring interfaces/APIs\r\n- Interfaces with other applications/systems"
+      },
+      "variableData": {
+        "variables": [
+          {
+            "kind": "file",
+            "id": "file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md",
+            "name": "file:security-analysis.md",
+            "value": {
+              "$mid": 1,
+              "fsPath": "c:\\Users\\wildm\\Documents\\Projects\\cs763-wildman-final-project\\cs763-wildman-final-project\\security-analysis.md",
+              "_sep": 1,
+              "external": "file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md",
+              "path": "/c:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md",
+              "scheme": "file"
+            }
+          }
+        ]
+      },
+      "response": [
+        {
+          "value": "I’ll map the application’s actual entry/exit points, sensitive assets, and protective controls from the code, then organize them using the categories in your blurb.",
+          "isTrusted": false,
+          "supportThemeIcons": false,
+          "supportHtml": false,
+          "supportAlertSyntax": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_czfm0vVR3etqeaZWLzWgp8oV",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\security-analysis.md\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md\n@@ -1,73 +1,73 @@\n # Security Analysis\n \n ## Security requirements\n - Authorization controls\n     - Registration should be controlled by admins only, not publicly.\n     - Users should be assigned to courses and projects, and should only be able to access/post to those endpoints.\n     - Mass downloads such as the comment manifest should be restricted to faculty and admins.\n \n ## Abuse cases\n - AC1: As an attacker, I want to be able to access high-privilege capabilities so that add other high-privilege users, edit/delete other user's posts, and access the moderation endpoint.\n - AC2: As an attacker, I want to be able to access credential information so that I can begin finding valid credentials of users with high-privilege capabilities.\n - AC3: As an attacker, I want to be able to serve malicious content so that I can deface the site or expand the attack to legitimate users.\n - AC4: As an attacker, I want to be able to remotely take down the site so that legitimate users can no longer access it.\n - AC5: As an attacker, I want to be able to craft malicious inputs so that I can get the application to return valuable information from the database.\n - AC6: As an attacker, I want to be able to gain information about the system so that I can better plan my attacks.\n - AC7: As an attacker, I want to be able to find sensitive information about users or the organization so that I can better plan my attacks.\n \n ## Attack trees\n ### AC1\n \n ### AC3\n \n ### AC4\n \n ## Attack surface mapping\n \n ## STRIDE threat modeling (DFD)\n \n ## Proposed mitigations\n ### CWE-1004 Sensitive Cookie Without 'HttpOnly' Flag\n Remove the .withHttpOnlyFalse() configuration.\n \n Relates to: AC3\n \n ### CWE-521 Weak Password Requirements (https://cwe.mitre.org/data/definitions/521.html)\n Enforce stronger password requirements. For the purposes of this application, replace regex and error message to reflect at least 16 characters and at least one uppercase, lowercase, digit, and special character ().\n \n Regex: `^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^A-Za-z0-9])[^\\r\\n]{16,72}$` ([log-link])\n \n Relates to: AC2\n \n ### CWE-614 Sensitive Cookie in HTTPS Session Without 'Secure' Attribute (https://cwe.mitre.org/data/definitions/614.html)\n N/A, false positive\n \n ### CWE-200: Exposure of Sensitive Information to an Unauthorized Actor (https://cwe.mitre.org/data/definitions/200.html)\n Require authentication as an admin to reach the health endpoint.\n \n Relates to: AC6\n \n ### CWE-400 Uncontrolled Resource Consumption (https://cwe.mitre.org/data/definitions/400.html)\n Implement rate limiting. For the purposes of this assignment, a simple custom filter-based rate limiter for something like 50 requests per minute (or less for demo purposes) seems appropriate (https://www.geeksforgeeks.org/advance-java/implementing-rate-limiting-in-a-spring-boot-application/).\n \n Relates to: AC4\n \n ### CWE-862 Missing Authorization (https://cwe.mitre.org/data/definitions/862.html)\n Refactor code so that users must be added by administrators. Make only the login endpoint public-facing, and everything else must require authentication. For authorization, users should continue being separated by Role-Based Access Control (RBAC), but student/faculty users should also be explicitly assigned to courses and projects, and should only be permitted to access those endpoints.\n \n Relates to: AC7\n \n ### CWE-285 Improper Authorization (https://cwe.mitre.org/data/definitions/285.html)\n While administrators should be granted high-privilege permissions, not all permissions are necessary to fulfill the role. An admin should not be permitted to change the contents of another user's existing post, or delete existing posts, as long as there is moderation functionality.\n \n Relates to: AC1, AC3\n \n ### CWE-204 Observable Response Discrepancy (https://cwe.mitre.org/data/definitions/204.html)\n This vulnerability will be addressed by the proposed mitigation for CWE-862. As long as users can only be added by administrators, only administrators would receive confirmation of existing accounts, which is part of their expected high-privilege capabilities.\n \n Relates to: AC2\n \n ### CWE-79 Improper Neutralization of Input During Web Page Generation - Stored/Persistent XSS (https://cwe.mitre.org/data/definitions/79.html)\n Sanitize post/comment body input using Java's HTML Sanitizer (https://owasp.org/projects/java-html-sanitizer).\n \n Relates to: AC3\n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_M8Nmqb3kjx9RNwKBm7Xe9P04",
+          "toolId": "glob",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Find files matching `functional-codebase/**/*`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Find files matching `functional-codebase/**/*`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "search",
+            "queries": [
+              "functional-codebase/**/*"
+            ],
+            "searchKind": "files"
+          },
+          "toolSpecificData": {
+            "kind": "search"
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_XQYnlZkLlBgJVHk1potD4I0Z",
+          "toolId": "glob",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Find files matching `*`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Find files matching `*`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "search",
+            "queries": [
+              "*"
+            ],
+            "searchKind": "files"
+          },
+          "toolSpecificData": {
+            "kind": "search"
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "thinking",
+          "id": "6aab4f3b-57c0-4a30-96c8-f7bcd1b7cf52",
+          "value": "**Reading instructions and code architecture**\n\nI need to start by reading the Java instructions before delving into the code. I should inspect key source files like controllers, security configs, and services, while keeping an eye on the code scope. I'll focus on relevant source lines for evidence and consider reading the Java instructions and the source in parallel. While I can’t make changes yet, I need to gather all the necessary information first, as the instructions suggest acquiring it before any code adjustments.\n\n**Inspecting Java code and instructions**\n\nAs I delve into the Java code inspection and workflow, it seems crucial to acquire the necessary tools first. I need to ensure that I'm using the correct Windows path and slashes while treating files from the user’s requested directory. I'll read the critical files by potentially making multiple parallel calls, focusing on key areas like SecurityConfiguration and several controllers. I’m considering whether to call the instruction first or check the relevant sources in parallel, especially since the code suggests I shouldn't make changes until I fully understand the instructions. Let's focus on retrieving that instruction file!",
+          "reasoningTimingSource": "provider",
+          "reasoningStartedAt": 1794779386238,
+          "reasoningDurationMs": 3282
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_odFWrbbzhfZJ2IUD6u8aAAD5",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/AppData/Roaming/Code/agentPlugins/vscode-synced-customization-agent-host-copilotcli-77352125/42518884/rules/javaLspContext.instructions.md)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/AppData/Roaming/Code/agentPlugins/vscode-synced-customization-agent-host-copilotcli-77352125/42518884/rules/javaLspContext.instructions.md)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\AppData\\\\Roaming\\\\Code\\\\agentPlugins\\\\vscode-synced-customization-agent-host-copilotcli-77352125\\\\42518884\\\\rules\\\\javaLspContext.instructions.md\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/AppData/Roaming/Code/agentPlugins/vscode-synced-customization-agent-host-copilotcli-77352125/42518884/rules/javaLspContext.instructions.md b/C:/Users/wildm/AppData/Roaming/Code/agentPlugins/vscode-synced-customization-agent-host-copilotcli-77352125/42518884/rules/javaLspContext.instructions.md\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/AppData/Roaming/Code/agentPlugins/vscode-synced-customization-agent-host-copilotcli-77352125/42518884/rules/javaLspContext.instructions.md\n+++ b/C:/Users/wildm/AppData/Roaming/Code/agentPlugins/vscode-synced-customization-agent-host-copilotcli-77352125/42518884/rules/javaLspContext.instructions.md\n@@ -1,9 +1,9 @@\n ---\n description: Java type lookup and known-file outlines.\n applyTo: '**/*.java'\n ---\n \n Prefer Java LSP tools for type-name lookup and known-file outlines. Use text search for members with unknown containing types or non-symbol content. Do not change Java settings to make a lookup work.\n \n Load the `java-lsp-tools` skill as needed for tool discovery, settings, URI/range handoff, reader adaptation and fallback rules.\n \n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          }
+        },
+        {
+          "kind": "thinking",
+          "id": "c1f15407-0193-4cfe-a0a9-f4cd8dcd6e49",
+          "value": "**Inspecting code configuration**\n\nIt seems like I don't need the Java LSP right now. I’ll search code endpoints and the semantics instead. Even though the instruction suggests using Java LSP for type lookups, I’m interested in the actual code rather than an outline. I might use rg for mappings and consider opening all relevant files to check the current security configuration, controllers, properties, and the domain. I can also make view calls in parallel for efficiency!",
+          "reasoningTimingSource": "provider",
+          "reasoningStartedAt": 1794779392568,
+          "reasoningDurationMs": 803,
+          "generatedTitle": "Inspecting code configuration"
+        },
+        {
+          "value": "The target is a Spring Boot discussion API with persisted data and prebuilt artifacts. I’m now tracing its routes, security rules, data model, configuration, and tests so the mapping distinguishes documented intent from what the implementation actually exposes.",
+          "isTrusted": false,
+          "supportThemeIcons": false,
+          "supportHtml": false,
+          "supportAlertSyntax": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_bVJFDEYIUIAto0Dh16lzTKyc",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/security/SecurityConfiguration.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/security/SecurityConfiguration.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\functional-codebase\\\\src\\\\main\\\\java\\\\edu\\\\bu\\\\met\\\\wildmancs763\\\\discussions\\\\security\\\\SecurityConfiguration.java\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/security/SecurityConfiguration.java b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/security/SecurityConfiguration.java\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/security/SecurityConfiguration.java\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/security/SecurityConfiguration.java\n@@ -1,86 +1,86 @@\n package edu.bu.met.wildmancs763.discussions.security;\n \n import jakarta.servlet.http.HttpServletResponse;\n import org.springframework.context.annotation.Bean;\n import org.springframework.context.annotation.Configuration;\n import org.springframework.http.HttpMethod;\n import org.springframework.http.MediaType;\n import org.springframework.security.authentication.AuthenticationManager;\n import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;\n import org.springframework.security.config.annotation.web.builders.HttpSecurity;\n import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;\n import org.springframework.security.config.http.SessionCreationPolicy;\n import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;\n import org.springframework.security.crypto.password.PasswordEncoder;\n import org.springframework.security.web.SecurityFilterChain;\n import org.springframework.security.web.context.HttpSessionSecurityContextRepository;\n import org.springframework.security.web.context.SecurityContextRepository;\n import org.springframework.security.web.csrf.CookieCsrfTokenRepository;\n import org.springframework.security.web.csrf.CsrfTokenRepository;\n \n @Configuration\n public class SecurityConfiguration {\n \n     @Bean\n     AuthenticationManager authenticationManager(\n             AuthenticationConfiguration authenticationConfiguration) throws Exception {\n         return authenticationConfiguration.getAuthenticationManager();\n     }\n \n     @Bean\n     PasswordEncoder passwordEncoder() {\n         return new BCryptPasswordEncoder();\n     }\n \n     @Bean\n     SecurityContextRepository securityContextRepository() {\n         return new HttpSessionSecurityContextRepository();\n     }\n \n     @Bean\n     CsrfTokenRepository csrfTokenRepository() {\n         return CookieCsrfTokenRepository.withHttpOnlyFalse();\n     }\n \n     @Bean\n     SecurityFilterChain securityFilterChain(\n             HttpSecurity http,\n             SecurityContextRepository securityContextRepository,\n             CsrfTokenRepository csrfTokenRepository) throws Exception {http\n                 .securityContext(context -> context.securityContextRepository(securityContextRepository))\n                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))\n                 .csrf(csrf -> csrf.csrfTokenRepository(csrfTokenRepository))\n                 .authorizeHttpRequests(authorize -> authorize\n                         .requestMatchers(\"/actuator/health\").permitAll()\n                         .requestMatchers(HttpMethod.GET, \"/api/v1/auth/csrf\").permitAll()\n                         .requestMatchers(\"/api/v1/auth/register\", \"/api/v1/auth/login\").permitAll()\n                         .requestMatchers(\"/api/v1/auth/me\", \"/api/v1/auth/logout\").authenticated()\n                         .requestMatchers(\"/api/v1/admin/**\").hasRole(\"ADMIN\")\n                         .requestMatchers(HttpMethod.PATCH,\n                                 \"/api/v1/discussions/posts/*/moderation\",\n                                 \"/api/v1/discussions/posts/*/comments/*/moderation\")\n                         .hasAnyRole(\"FACULTY\", \"ADMIN\")\n                         .requestMatchers(HttpMethod.GET, \"/api/v1/discussions/**\").permitAll()\n                         .requestMatchers(\"/api/v1/discussions/**\").authenticated()\n                         .anyRequest().denyAll())\n                 .formLogin(AbstractHttpConfigurer::disable)\n                 .httpBasic(AbstractHttpConfigurer::disable)\n                 .logout(AbstractHttpConfigurer::disable)\n                 .exceptionHandling(exceptions -> exceptions\n                         .authenticationEntryPoint((request, response, exception) ->\n                                 writeError(response, 401, \"Authentication required.\"))\n                         .accessDeniedHandler((request, response, exception) ->\n                                 writeError(response, 403, \"You are not allowed to perform this action.\")));\n         return http.build();\n     }\n \n     private static void writeError(\n             HttpServletResponse response,\n             int status,\n             String message) throws java.io.IOException {\n         response.setStatus(status);\n         response.setContentType(MediaType.APPLICATION_JSON_VALUE);\n         response.getWriter().write(\"{\\\"error\\\":\\\"\" + message + \"\\\"}\");\n     }\n }\n \n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_6TiQRAFo1vTY5i6ZouUMP9Ug",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/AuthController.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/AuthController.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\functional-codebase\\\\src\\\\main\\\\java\\\\edu\\\\bu\\\\met\\\\wildmancs763\\\\discussions\\\\api\\\\AuthController.java\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/AuthController.java b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/AuthController.java\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/AuthController.java\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/AuthController.java\n@@ -1,98 +1,98 @@\n package edu.bu.met.wildmancs763.discussions.api;\n \n import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.CsrfResponse;\n import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.UserLoginRequest;\n import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.UserRegistrationRequest;\n import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.UserResponse;\n import edu.bu.met.wildmancs763.discussions.service.UserAccountService;\n import jakarta.servlet.http.HttpServletRequest;\n import jakarta.servlet.http.HttpServletResponse;\n import jakarta.validation.Valid;\n import org.springframework.http.HttpStatus;\n import org.springframework.security.authentication.AuthenticationManager;\n import org.springframework.security.authentication.BadCredentialsException;\n import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;\n import org.springframework.security.core.Authentication;\n import org.springframework.security.core.context.SecurityContext;\n import org.springframework.security.core.context.SecurityContextHolder;\n import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;\n import org.springframework.security.web.context.SecurityContextRepository;\n import org.springframework.security.web.csrf.CsrfToken;\n import org.springframework.security.web.csrf.CsrfTokenRepository;\n import org.springframework.web.bind.annotation.GetMapping;\n import org.springframework.web.bind.annotation.PostMapping;\n import org.springframework.web.bind.annotation.RequestBody;\n import org.springframework.web.bind.annotation.RequestMapping;\n import org.springframework.web.bind.annotation.ResponseStatus;\n import org.springframework.web.bind.annotation.RestController;\n \n import java.nio.charset.StandardCharsets;\n \n @RestController\n @RequestMapping(\"/api/v1/auth\")\n public class AuthController {\n \n     private final AuthenticationManager authenticationManager;\n     private final SecurityContextRepository securityContextRepository;\n     private final CsrfTokenRepository csrfTokenRepository;\n     private final UserAccountService userAccountService;\n \n     public AuthController(\n             AuthenticationManager authenticationManager,\n             SecurityContextRepository securityContextRepository,\n             CsrfTokenRepository csrfTokenRepository,\n             UserAccountService userAccountService) {\n         this.authenticationManager = authenticationManager;\n         this.securityContextRepository = securityContextRepository;\n         this.csrfTokenRepository = csrfTokenRepository;\n         this.userAccountService = userAccountService;\n     }\n \n     @GetMapping(\"/csrf\")\n     public CsrfResponse csrf(CsrfToken csrfToken) {\n         return new CsrfResponse(csrfToken.getToken());\n     }\n \n     @PostMapping(\"/register\")\n     @ResponseStatus(HttpStatus.CREATED)\n     public UserResponse register(@Valid @RequestBody UserRegistrationRequest request) {\n         return userAccountService.register(request);\n     }\n \n     @PostMapping(\"/login\")\n     public UserResponse login(\n             @Valid @RequestBody UserLoginRequest request,\n             HttpServletRequest servletRequest,\n             HttpServletResponse servletResponse) {\n         if (request.password().getBytes(StandardCharsets.UTF_8).length > 72) {\n             throw new BadCredentialsException(\"Invalid username or password.\");\n         }\n         Authentication authentication = authenticationManager.authenticate(\n                 UsernamePasswordAuthenticationToken.unauthenticated(\n                         request.username().trim(), request.password()));\n         servletRequest.getSession(true);\n         servletRequest.changeSessionId();\n         SecurityContext context = SecurityContextHolder.createEmptyContext();\n         context.setAuthentication(authentication);\n         SecurityContextHolder.setContext(context);\n         securityContextRepository.saveContext(context, servletRequest, servletResponse);\n         csrfTokenRepository.saveToken(null, servletRequest, servletResponse);\n         return userAccountService.getUser(authentication.getName());\n     }\n \n     @GetMapping(\"/me\")\n     public UserResponse currentUser(Authentication authentication) {\n         return userAccountService.getUser(authentication.getName());\n     }\n \n     @PostMapping(\"/logout\")\n     @ResponseStatus(HttpStatus.NO_CONTENT)\n     public void logout(\n             Authentication authentication,\n             HttpServletRequest servletRequest,\n             HttpServletResponse servletResponse) {\n         new SecurityContextLogoutHandler().logout(servletRequest, servletResponse, authentication);\n         csrfTokenRepository.saveToken(null, servletRequest, servletResponse);\n     }\n }\n \n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_kuQ8gkc1PK7w2Cb4w5oqkpqI",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/AdminUserController.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/AdminUserController.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\functional-codebase\\\\src\\\\main\\\\java\\\\edu\\\\bu\\\\met\\\\wildmancs763\\\\discussions\\\\api\\\\AdminUserController.java\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/AdminUserController.java b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/AdminUserController.java\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/AdminUserController.java\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/AdminUserController.java\n@@ -1,30 +1,30 @@\n package edu.bu.met.wildmancs763.discussions.api;\n \n import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.UserProvisionRequest;\n import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.UserResponse;\n import edu.bu.met.wildmancs763.discussions.service.UserAccountService;\n import jakarta.validation.Valid;\n import org.springframework.http.HttpStatus;\n import org.springframework.web.bind.annotation.PostMapping;\n import org.springframework.web.bind.annotation.RequestBody;\n import org.springframework.web.bind.annotation.RequestMapping;\n import org.springframework.web.bind.annotation.ResponseStatus;\n import org.springframework.web.bind.annotation.RestController;\n \n @RestController\n @RequestMapping(\"/api/v1/admin/users\")\n public class AdminUserController {\n \n     private final UserAccountService userAccountService;\n \n     public AdminUserController(UserAccountService userAccountService) {\n         this.userAccountService = userAccountService;\n     }\n \n     @PostMapping\n     @ResponseStatus(HttpStatus.CREATED)\n     public UserResponse provisionUser(@Valid @RequestBody UserProvisionRequest request) {\n         return userAccountService.provision(request);\n     }\n }\n \n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_mllMi2lh8Z0o9HA6LZlXSrvB",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/DiscussionController.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/DiscussionController.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\functional-codebase\\\\src\\\\main\\\\java\\\\edu\\\\bu\\\\met\\\\wildmancs763\\\\discussions\\\\api\\\\DiscussionController.java\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/DiscussionController.java b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/DiscussionController.java\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/DiscussionController.java\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/DiscussionController.java\n@@ -1,199 +1,199 @@\n package edu.bu.met.wildmancs763.discussions.api;\n \n import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.CommentRequest;\n import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.CommentResponse;\n import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.CommentUpdateRequest;\n import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.ModerationRequest;\n import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.PostRequest;\n import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.PostResponse;\n import edu.bu.met.wildmancs763.discussions.domain.PostCategory;\n import edu.bu.met.wildmancs763.discussions.domain.ModerationStatus;\n import edu.bu.met.wildmancs763.discussions.service.DiscussionService;\n import jakarta.validation.Valid;\n import org.springframework.format.annotation.DateTimeFormat;\n import org.springframework.http.HttpHeaders;\n import org.springframework.http.HttpStatus;\n import org.springframework.http.MediaType;\n import org.springframework.http.ResponseEntity;\n import org.springframework.security.core.Authentication;\n import org.springframework.web.bind.annotation.DeleteMapping;\n import org.springframework.web.bind.annotation.GetMapping;\n import org.springframework.web.bind.annotation.PatchMapping;\n import org.springframework.web.bind.annotation.PathVariable;\n import org.springframework.web.bind.annotation.PostMapping;\n import org.springframework.web.bind.annotation.PutMapping;\n import org.springframework.web.bind.annotation.RequestBody;\n import org.springframework.web.bind.annotation.RequestMapping;\n import org.springframework.web.bind.annotation.RequestParam;\n import org.springframework.web.bind.annotation.RestController;\n import org.springframework.web.servlet.support.ServletUriComponentsBuilder;\n \n import java.time.OffsetDateTime;\n import java.util.List;\n import java.util.UUID;\n \n @RestController\n @RequestMapping(\"/api/v1/discussions\")\n public class DiscussionController {\n \n     private final DiscussionService discussionService;\n \n     public DiscussionController(DiscussionService discussionService) {\n         this.discussionService = discussionService;\n     }\n \n     @PostMapping(\"/posts\")\n     public ResponseEntity<PostResponse> createPost(\n             @Valid @RequestBody PostRequest request,\n             Authentication authentication) {\n         PostResponse response = discussionService.createPost(request, authentication.getName());\n         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest()\n                         .path(\"/{postId}\")\n                         .buildAndExpand(response.id())\n                         .toUri())\n                 .body(response);\n     }\n \n     @GetMapping(\"/posts\")\n     public List<PostResponse> listPosts(\n             @RequestParam(required = false) String keyword,\n             @RequestParam(required = false) String projectId,\n             @RequestParam(required = false) String courseId,\n             @RequestParam(required = false) String labId,\n             @RequestParam(required = false) PostCategory category,\n             @RequestParam(required = false) String authorHandle,\n             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)\n             OffsetDateTime from,\n             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)\n             OffsetDateTime to) {\n         return discussionService.listPosts(\n                 keyword, projectId, courseId, labId, category, authorHandle, from, to);\n     }\n \n     @GetMapping(\"/posts/{postId}\")\n     public PostResponse getPost(@PathVariable UUID postId) {\n         return discussionService.getPost(postId);\n     }\n \n     @PutMapping(\"/posts/{postId}\")\n     public PostResponse updatePost(\n             @PathVariable UUID postId,\n             @Valid @RequestBody PostRequest request,\n             Authentication authentication) {\n         return discussionService.updatePost(\n                 postId, request, authentication.getName(), isAdministrator(authentication));\n     }\n \n     @DeleteMapping(\"/posts/{postId}\")\n     public ResponseEntity<Void> deletePost(\n             @PathVariable UUID postId,\n             Authentication authentication) {\n         discussionService.deletePost(postId, authentication.getName(), isAdministrator(authentication));\n         return ResponseEntity.noContent().build();\n     }\n \n     @GetMapping(\"/scopes/{scopeType}/{scopeId}/timeline\")\n     public List<PostResponse> scopeTimeline(\n             @PathVariable String scopeType,\n             @PathVariable String scopeId,\n             @RequestParam(required = false) String keyword,\n             @RequestParam(required = false) PostCategory category,\n             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)\n             OffsetDateTime from,\n             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)\n             OffsetDateTime to) {\n         return discussionService.scopeTimeline(scopeType, scopeId, keyword, category, from, to);\n     }\n \n     @PostMapping(\"/posts/{postId}/comments\")\n     public ResponseEntity<CommentResponse> createComment(\n             @PathVariable UUID postId,\n             @Valid @RequestBody CommentRequest request,\n             Authentication authentication) {\n         CommentResponse response = discussionService.createComment(\n                 postId, request, authentication.getName());\n         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest()\n                         .path(\"/{commentId}\")\n                         .buildAndExpand(response.id())\n                         .toUri())\n                 .body(response);\n     }\n \n     @GetMapping(\"/posts/{postId}/comments\")\n     public ResponseEntity<?> listComments(\n             @PathVariable UUID postId,\n             @RequestParam(required = false) String keyword,\n             @RequestParam(required = false) String authorHandle,\n             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)\n             OffsetDateTime from,\n             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)\n             OffsetDateTime to,\n             @RequestParam(defaultValue = \"json\") String format) {\n         List<CommentResponse> comments = discussionService.listComments(\n                 postId, keyword, authorHandle, from, to);\n         if (\"json\".equalsIgnoreCase(format)) {\n             return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(comments);\n         }\n         if (\"text\".equalsIgnoreCase(format)) {\n             String manifest = comments.stream()\n                     .map(comment -> comment.createdAt() + \" | \" + comment.authorHandle()\n                             + \" | \" + comment.message())\n                     .reduce((first, next) -> first + System.lineSeparator() + next)\n                     .orElse(\"\");\n             return ResponseEntity.ok()\n                     .contentType(MediaType.TEXT_PLAIN)\n                     .header(HttpHeaders.CONTENT_DISPOSITION,\n                             \"attachment; filename=\\\"comments-\" + postId + \".txt\\\"\")\n                     .body(manifest);\n         }\n         throw new InvalidRequestException(\"format must be json or text.\");\n     }\n \n     @GetMapping(\"/posts/{postId}/comments/{commentId}\")\n     public CommentResponse getComment(\n             @PathVariable UUID postId,\n             @PathVariable UUID commentId) {\n         return discussionService.getComment(postId, commentId);\n     }\n \n     @PutMapping(\"/posts/{postId}/comments/{commentId}\")\n     public CommentResponse updateComment(\n             @PathVariable UUID postId,\n             @PathVariable UUID commentId,\n             @Valid @RequestBody CommentUpdateRequest request,\n             Authentication authentication) {\n         return discussionService.updateComment(\n                 postId, commentId, request, authentication.getName(), isAdministrator(authentication));\n     }\n \n     @DeleteMapping(\"/posts/{postId}/comments/{commentId}\")\n     public ResponseEntity<Void> deleteComment(\n             @PathVariable UUID postId,\n             @PathVariable UUID commentId,\n             Authentication authentication) {\n         discussionService.deleteComment(\n                 postId, commentId, authentication.getName(), isAdministrator(authentication));\n         return ResponseEntity.noContent().build();\n     }\n \n     @PatchMapping(\"/posts/{postId}/moderation\")\n     public PostResponse moderatePost(\n             @PathVariable UUID postId,\n             @Valid @RequestBody ModerationRequest request) {\n         return discussionService.moderatePost(postId, request.status());\n     }\n \n     @PatchMapping(\"/posts/{postId}/comments/{commentId}/moderation\")\n     public CommentResponse moderateComment(\n             @PathVariable UUID postId,\n             @PathVariable UUID commentId,\n             @Valid @RequestBody ModerationRequest request) {\n         return discussionService.moderateComment(postId, commentId, request.status());\n     }\n \n     private boolean isAdministrator(Authentication authentication) {\n         return authentication.getAuthorities().stream()\n                 .anyMatch(authority -> \"ROLE_ADMIN\".equals(authority.getAuthority()));\n     }\n }\n \n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_od8XxSuL2IpHMZ5ftiuqemzj",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/DiscussionDtos.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/DiscussionDtos.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\functional-codebase\\\\src\\\\main\\\\java\\\\edu\\\\bu\\\\met\\\\wildmancs763\\\\discussions\\\\api\\\\DiscussionDtos.java\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/DiscussionDtos.java b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/DiscussionDtos.java\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/DiscussionDtos.java\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/DiscussionDtos.java\n@@ -1,95 +1,95 @@\n package edu.bu.met.wildmancs763.discussions.api;\n \n import edu.bu.met.wildmancs763.discussions.domain.ModerationStatus;\n import edu.bu.met.wildmancs763.discussions.domain.PostCategory;\n import edu.bu.met.wildmancs763.discussions.domain.UserRole;\n import jakarta.validation.constraints.NotBlank;\n import jakarta.validation.constraints.NotNull;\n import jakarta.validation.constraints.Pattern;\n import jakarta.validation.constraints.Size;\n \n import java.time.OffsetDateTime;\n import java.util.List;\n import java.util.UUID;\n \n public final class DiscussionDtos {\n \n     private DiscussionDtos() {\n     }\n \n     public record PostRequest(\n             @NotBlank @Size(max = 200) String title,\n             @NotBlank @Size(max = 100000) String body,\n             @NotNull PostCategory category,\n             @Size(max = 20) List<@NotBlank @Size(max = 50) String> tags,\n             @Size(max = 100) String projectId,\n             @Size(max = 100) String courseId,\n             @Size(max = 100) String labId) {\n     }\n \n     public record PostResponse(\n             UUID id,\n             String title,\n             String body,\n             PostCategory category,\n             List<String> tags,\n             String scopeType,\n             String scopeId,\n             String projectId,\n             String courseId,\n             String labId,\n             String authorHandle,\n             ModerationStatus moderationStatus,\n             OffsetDateTime createdAt,\n             OffsetDateTime updatedAt) {\n     }\n \n     public record CommentRequest(\n             @NotBlank @Size(max = 10000) String message,\n             UUID parentCommentId) {\n     }\n \n     public record CommentUpdateRequest(\n             @NotBlank @Size(max = 10000) String message) {\n     }\n \n     public record CommentResponse(\n             UUID id,\n             UUID postId,\n             UUID parentCommentId,\n             String message,\n             String authorHandle,\n             ModerationStatus moderationStatus,\n             OffsetDateTime createdAt,\n             OffsetDateTime updatedAt) {\n     }\n \n     public record ModerationRequest(@NotNull ModerationStatus status) {\n     }\n \n     public record UserRegistrationRequest(\n             @NotBlank @Pattern(regexp = \"^[A-Za-z0-9._-]{3,30}$\") String username,\n             @NotBlank @Size(min = 12, max = 72) String password) {\n     }\n \n     public record UserLoginRequest(\n             @NotBlank @Size(max = 30) String username,\n             @NotBlank @Size(max = 72) String password) {\n     }\n \n     public record UserProvisionRequest(\n             @NotBlank @Pattern(regexp = \"^[A-Za-z0-9._-]{3,30}$\") String username,\n             @NotBlank @Size(min = 12, max = 72) String password,\n             @NotNull UserRole role) {\n     }\n \n     public record UserResponse(UUID id, String username, UserRole role, OffsetDateTime createdAt) {\n     }\n \n     public record CsrfResponse(String token) {\n     }\n \n     public record ApiError(String error) {\n     }\n }\n \n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_jIpWAacvT6z4qgOZZxpEChtz",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/resources/application.properties)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/resources/application.properties)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\functional-codebase\\\\src\\\\main\\\\resources\\\\application.properties\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/resources/application.properties b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/resources/application.properties\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/resources/application.properties\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/resources/application.properties\n@@ -1,12 +1,12 @@\n spring.application.name=research-discussion-board\n spring.datasource.url=${DATABASE_URL:jdbc:h2:file:./data/discussions;DB_CLOSE_ON_EXIT=FALSE}\n spring.datasource.username=${DATABASE_USERNAME:sa}\n spring.datasource.password=${DATABASE_PASSWORD:}\n spring.jpa.hibernate.ddl-auto=update\n spring.jpa.open-in-view=false\n spring.jpa.properties.hibernate.jdbc.time_zone=UTC\n spring.h2.console.enabled=false\n server.servlet.session.cookie.same-site=lax\n server.servlet.session.cookie.secure=${SESSION_COOKIE_SECURE:false}\n management.endpoints.web.exposure.include=health,info\n \n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_PrPsTNn8hIWyzyQodh5Ih21d",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/Dockerfile)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/Dockerfile)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\functional-codebase\\\\Dockerfile\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/Dockerfile b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/Dockerfile\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/Dockerfile\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/Dockerfile\n@@ -1,34 +1,34 @@\n FROM maven:3.9-eclipse-temurin-25 AS package\n \n WORKDIR /build\n \n COPY pom.xml .\n RUN mvn -B dependency:go-offline\n \n COPY src ./src\n RUN mvn -B package && mv target/*.jar target/app.jar\n \n FROM eclipse-temurin:25-jre-jammy AS final\n \n ARG UID=10001\n RUN adduser \\\n     --disabled-password \\\n     --gecos \"\" \\\n     --home \"/nonexistent\" \\\n     --shell \"/sbin/nologin\" \\\n     --no-create-home \\\n     --uid \"${UID}\" \\\n     appuser\n WORKDIR /app\n RUN mkdir -p /app/data && chown appuser:appuser /app/data\n \n USER appuser\n \n COPY --from=package /build/target/app.jar app.jar\n \n VOLUME [\"/app/data\"]\n \n EXPOSE 8080\n \n ENTRYPOINT [\"java\", \"-jar\", \"app.jar\"]\n \n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_iKBLJPjDhwWmyisNK57Qhdh4",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/spec.md)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/spec.md)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\functional-codebase\\\\spec.md\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/spec.md b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/spec.md\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/spec.md\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/spec.md\n@@ -1,34 +1,34 @@\n # The Research Blog & Project Discussion Board (Domain 4)\n \n This service coordinates collaborative project updates, announcements, and interactive comment feeds to streamline communication within active academic project teams and course groups.\n \n ## Functional Requirements\n Root Post Lifecycle Engine: Uniquely identify (UUID), initialize, and maintain the primary lifecycle of top-level communication feeds, categorized explicitly as either an official Academic Announcement or a Project Update Blog (storing title, rich text body content, categorization tags, and creation timestamps). To support multifaceted campus collaboration, root threads must accommodate hierarchical scoping rules: a discussion board or announcement feed can be bound directly to a single specific Project ID, a broad Course ID (encompassing multiple student projects), or an entire overarching Research Lab ID.\n \n Differentiated Nested Comment Threading: Process separate child comment response entries that attach to a specific root post ID. Comments are lightweight entities that do not contain title headers or categorization tags; they focus strictly on message strings, timestamp tracking, and author handles. To support multi-tiered discussions, comments must utilize a self-referential adjacency list model, where a comment can serve as a direct reply to a root post or a recursive reply to an existing comment.\n \n Moderation Pipeline & Status Management: Provide an administrative moderation workflow to enforce community standards across text inputs. The service must support state transitions (active, reported, hidden_by_moderator) applied independently to either root posts or child comments, allowing faculty roles to flag inputs and trigger cascading visibility adjustments across the board.\n \n Complex Multi-Field Query: Support robust text-search and filtering capabilities across the communication canvas. Users must be able to query and filter topics, blogs, and comments simultaneously using string keyword scans, timestamp ranges, specific author handles, target Project IDs, Course IDs, or Lab-specific project channels. The system must actively support targeted keyword searching and author filtering within individual comment streams.\n \n ## REST APIs\n \n Endpoint: /api/v1/discussions/posts\n Verbs: POST, GET\n Description: Create a primary announcement or blog post. Query parameters let users execute full-text keyword searches across post bodies or filter the entire portal communication feed by a specific Project ID, Course ID, Lab ID, or post category.\n \n Endpoint: /api/v1/discussions/posts/{post_id}\n Verbs: GET, PUT, DELETE\n Description: Read, update, and delete a primary announcement thread or project blog post.\n \n Endpoint: /api/v1/discussions/scopes/{scope_type}/{scope_id}/timeline\n Verbs: GET\n Description: Read a unified chronological workspace timeline aggregating all root announcements and team update blogs matching a specific structural context. (Note: {scope_type} accepts values restricted strictly to projects, courses, or labs to load the appropriate multi-project feed).\n \n Endpoint: /api/v1/discussions/posts/{post_id}/comments\n Verbs: POST, GET\n Description: Post an interactive comment response under a targeted primary announcement/blog thread. Read the full chronological JSON array of comments linked to that specific post. Downloading the full comment manifest in a single text file format for team archival audits must also be supported. Query parameters let users execute full-text keyword searches across comment bodies or filter by a specific author.\n \n Endpoint: /api/v1/discussions/posts/{post_id}/comments/{comment_id}\n Verbs: PUT, DELETE, GET\n Description: Edit, delete, or fetch a specific nested comment text record. \n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_D3xRffD7Q1jj5tDgfQhu54Ug",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/pom.xml)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/pom.xml)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\functional-codebase\\\\pom.xml\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/pom.xml b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/pom.xml\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/pom.xml\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/pom.xml\n@@ -1,95 +1,95 @@\n <?xml version=\"1.0\" encoding=\"UTF-8\"?>\n <project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n \txsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd\">\n \t<modelVersion>4.0.0</modelVersion>\n \t<parent>\n \t\t<groupId>org.springframework.boot</groupId>\n \t\t<artifactId>spring-boot-starter-parent</artifactId>\n \t\t<version>4.1.2</version>\n \t\t<relativePath/> <!-- lookup parent from repository -->\n \t</parent>\n \t<groupId>edu.bu.met.wildmancs763</groupId>\n \t<artifactId>cs763-wildman-final-project</artifactId>\n \t<version>0.0.1-SNAPSHOT</version>\n \t<name>cs763-wildman-final-project</name>\n \t<description/>\n \t<url/>\n \t<licenses>\n \t\t<license/>\n \t</licenses>\n \t<developers>\n \t\t<developer/>\n \t</developers>\n \t<scm>\n \t\t<connection/>\n \t\t<developerConnection/>\n \t\t<tag/>\n \t\t<url/>\n \t</scm>\n \t<properties>\n \t\t<java.version>25</java.version>\n \t\t<sonar.organization>chloewildman</sonar.organization>\n \t</properties>\n \t<dependencies>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-h2console</artifactId>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-actuator</artifactId>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-data-jpa</artifactId>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-webmvc</artifactId>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-jackson</artifactId>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-validation</artifactId>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-security</artifactId>\n \t\t</dependency>\n \n \t\t<dependency>\n \t\t\t<groupId>com.h2database</groupId>\n \t\t\t<artifactId>h2</artifactId>\n \t\t\t<scope>runtime</scope>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-actuator-test</artifactId>\n \t\t\t<scope>test</scope>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-data-jpa-test</artifactId>\n \t\t\t<scope>test</scope>\n \t\t</dependency>\n \t\t<dependency>\n \t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t<artifactId>spring-boot-starter-webmvc-test</artifactId>\n \t\t\t<scope>test</scope>\n \t\t</dependency>\n \t</dependencies>\n \n \t<build>\n \t\t<plugins>\n \t\t\t<plugin>\n \t\t\t\t<groupId>org.springframework.boot</groupId>\n \t\t\t\t<artifactId>spring-boot-maven-plugin</artifactId>\n \t\t\t</plugin>\n \t\t</plugins>\n \t</build>\n \n </project>\n \n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_OpPmQXir3IeZU78O6E5lUkoQ",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/service/DiscussionService.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/service/DiscussionService.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\functional-codebase\\\\src\\\\main\\\\java\\\\edu\\\\bu\\\\met\\\\wildmancs763\\\\discussions\\\\service\\\\DiscussionService.java\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/service/DiscussionService.java b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/service/DiscussionService.java\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/service/DiscussionService.java\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/service/DiscussionService.java\n@@ -1,363 +1,363 @@\n package edu.bu.met.wildmancs763.discussions.service;\n \n import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.CommentRequest;\n import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.CommentResponse;\n import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.CommentUpdateRequest;\n import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.PostRequest;\n import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.PostResponse;\n import edu.bu.met.wildmancs763.discussions.api.InvalidRequestException;\n import edu.bu.met.wildmancs763.discussions.api.ResourceNotFoundException;\n import edu.bu.met.wildmancs763.discussions.domain.DiscussionComment;\n import edu.bu.met.wildmancs763.discussions.domain.DiscussionPost;\n import edu.bu.met.wildmancs763.discussions.domain.ModerationStatus;\n import edu.bu.met.wildmancs763.discussions.domain.PostCategory;\n import edu.bu.met.wildmancs763.discussions.domain.ScopeType;\n import edu.bu.met.wildmancs763.discussions.repository.DiscussionCommentRepository;\n import edu.bu.met.wildmancs763.discussions.repository.DiscussionPostRepository;\n import org.springframework.security.access.AccessDeniedException;\n import org.springframework.stereotype.Service;\n import org.springframework.transaction.annotation.Transactional;\n import org.springframework.util.StringUtils;\n \n import java.time.OffsetDateTime;\n import java.util.ArrayList;\n import java.util.Comparator;\n import java.util.LinkedHashSet;\n import java.util.List;\n import java.util.Locale;\n import java.util.UUID;\n import java.util.function.Predicate;\n \n @Service\n @Transactional\n public class DiscussionService {\n \n     private final DiscussionPostRepository postRepository;\n     private final DiscussionCommentRepository commentRepository;\n \n     public DiscussionService(\n             DiscussionPostRepository postRepository,\n             DiscussionCommentRepository commentRepository) {\n         this.postRepository = postRepository;\n         this.commentRepository = commentRepository;\n     }\n \n     public PostResponse createPost(PostRequest request, String authorHandle) {\n         DiscussionPost post = new DiscussionPost();\n         applyPostRequest(post, request);\n         post.setAuthorHandle(authorHandle);\n         return toPostResponse(postRepository.save(post));\n     }\n \n     @Transactional(readOnly = true)\n     public List<PostResponse> listPosts(\n             String keyword,\n             String projectId,\n             String courseId,\n             String labId,\n             PostCategory category,\n             String authorHandle,\n             OffsetDateTime from,\n             OffsetDateTime to) {\n         validateRange(from, to);\n         return postRepository.findAll().stream()\n                 .filter(post -> post.getModerationStatus() != ModerationStatus.HIDDEN_BY_MODERATOR)\n                 .filter(matchesKeyword(keyword))\n                 .filter(post -> matchesScope(post, ScopeType.PROJECT, projectId))\n                 .filter(post -> matchesScope(post, ScopeType.COURSE, courseId))\n                 .filter(post -> matchesScope(post, ScopeType.LAB, labId))\n                 .filter(post -> category == null || post.getCategory() == category)\n                 .filter(post -> matchesAuthor(post.getAuthorHandle(), authorHandle))\n                 .filter(post -> withinRange(post.getCreatedAt(), from, to))\n                 .sorted(Comparator.comparing(DiscussionPost::getCreatedAt).reversed())\n                 .map(this::toPostResponse)\n                 .toList();\n     }\n \n     @Transactional(readOnly = true)\n     public PostResponse getPost(UUID postId) {\n         return toPostResponse(requireVisiblePost(postId));\n     }\n \n     public PostResponse updatePost(\n             UUID postId, PostRequest request, String authorHandle, boolean administrator) {\n         DiscussionPost post = requirePost(postId);\n         ensureCanManage(post.getAuthorHandle(), authorHandle, administrator);\n         applyPostRequest(post, request);\n         return toPostResponse(postRepository.saveAndFlush(post));\n     }\n \n     public void deletePost(UUID postId, String authorHandle, boolean administrator) {\n         DiscussionPost post = requirePost(postId);\n         ensureCanManage(post.getAuthorHandle(), authorHandle, administrator);\n         postRepository.delete(post);\n     }\n \n     @Transactional(readOnly = true)\n     public List<PostResponse> scopeTimeline(\n             String scopeTypeValue,\n             String scopeId,\n             String keyword,\n             PostCategory category,\n             OffsetDateTime from,\n             OffsetDateTime to) {\n         ScopeType scopeType = ScopeType.fromPath(scopeTypeValue);\n         validateScopeId(scopeId);\n         validateRange(from, to);\n         return postRepository.findAll().stream()\n                 .filter(post -> post.getModerationStatus() != ModerationStatus.HIDDEN_BY_MODERATOR)\n                 .filter(post -> post.getScopeType() == scopeType && post.getScopeId().equals(scopeId))\n                 .filter(matchesKeyword(keyword))\n                 .filter(post -> category == null || post.getCategory() == category)\n                 .filter(post -> withinRange(post.getCreatedAt(), from, to))\n                 .sorted(Comparator.comparing(DiscussionPost::getCreatedAt))\n                 .map(this::toPostResponse)\n                 .toList();\n     }\n \n     public CommentResponse createComment(UUID postId, CommentRequest request, String authorHandle) {\n         DiscussionPost post = requireVisiblePost(postId);\n         DiscussionComment parent = null;\n         if (request.parentCommentId() != null) {\n             parent = requireComment(postId, request.parentCommentId());\n             if (!isVisible(parent)) {\n                 throw new ResourceNotFoundException(\"Parent comment not found.\");\n             }\n         }\n \n         DiscussionComment comment = new DiscussionComment();\n         comment.setPost(post);\n         comment.setParentComment(parent);\n         comment.setMessage(request.message().trim());\n         comment.setAuthorHandle(authorHandle);\n         return toCommentResponse(commentRepository.save(comment));\n     }\n \n     @Transactional(readOnly = true)\n     public List<CommentResponse> listComments(\n             UUID postId,\n             String keyword,\n             String authorHandle,\n             OffsetDateTime from,\n             OffsetDateTime to) {\n         requireVisiblePost(postId);\n         validateRange(from, to);\n         return commentRepository.findByPost_IdOrderByCreatedAtAscIdAsc(postId).stream()\n                 .filter(this::isVisible)\n                 .filter(matchesCommentKeyword(keyword))\n                 .filter(comment -> matchesAuthor(comment.getAuthorHandle(), authorHandle))\n                 .filter(comment -> withinRange(comment.getCreatedAt(), from, to))\n                 .map(this::toCommentResponse)\n                 .toList();\n     }\n \n     @Transactional(readOnly = true)\n     public CommentResponse getComment(UUID postId, UUID commentId) {\n         DiscussionComment comment = requireComment(postId, commentId);\n         if (!isVisible(comment)) {\n             throw new ResourceNotFoundException(\"Comment not found.\");\n         }\n         return toCommentResponse(comment);\n     }\n \n     public CommentResponse updateComment(\n             UUID postId,\n             UUID commentId,\n             CommentUpdateRequest request,\n             String authorHandle,\n             boolean administrator) {\n         DiscussionComment comment = requireComment(postId, commentId);\n         if (!isVisible(comment)) {\n             throw new ResourceNotFoundException(\"Comment not found.\");\n         }\n         ensureCanManage(comment.getAuthorHandle(), authorHandle, administrator);\n         comment.setMessage(request.message().trim());\n         return toCommentResponse(commentRepository.saveAndFlush(comment));\n     }\n \n     public void deleteComment(\n             UUID postId, UUID commentId, String authorHandle, boolean administrator) {\n         DiscussionComment comment = requireComment(postId, commentId);\n         ensureCanManage(comment.getAuthorHandle(), authorHandle, administrator);\n         commentRepository.delete(comment);\n     }\n \n     public PostResponse moderatePost(UUID postId, ModerationStatus status) {\n         DiscussionPost post = requirePost(postId);\n         post.setModerationStatus(status);\n         return toPostResponse(postRepository.saveAndFlush(post));\n     }\n \n     public CommentResponse moderateComment(UUID postId, UUID commentId, ModerationStatus status) {\n         DiscussionComment comment = requireComment(postId, commentId);\n         comment.setModerationStatus(status);\n         return toCommentResponse(commentRepository.saveAndFlush(comment));\n     }\n \n     private void applyPostRequest(DiscussionPost post, PostRequest request) {\n         ScopeType scopeType;\n         String scopeId;\n         int scopeCount = 0;\n         scopeType = null;\n         scopeId = null;\n         if (StringUtils.hasText(request.projectId())) {\n             scopeCount++;\n             scopeType = ScopeType.PROJECT;\n             scopeId = request.projectId();\n         }\n         if (StringUtils.hasText(request.courseId())) {\n             scopeCount++;\n             scopeType = ScopeType.COURSE;\n             scopeId = request.courseId();\n         }\n         if (StringUtils.hasText(request.labId())) {\n             scopeCount++;\n             scopeType = ScopeType.LAB;\n             scopeId = request.labId();\n         }\n         if (scopeCount != 1) {\n             throw new InvalidRequestException(\"Exactly one of projectId, courseId, or labId is required.\");\n         }\n         validateScopeId(scopeId);\n \n         List<String> tags = request.tags() == null ? List.of() : request.tags();\n         LinkedHashSet<String> normalizedTags = new LinkedHashSet<>();\n         for (String tag : tags) {\n             if (!StringUtils.hasText(tag) || tag.trim().length() > 50) {\n                 throw new InvalidRequestException(\"Tags must contain 1 to 50 non-blank characters.\");\n             }\n             normalizedTags.add(tag.trim());\n         }\n \n         post.setTitle(request.title().trim());\n         post.setBody(request.body().trim());\n         post.setCategory(request.category());\n         post.setTags(new ArrayList<>(normalizedTags));\n         post.setScopeType(scopeType);\n         post.setScopeId(scopeId.trim());\n     }\n \n     private DiscussionPost requirePost(UUID postId) {\n         return postRepository.findById(postId)\n                 .orElseThrow(() -> new ResourceNotFoundException(\"Post not found.\"));\n     }\n \n     private DiscussionPost requireVisiblePost(UUID postId) {\n         DiscussionPost post = requirePost(postId);\n         if (post.getModerationStatus() == ModerationStatus.HIDDEN_BY_MODERATOR) {\n             throw new ResourceNotFoundException(\"Post not found.\");\n         }\n         return post;\n     }\n \n     private DiscussionComment requireComment(UUID postId, UUID commentId) {\n         DiscussionComment comment = commentRepository.findById(commentId)\n                 .orElseThrow(() -> new ResourceNotFoundException(\"Comment not found.\"));\n         if (!comment.getPost().getId().equals(postId)) {\n             throw new ResourceNotFoundException(\"Comment not found.\");\n         }\n         return comment;\n     }\n \n     private boolean isVisible(DiscussionComment comment) {\n         if (comment.getModerationStatus() == ModerationStatus.HIDDEN_BY_MODERATOR\n                 || comment.getPost().getModerationStatus() == ModerationStatus.HIDDEN_BY_MODERATOR) {\n             return false;\n         }\n         DiscussionComment parent = comment.getParentComment();\n         while (parent != null) {\n             if (parent.getModerationStatus() == ModerationStatus.HIDDEN_BY_MODERATOR) {\n                 return false;\n             }\n             parent = parent.getParentComment();\n         }\n         return true;\n     }\n \n     private Predicate<DiscussionPost> matchesKeyword(String keyword) {\n         if (!StringUtils.hasText(keyword)) {\n             return post -> true;\n         }\n         String normalized = keyword.trim().toLowerCase(Locale.ROOT);\n         return post -> contains(post.getTitle(), normalized)\n                 || contains(post.getBody(), normalized)\n                 || post.getTags().stream().anyMatch(tag -> contains(tag, normalized));\n     }\n \n     private Predicate<DiscussionComment> matchesCommentKeyword(String keyword) {\n         if (!StringUtils.hasText(keyword)) {\n             return comment -> true;\n         }\n         String normalized = keyword.trim().toLowerCase(Locale.ROOT);\n         return comment -> contains(comment.getMessage(), normalized);\n     }\n \n     private boolean matchesScope(DiscussionPost post, ScopeType type, String scopeId) {\n         return !StringUtils.hasText(scopeId)\n                 || (post.getScopeType() == type && post.getScopeId().equalsIgnoreCase(scopeId.trim()));\n     }\n \n     private boolean matchesAuthor(String actual, String requested) {\n         return !StringUtils.hasText(requested) || actual.equalsIgnoreCase(requested.trim());\n     }\n \n     private void ensureCanManage(String contentAuthor, String actor, boolean administrator) {\n         if (!administrator && !contentAuthor.equalsIgnoreCase(actor)) {\n             throw new AccessDeniedException(\"Only the author or an administrator can edit or delete this content.\");\n         }\n     }\n \n     private boolean withinRange(OffsetDateTime value, OffsetDateTime from, OffsetDateTime to) {\n         return (from == null || !value.isBefore(from)) && (to == null || !value.isAfter(to));\n     }\n \n     private boolean contains(String value, String normalizedKeyword) {\n         return value.toLowerCase(Locale.ROOT).contains(normalizedKeyword);\n     }\n \n     private void validateRange(OffsetDateTime from, OffsetDateTime to) {\n         if (from != null && to != null && from.isAfter(to)) {\n             throw new InvalidRequestException(\"'from' must be earlier than or equal to 'to'.\");\n         }\n     }\n \n     private void validateScopeId(String scopeId) {\n         if (!StringUtils.hasText(scopeId) || scopeId.trim().length() > 100) {\n             throw new InvalidRequestException(\"Scope IDs must contain 1 to 100 non-blank characters.\");\n         }\n     }\n \n     private PostResponse toPostResponse(DiscussionPost post) {\n         String projectId = post.getScopeType() == ScopeType.PROJECT ? post.getScopeId() : null;\n         String courseId = post.getScopeType() == ScopeType.COURSE ? post.getScopeId() : null;\n         String labId = post.getScopeType() == ScopeType.LAB ? post.getScopeId() : null;\n         return new PostResponse(\n                 post.getId(),\n                 post.getTitle(),\n                 post.getBody(),\n                 post.getCategory(),\n                 List.copyOf(post.getTags()),\n                 post.getScopeType().pathValue(),\n                 post.getScopeId(),\n                 projectId,\n                 courseId,\n                 labId,\n                 post.getAuthorHandle(),\n                 post.getModerationStatus(),\n                 post.getCreatedAt(),\n                 post.getUpdatedAt());\n     }\n \n     private CommentResponse toCommentResponse(DiscussionComment comment) {\n         return new CommentResponse(\n                 comment.getId(),\n                 comment.getPost().getId(),\n                 comment.getParentComment() == null ? null : comment.getParentComment().getId(),\n                 comment.getMessage(),\n                 comment.getAuthorHandle(),\n                 comment.getModerationStatus(),\n                 comment.getCreatedAt(),\n                 comment.getUpdatedAt());\n     }\n }\n \n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_6W9dL793Owrwcjk5s0CL4z9d",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/service/UserAccountService.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/service/UserAccountService.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\functional-codebase\\\\src\\\\main\\\\java\\\\edu\\\\bu\\\\met\\\\wildmancs763\\\\discussions\\\\service\\\\UserAccountService.java\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/service/UserAccountService.java b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/service/UserAccountService.java\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/service/UserAccountService.java\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/service/UserAccountService.java\n@@ -1,104 +1,104 @@\n package edu.bu.met.wildmancs763.discussions.service;\n \n import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.UserProvisionRequest;\n import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.UserRegistrationRequest;\n import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.UserResponse;\n import edu.bu.met.wildmancs763.discussions.api.ResourceConflictException;\n import edu.bu.met.wildmancs763.discussions.api.ResourceNotFoundException;\n import edu.bu.met.wildmancs763.discussions.domain.DiscussionUser;\n import edu.bu.met.wildmancs763.discussions.domain.UserRole;\n import edu.bu.met.wildmancs763.discussions.repository.DiscussionUserRepository;\n import org.springframework.dao.DataIntegrityViolationException;\n import org.springframework.security.crypto.password.PasswordEncoder;\n import org.springframework.stereotype.Service;\n import org.springframework.transaction.annotation.Transactional;\n import org.springframework.util.StringUtils;\n \n import java.nio.charset.StandardCharsets;\n import java.util.Locale;\n \n @Service\n @Transactional\n public class UserAccountService {\n \n     private final DiscussionUserRepository userRepository;\n     private final PasswordEncoder passwordEncoder;\n \n     public UserAccountService(\n             DiscussionUserRepository userRepository,\n             PasswordEncoder passwordEncoder) {\n         this.userRepository = userRepository;\n         this.passwordEncoder = passwordEncoder;\n     }\n \n     public UserResponse register(UserRegistrationRequest request) {\n         return createUser(request.username(), request.password(), UserRole.STUDENT);\n     }\n \n     public UserResponse provision(UserProvisionRequest request) {\n         return createUser(request.username(), request.password(), request.role());\n     }\n \n     public UserResponse getUser(String username) {\n         return userRepository.findByUsername(normalizeUsername(username))\n                 .map(this::toResponse)\n                 .orElseThrow(() -> new ResourceNotFoundException(\"User not found.\"));\n     }\n \n     public void createBootstrapAdmin(String username, String password) {\n         String normalizedUsername = normalizeUsername(username);\n         validatePasswordBytes(password);\n         DiscussionUser existingUser = userRepository.findByUsername(normalizedUsername).orElse(null);\n         if (existingUser != null) {\n             if (existingUser.getRole() != UserRole.ADMIN) {\n                 throw new IllegalStateException(\n                         \"The configured bootstrap administrator username is already assigned to a non-admin user.\");\n             }\n             return;\n         }\n         persistUser(normalizedUsername, password, UserRole.ADMIN);\n     }\n \n     private UserResponse createUser(String username, String password, UserRole role) {\n         String normalizedUsername = normalizeUsername(username);\n         validatePasswordBytes(password);\n         if (userRepository.existsByUsername(normalizedUsername)) {\n             throw new ResourceConflictException(\"Username is already registered.\");\n         }\n         return toResponse(persistUser(normalizedUsername, password, role));\n     }\n \n     private DiscussionUser persistUser(String username, String password, UserRole role) {\n         try {\n             return userRepository.saveAndFlush(new DiscussionUser(\n                     username, passwordEncoder.encode(password), role));\n         } catch (DataIntegrityViolationException exception) {\n             throw new ResourceConflictException(\"Username is already registered.\");\n         }\n     }\n \n     private String normalizeUsername(String username) {\n         if (!StringUtils.hasText(username)) {\n             throw new IllegalArgumentException(\"Username must contain 3 to 30 letters, numbers, dots, underscores, or hyphens.\");\n         }\n         String normalized = username.trim().toLowerCase(Locale.ROOT);\n         if (!normalized.matches(\"^[a-z0-9._-]{3,30}$\")) {\n             throw new IllegalArgumentException(\"Username must contain 3 to 30 letters, numbers, dots, underscores, or hyphens.\");\n         }\n         return normalized;\n     }\n \n     private void validatePasswordBytes(String password) {\n         if (password.length() < 12) {\n             throw new IllegalArgumentException(\"Password must contain at least 12 characters.\");\n         }\n         if (password.getBytes(StandardCharsets.UTF_8).length > 72) {\n             throw new IllegalArgumentException(\"Password must be no more than 72 UTF-8 bytes.\");\n         }\n     }\n \n     private UserResponse toResponse(DiscussionUser user) {\n         return new UserResponse(user.getId(), user.getUsername(), user.getRole(), user.getCreatedAt());\n     }\n }\n \n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_7zPyeMG2RP2vDJ9mTUxfG4FQ",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/service/DiscussionUserDetailsService.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/service/DiscussionUserDetailsService.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\functional-codebase\\\\src\\\\main\\\\java\\\\edu\\\\bu\\\\met\\\\wildmancs763\\\\discussions\\\\service\\\\DiscussionUserDetailsService.java\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/service/DiscussionUserDetailsService.java b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/service/DiscussionUserDetailsService.java\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/service/DiscussionUserDetailsService.java\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/service/DiscussionUserDetailsService.java\n@@ -1,31 +1,31 @@\n package edu.bu.met.wildmancs763.discussions.service;\n \n import edu.bu.met.wildmancs763.discussions.repository.DiscussionUserRepository;\n import org.springframework.security.core.userdetails.User;\n import org.springframework.security.core.userdetails.UserDetails;\n import org.springframework.security.core.userdetails.UserDetailsService;\n import org.springframework.security.core.userdetails.UsernameNotFoundException;\n import org.springframework.stereotype.Service;\n \n import java.util.Locale;\n \n @Service\n public class DiscussionUserDetailsService implements UserDetailsService {\n \n     private final DiscussionUserRepository userRepository;\n \n     public DiscussionUserDetailsService(DiscussionUserRepository userRepository) {\n         this.userRepository = userRepository;\n     }\n \n     @Override\n     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {\n         return userRepository.findByUsername(username.trim().toLowerCase(Locale.ROOT))\n                 .map(user -> User.withUsername(user.getUsername())\n                         .password(user.getPasswordHash())\n                         .roles(user.getRole().name())\n                         .build())\n                 .orElseThrow(() -> new UsernameNotFoundException(\"User not found.\"));\n     }\n }\n \n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_wbWdn5LwmVpMzyZz6Zc9OOxW",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/BootstrapAdminInitializer.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/BootstrapAdminInitializer.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\functional-codebase\\\\src\\\\main\\\\java\\\\edu\\\\bu\\\\met\\\\wildmancs763\\\\discussions\\\\BootstrapAdminInitializer.java\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/BootstrapAdminInitializer.java b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/BootstrapAdminInitializer.java\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/BootstrapAdminInitializer.java\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/BootstrapAdminInitializer.java\n@@ -1,39 +1,39 @@\n package edu.bu.met.wildmancs763.discussions;\n \n import edu.bu.met.wildmancs763.discussions.service.UserAccountService;\n import org.springframework.beans.factory.annotation.Value;\n import org.springframework.boot.ApplicationArguments;\n import org.springframework.boot.ApplicationRunner;\n import org.springframework.stereotype.Component;\n import org.springframework.util.StringUtils;\n \n @Component\n public class BootstrapAdminInitializer implements ApplicationRunner {\n \n     private final UserAccountService userAccountService;\n     private final String username;\n     private final String password;\n \n     public BootstrapAdminInitializer(\n             UserAccountService userAccountService,\n             @Value(\"${app.bootstrap-admin.username:}\") String username,\n             @Value(\"${app.bootstrap-admin.password:}\") String password) {\n         this.userAccountService = userAccountService;\n         this.username = username;\n         this.password = password;\n     }\n \n     @Override\n     public void run(ApplicationArguments args) {\n         boolean hasUsername = StringUtils.hasText(username);\n         boolean hasPassword = StringUtils.hasText(password);\n         if (hasUsername != hasPassword) {\n             throw new IllegalStateException(\n                     \"Both app.bootstrap-admin.username and app.bootstrap-admin.password must be configured together.\");\n         }\n         if (hasUsername) {\n             userAccountService.createBootstrapAdmin(username, password);\n         }\n     }\n }\n \n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_NNp1Ws7FgzvuuFLtoHoEb3qT",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/test/java/edu/bu/met/wildmancs763/discussions/DiscussionApiFunctionalTests.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/test/java/edu/bu/met/wildmancs763/discussions/DiscussionApiFunctionalTests.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\functional-codebase\\\\src\\\\test\\\\java\\\\edu\\\\bu\\\\met\\\\wildmancs763\\\\discussions\\\\DiscussionApiFunctionalTests.java\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "File too large to read at once (21.6 KB). Consider using the rg tool to search within the file, or view with view_range to read specific sections.",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_maDWgFcuqJMrpttxXkQwR4ZE",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/domain/DiscussionUser.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/domain/DiscussionUser.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\functional-codebase\\\\src\\\\main\\\\java\\\\edu\\\\bu\\\\met\\\\wildmancs763\\\\discussions\\\\domain\\\\DiscussionUser.java\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/domain/DiscussionUser.java b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/domain/DiscussionUser.java\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/domain/DiscussionUser.java\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/domain/DiscussionUser.java\n@@ -1,70 +1,70 @@\n package edu.bu.met.wildmancs763.discussions.domain;\n \n import jakarta.persistence.Column;\n import jakarta.persistence.Entity;\n import jakarta.persistence.EnumType;\n import jakarta.persistence.Enumerated;\n import jakarta.persistence.Id;\n import jakarta.persistence.PrePersist;\n import jakarta.persistence.Table;\n \n import java.time.OffsetDateTime;\n import java.time.ZoneOffset;\n import java.util.UUID;\n \n @Entity\n @Table(name = \"discussion_users\")\n public class DiscussionUser {\n \n     @Id\n     @Column(nullable = false, updatable = false)\n     private UUID id = UUID.randomUUID();\n \n     @Column(nullable = false, unique = true, length = 30)\n     private String username;\n \n     @Column(nullable = false, length = 100)\n     private String passwordHash;\n \n     @Enumerated(EnumType.STRING)\n     @Column(nullable = false, length = 20)\n     private UserRole role;\n \n     @Column(nullable = false, updatable = false)\n     private OffsetDateTime createdAt;\n \n     protected DiscussionUser() {\n     }\n \n     public DiscussionUser(String username, String passwordHash, UserRole role) {\n         this.username = username;\n         this.passwordHash = passwordHash;\n         this.role = role;\n     }\n \n     @PrePersist\n     void onCreate() {\n         createdAt = OffsetDateTime.now(ZoneOffset.UTC);\n     }\n \n     public UUID getId() {\n         return id;\n     }\n \n     public String getUsername() {\n         return username;\n     }\n \n     public String getPasswordHash() {\n         return passwordHash;\n     }\n \n     public UserRole getRole() {\n         return role;\n     }\n \n     public OffsetDateTime getCreatedAt() {\n         return createdAt;\n     }\n }\n \n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_XUwfw5jU3hhWhKyFtYsoCOQk",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/ApiExceptionHandler.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/ApiExceptionHandler.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\functional-codebase\\\\src\\\\main\\\\java\\\\edu\\\\bu\\\\met\\\\wildmancs763\\\\discussions\\\\api\\\\ApiExceptionHandler.java\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/ApiExceptionHandler.java b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/ApiExceptionHandler.java\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/ApiExceptionHandler.java\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/ApiExceptionHandler.java\n@@ -1,56 +1,56 @@\n package edu.bu.met.wildmancs763.discussions.api;\n \n import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.ApiError;\n import org.springframework.security.access.AccessDeniedException;\n import org.springframework.security.core.AuthenticationException;\n import org.springframework.http.HttpStatus;\n import org.springframework.http.ResponseEntity;\n import org.springframework.http.converter.HttpMessageNotReadableException;\n import org.springframework.http.HttpStatus;\n import org.springframework.web.bind.MethodArgumentNotValidException;\n import org.springframework.web.bind.annotation.ExceptionHandler;\n import org.springframework.web.bind.annotation.RestControllerAdvice;\n \n @RestControllerAdvice\n public class ApiExceptionHandler {\n \n     @ExceptionHandler(ResourceNotFoundException.class)\n     public ResponseEntity<ApiError> handleNotFound(ResourceNotFoundException exception) {\n         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiError(exception.getMessage()));\n     }\n \n     @ExceptionHandler(ResourceConflictException.class)\n     public ResponseEntity<ApiError> handleConflict(ResourceConflictException exception) {\n         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiError(exception.getMessage()));\n     }\n \n     @ExceptionHandler(AuthenticationException.class)\n     public ResponseEntity<ApiError> handleAuthentication(AuthenticationException exception) {\n         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiError(\"Invalid username or password.\"));\n     }\n \n     @ExceptionHandler(AccessDeniedException.class)\n     public ResponseEntity<ApiError> handleAccessDenied(AccessDeniedException exception) {\n         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ApiError(exception.getMessage()));\n     }\n \n     @ExceptionHandler({InvalidRequestException.class, IllegalArgumentException.class})\n     public ResponseEntity<ApiError> handleBadRequest(RuntimeException exception) {\n         return ResponseEntity.badRequest().body(new ApiError(exception.getMessage()));\n     }\n \n     @ExceptionHandler(MethodArgumentNotValidException.class)\n     public ResponseEntity<ApiError> handleValidation(MethodArgumentNotValidException exception) {\n         String message = exception.getBindingResult().getFieldErrors().stream()\n                 .map(error -> error.getField() + \" \" + error.getDefaultMessage())\n                 .findFirst()\n                 .orElse(\"Request validation failed.\");\n         return ResponseEntity.badRequest().body(new ApiError(message));\n     }\n \n     @ExceptionHandler(HttpMessageNotReadableException.class)\n     public ResponseEntity<ApiError> handleUnreadableBody(HttpMessageNotReadableException exception) {\n         return ResponseEntity.badRequest().body(new ApiError(\"Request body is invalid.\"));\n     }\n }\n \n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_GyBCMEqKkBdmFvds9yQ0Zs4U",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/domain/DiscussionPost.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/domain/DiscussionPost.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\functional-codebase\\\\src\\\\main\\\\java\\\\edu\\\\bu\\\\met\\\\wildmancs763\\\\discussions\\\\domain\\\\DiscussionPost.java\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/domain/DiscussionPost.java b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/domain/DiscussionPost.java\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/domain/DiscussionPost.java\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/domain/DiscussionPost.java\n@@ -1,162 +1,162 @@\n package edu.bu.met.wildmancs763.discussions.domain;\n \n import jakarta.persistence.CascadeType;\n import jakarta.persistence.CollectionTable;\n import jakarta.persistence.Column;\n import jakarta.persistence.ElementCollection;\n import jakarta.persistence.Entity;\n import jakarta.persistence.EnumType;\n import jakarta.persistence.Enumerated;\n import jakarta.persistence.Id;\n import jakarta.persistence.JoinColumn;\n import jakarta.persistence.OneToMany;\n import jakarta.persistence.PrePersist;\n import jakarta.persistence.PreUpdate;\n import jakarta.persistence.Table;\n import jakarta.persistence.Lob;\n \n import java.time.OffsetDateTime;\n import java.time.ZoneOffset;\n import java.util.ArrayList;\n import java.util.List;\n import java.util.UUID;\n \n @Entity\n @Table(name = \"discussion_posts\")\n public class DiscussionPost {\n \n     @Id\n     @Column(nullable = false, updatable = false)\n     private UUID id = UUID.randomUUID();\n \n     @Column(nullable = false, length = 200)\n     private String title;\n \n     @Lob\n     @Column(nullable = false)\n     private String body;\n \n     @Enumerated(EnumType.STRING)\n     @Column(nullable = false, length = 40)\n     private PostCategory category;\n \n     @ElementCollection\n     @CollectionTable(name = \"discussion_post_tags\", joinColumns = @JoinColumn(name = \"post_id\"))\n     @Column(name = \"tag\", nullable = false, length = 50)\n     private List<String> tags = new ArrayList<>();\n \n     @Enumerated(EnumType.STRING)\n     @Column(nullable = false, length = 20)\n     private ScopeType scopeType;\n \n     @Column(nullable = false, length = 100)\n     private String scopeId;\n \n     @Column(nullable = false, length = 100)\n     private String authorHandle;\n \n     @Enumerated(EnumType.STRING)\n     @Column(nullable = false, length = 30)\n     private ModerationStatus moderationStatus = ModerationStatus.ACTIVE;\n \n     @Column(nullable = false, updatable = false)\n     private OffsetDateTime createdAt;\n \n     @Column(nullable = false)\n     private OffsetDateTime updatedAt;\n \n     @OneToMany(mappedBy = \"post\", cascade = CascadeType.ALL, orphanRemoval = true)\n     private List<DiscussionComment> comments = new ArrayList<>();\n \n     public DiscussionPost() {\n     }\n \n     @PrePersist\n     void onCreate() {\n         OffsetDateTime now = OffsetDateTime.now(ZoneOffset.UTC);\n         createdAt = now;\n         updatedAt = now;\n     }\n \n     @PreUpdate\n     void onUpdate() {\n         updatedAt = OffsetDateTime.now(ZoneOffset.UTC);\n     }\n \n     public UUID getId() {\n         return id;\n     }\n \n     public String getTitle() {\n         return title;\n     }\n \n     public void setTitle(String title) {\n         this.title = title;\n     }\n \n     public String getBody() {\n         return body;\n     }\n \n     public void setBody(String body) {\n         this.body = body;\n     }\n \n     public PostCategory getCategory() {\n         return category;\n     }\n \n     public void setCategory(PostCategory category) {\n         this.category = category;\n     }\n \n     public List<String> getTags() {\n         return tags;\n     }\n \n     public void setTags(List<String> tags) {\n         this.tags = new ArrayList<>(tags);\n     }\n \n     public ScopeType getScopeType() {\n         return scopeType;\n     }\n \n     public void setScopeType(ScopeType scopeType) {\n         this.scopeType = scopeType;\n     }\n \n     public String getScopeId() {\n         return scopeId;\n     }\n \n     public void setScopeId(String scopeId) {\n         this.scopeId = scopeId;\n     }\n \n     public String getAuthorHandle() {\n         return authorHandle;\n     }\n \n     public void setAuthorHandle(String authorHandle) {\n         this.authorHandle = authorHandle;\n     }\n \n     public ModerationStatus getModerationStatus() {\n         return moderationStatus;\n     }\n \n     public void setModerationStatus(ModerationStatus moderationStatus) {\n         this.moderationStatus = moderationStatus;\n     }\n \n     public OffsetDateTime getCreatedAt() {\n         return createdAt;\n     }\n \n     public OffsetDateTime getUpdatedAt() {\n         return updatedAt;\n     }\n }\n \n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_3vL93ok5F4KypDlAUJfV4FdP",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/domain/DiscussionComment.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/domain/DiscussionComment.java)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\functional-codebase\\\\src\\\\main\\\\java\\\\edu\\\\bu\\\\met\\\\wildmancs763\\\\discussions\\\\domain\\\\DiscussionComment.java\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/domain/DiscussionComment.java b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/domain/DiscussionComment.java\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/domain/DiscussionComment.java\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/domain/DiscussionComment.java\n@@ -1,127 +1,127 @@\n package edu.bu.met.wildmancs763.discussions.domain;\n \n import jakarta.persistence.CascadeType;\n import jakarta.persistence.Column;\n import jakarta.persistence.Entity;\n import jakarta.persistence.EnumType;\n import jakarta.persistence.Enumerated;\n import jakarta.persistence.FetchType;\n import jakarta.persistence.Id;\n import jakarta.persistence.JoinColumn;\n import jakarta.persistence.ManyToOne;\n import jakarta.persistence.OneToMany;\n import jakarta.persistence.PrePersist;\n import jakarta.persistence.PreUpdate;\n import jakarta.persistence.Table;\n import jakarta.persistence.Lob;\n \n import java.time.OffsetDateTime;\n import java.time.ZoneOffset;\n import java.util.ArrayList;\n import java.util.List;\n import java.util.UUID;\n \n @Entity\n @Table(name = \"discussion_comments\")\n public class DiscussionComment {\n \n     @Id\n     @Column(nullable = false, updatable = false)\n     private UUID id = UUID.randomUUID();\n \n     @ManyToOne(fetch = FetchType.LAZY, optional = false)\n     @JoinColumn(name = \"post_id\", nullable = false)\n     private DiscussionPost post;\n \n     @ManyToOne(fetch = FetchType.LAZY)\n     @JoinColumn(name = \"parent_comment_id\")\n     private DiscussionComment parentComment;\n \n     @OneToMany(mappedBy = \"parentComment\", cascade = CascadeType.ALL, orphanRemoval = true)\n     private List<DiscussionComment> replies = new ArrayList<>();\n \n     @Lob\n     @Column(nullable = false)\n     private String message;\n \n     @Column(nullable = false, length = 100)\n     private String authorHandle;\n \n     @Enumerated(EnumType.STRING)\n     @Column(nullable = false, length = 30)\n     private ModerationStatus moderationStatus = ModerationStatus.ACTIVE;\n \n     @Column(nullable = false, updatable = false)\n     private OffsetDateTime createdAt;\n \n     @Column(nullable = false)\n     private OffsetDateTime updatedAt;\n \n     public DiscussionComment() {\n     }\n \n     @PrePersist\n     void onCreate() {\n         OffsetDateTime now = OffsetDateTime.now(ZoneOffset.UTC);\n         createdAt = now;\n         updatedAt = now;\n     }\n \n     @PreUpdate\n     void onUpdate() {\n         updatedAt = OffsetDateTime.now(ZoneOffset.UTC);\n     }\n \n     public UUID getId() {\n         return id;\n     }\n \n     public DiscussionPost getPost() {\n         return post;\n     }\n \n     public void setPost(DiscussionPost post) {\n         this.post = post;\n     }\n \n     public DiscussionComment getParentComment() {\n         return parentComment;\n     }\n \n     public void setParentComment(DiscussionComment parentComment) {\n         this.parentComment = parentComment;\n     }\n \n     public String getMessage() {\n         return message;\n     }\n \n     public void setMessage(String message) {\n         this.message = message;\n     }\n \n     public String getAuthorHandle() {\n         return authorHandle;\n     }\n \n     public void setAuthorHandle(String authorHandle) {\n         this.authorHandle = authorHandle;\n     }\n \n     public ModerationStatus getModerationStatus() {\n         return moderationStatus;\n     }\n \n     public void setModerationStatus(ModerationStatus moderationStatus) {\n         this.moderationStatus = moderationStatus;\n     }\n \n     public OffsetDateTime getCreatedAt() {\n         return createdAt;\n     }\n \n     public OffsetDateTime getUpdatedAt() {\n         return updatedAt;\n     }\n }\n \n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "thinking",
+          "id": "0df7935a-ab62-4b1c-8bcc-afae9a2f3dac",
+          "value": "**Summarizing security details**\n\nI can focus on account registration signals for duplicates versus success. There's a stated discrepancy in observable responses, and while the proposed mitigation is admin-only, the user wants to look at attack surface mapping, noting this as a gap. \n\nThe public registration endpoint does return user role and username, and I need to map this to login and authentication. \n\nAuth errors are generic, which is a good practice. Admin endpoints require specific roles, and while there's no external messaging or upload options, runtime arguments and configurations need to be handled carefully.\n\n**Reviewing configuration details**\n\nI’m thinking about how the command line arguments might allow me to override settings. The `BootstrapAdminInitializer` seems to use `@Value(\"${...:}\")`, and properties aren't stored in `application.properties`, so I can configure them via the environment or command line. \n\nRegarding the database, I see the H2 file is persisted as `data/discussions.mv.db`. Also, the Docker volume path is `/app/data`, and I need to mention that the Dockerfile isn't running as root and exposes port 8080. I didn’t find any audit logging in the sources I scanned.",
+          "reasoningTimingSource": "provider",
+          "reasoningStartedAt": 1794779423436,
+          "reasoningDurationMs": 5644
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_ZDIKLN6YF8l1EfzMMLygFQIx",
+          "toolId": "rg",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Search for `@(GetMapping|PostMapping|PutMapping|PatchMapping|DeleteMapping|RequestMapping)`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Search for `@(GetMapping|PostMapping|PutMapping|PatchMapping|DeleteMapping|RequestMapping)`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "search",
+            "queries": [
+              "@(GetMapping|PostMapping|PutMapping|PatchMapping|DeleteMapping|RequestMapping)"
+            ],
+            "searchKind": "text"
+          },
+          "toolSpecificData": {
+            "kind": "search"
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_b1DZVoqrE8KJTiAnIdrDGAL2",
+          "toolId": "rg",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Search for `Logger|LoggerFactory|System\\.out|@.*Audit|audit|rate.?limit|sanitize|sanitize...`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Search for `Logger|LoggerFactory|System\\.out|@.*Audit|audit|rate.?limit|sanitize|sanitize...`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "search",
+            "queries": [
+              "Logger|LoggerFactory|System\\.out|@.*Audit|audit|rate.?limit|sanitize|sanitizeHtml|HtmlPolicyBuilder"
+            ],
+            "searchKind": "text"
+          },
+          "toolSpecificData": {
+            "kind": "search"
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_QB9TzBsoGLBVwc29JyypxGN1",
+          "toolId": "rg",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Search for `spring\\.datasource|session\\.cookie|csrf|health|bootstrap-admin|management\\.en...`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Search for `spring\\.datasource|session\\.cookie|csrf|health|bootstrap-admin|management\\.en...`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "search",
+            "queries": [
+              "spring\\.datasource|session\\.cookie|csrf|health|bootstrap-admin|management\\.endpoints|DATABASE_|SESSION_COOKIE"
+            ],
+            "searchKind": "text"
+          },
+          "toolSpecificData": {
+            "kind": "search"
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_1DgEbsV0QMHIudr3URxKjWdg",
+          "toolId": "rg",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Search for `findAll\\(|@Size|max=|hasRole|permitAll|hasAnyRole|denyAll|HttpOnlyFalse|chang...`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Search for `findAll\\(|@Size|max=|hasRole|permitAll|hasAnyRole|denyAll|HttpOnlyFalse|chang...`",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "search",
+            "queries": [
+              "findAll\\(|@Size|max=|hasRole|permitAll|hasAnyRole|denyAll|HttpOnlyFalse|changeSessionId|PASSWORD|moderate|ensureCanManage|register\\("
+            ],
+            "searchKind": "text"
+          },
+          "toolSpecificData": {
+            "kind": "search"
+          },
+          "isAttachedToThinking": false
+        },
+        {
+          "kind": "thinking",
+          "id": "2467513d-c84c-481e-a5c8-b6afc474e596",
+          "value": "**Evaluating database authentication**\n\nI need to point out that the database authentication might be weak due to default settings. The user seems to want an initial map without emphasizing severity, but I should highlight some concerns.\n\nKey aspects include valuable data protections like user passwords hashed with bcrypt, session authentication, and role-based access controls. However, there are issues like no at-rest encryption or logging mentioned. Runtime commands use Docker, and the final stage is non-root. \n\nI’ll also touch on potential control mismatches, like self-service registration that contradicts documentation requirements.\n\n**Highlighting security concerns**\n\nIt seems I've realized that the user-provided security-analysis.md indicates that registration should be admin-only, but the app specifications might not align with that. I should reference the security-analysis.md and emphasize the functionality of the authentication registration route. I need to note that there's a mismatch because allowing anonymous registration opens up the creation of STUDENT accounts, which contradicts what's stated in the documentation. This is an important point to bring to attention!",
+          "reasoningTimingSource": "provider"
+        },
+        {
+          "kind": "thinking",
+          "id": "1946c8ca-98a3-45df-a58a-e6f58c79ce5e",
+          "value": "\n\n**Finalizing mapping details**\n\nI should verify the evidence of APIs and supporting details before proceeding. It seems we have enough information to work on final mapping now. However, it might be useful to inspect the actual line numbers, though I don't need line links—direct file references will work. I can provide links to the [AuthController.java] file and should mention that the current mapping isn't in production yet. Quoting functions as described might also be necessary.",
+          "reasoningTimingSource": "provider"
+        },
+        {
+          "value": "\n\n**Task completed:**\n\n## Initial attack surface map\n\nI used the OWASP framing in your blurb: externally reachable paths, their controls, and the valuable data those paths expose or modify. This is based on the source/configuration under `functional-codebase`; it does not establish how production ingress, TLS, secrets, or any separate client are configured.\n\n### Entry and exit points\n\n| Surface | Access and function | Data / controls |\n|---|---|---|\n| Authentication: `/api/v1/auth/csrf`, `/register`, `/login`, `/me`, `/logout` | CSRF, register, login are reachable without an existing session; `/me` and logout require authentication. | JSON username/password; registration creates a `STUDENT`. Password hashes use BCrypt, input has length/format constraints, failed login uses a generic message, and login rotates the session ID. CSRF is enabled; the CSRF token is also returned in JSON and stored in a JavaScript-readable cookie. See [AuthController.java](</C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/AuthController.java>), [SecurityConfiguration.java](</C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/security/SecurityConfiguration.java>), and [DiscussionDtos.java](</C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/DiscussionDtos.java>).\n| Admin provisioning: `POST /api/v1/admin/users` | Requires `ADMIN`; provisions users with a selected role. | Usernames, passwords, and role assignment. Bootstrap admin credentials are accepted through `app.bootstrap-admin.username/password` at startup; see [AdminUserController.java](</C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/AdminUserController.java>) and [BootstrapAdminInitializer.java](</C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/BootstrapAdminInitializer.java>).\n| Discussion and search API: `/api/v1/discussions/**` | GET posts, timelines, and comments is public. Create requires authentication; edit/delete requires the author or an admin; moderation PATCH requires faculty or admin. | Post/comment bodies, tags, scope IDs, author handles, filters (keyword, time range, category, author/scope), and moderation state. GET comments also supports a downloadable text manifest. See [DiscussionController.java](</C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/api/DiscussionController.java>) and [DiscussionService.java](</C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/service/DiscussionService.java>).\n| Operational endpoint: `/actuator/health` | Public health endpoint. Other requests are denied by the application security rules; only health/info are configured for actuator exposure. | Operational status; see [SecurityConfiguration.java](</C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/java/edu/bu/met/wildmancs763/discussions/security/SecurityConfiguration.java>) and [application.properties](</C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/resources/application.properties>).\n| Database and runtime configuration | H2 file database by default; JDBC URL/user/password can be overridden with environment variables. Docker serves port 8080, runs as a non-root user, and mounts `/app/data`. | Persistent user records, password hashes, roles, post/comment content, scope identifiers, timestamps, tags, and moderation state. See [application.properties](</C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/src/main/resources/application.properties>) and [Dockerfile](</C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/functional-codebase/Dockerfile>).\n\nNo UI forms, file-upload endpoint, email flow, or other external-system integration appeared in the reviewed application. File output is the comment-manifest download; local storage includes the H2 database file under `functional-codebase/data` and the Docker data volume.\n\n### Valuable data and protective controls\n\n- Account credentials and privileges: the database stores BCrypt password hashes and roles; user responses expose usernames, roles, and timestamps, not hashes. Bootstrap admin credentials are a deployment secret.\n- Discussion content: posts/comments, authors, scopes, and timestamps may contain sensitive academic or personal information. DTO validation limits many field sizes; however, content is returned as supplied, and I found no server-side HTML sanitization in this code. Any client rendering this as HTML needs contextual output encoding/sanitization.\n- Session and CSRF state: session-backed authentication and CSRF protection are present. The session cookie is configured `SameSite=Lax`; `SESSION_COOKIE_SECURE` defaults to `false`. The CSRF cookie is intentionally not HttpOnly, which makes client-side script compromise more consequential.\n- Persistence: the default H2 file configuration has no application-level at-rest encryption setting. Protect the database file, Docker volume, and DB credentials through deployment permissions and secret management.\n\n### Important exposure/control mismatches to track\n\n1. **Anonymous registration is enabled**, and it creates student accounts. That conflicts with the admin-only registration requirement in [security-analysis.md](</C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md>).\n2. **Discussion reads and the full comment text export are public.** The text format is on the same public GET route; this conflicts with the separate analysis requirement to restrict mass comment downloads. Hidden content is filtered from reads, but `REPORTED` content remains visible.\n3. **Scope membership is not enforced in the reviewed model/service.** Scope IDs are user-supplied strings; authenticated users can post to an arbitrary project/course/lab ID, while public readers can query those feeds. The code applies role checks but shows no course/project assignment model or membership check.\n4. **Admins can edit/delete other users’ content** through the author-or-admin check, contrary to the proposed restriction in the analysis document.\n5. **Availability and audit surfaces:** feed/timeline queries load all posts and filter in memory, with no pagination visible; no application-level rate limit or audit logging was found in the reviewed Java sources. Request-size validation helps bound individual fields but not total feed/export size.\n6. **Registration response discrepancy:** duplicate usernames return a conflict response, which reveals account existence to anonymous callers; login failures are generic.\n\nOverall, the main exposed surface is a session-authenticated, role-based REST API whose read/search functions are deliberately public. The highest-value data paths are account creation/login, global discussion reads and export, content CRUD/moderation, and the persistent database/secret configuration.",
+          "isTrusted": false,
+          "supportThemeIcons": false,
+          "supportHtml": false,
+          "supportAlertSyntax": false
+        }
+      ],
+      "agent": {
+        "id": "agent-host-copilotcli",
+        "name": "agent-host-copilotcli",
+        "fullName": "Copilot",
+        "description": "Copilot SDK agent running in the local agent host process",
+        "extensionId": {
+          "value": "vscode.agent-host",
+          "_lower": "vscode.agent-host"
+        },
+        "extensionPublisherId": "vscode",
+        "extensionDisplayName": "Agent Host",
+        "isDefault": false,
+        "isDynamic": true,
+        "isCore": true,
+        "metadata": {
+          "themeIcon": {
+            "id": "copilot"
+          }
+        },
+        "slashCommands": [],
+        "locations": [
+          "panel"
+        ],
+        "modes": [
+          "agent",
+          "ask"
+        ],
+        "disambiguation": []
+      },
+      "timestamp": 1794779375441,
+      "modelId": "agent-host-copilotcli:gpt-6-luna",
+      "responseId": "response_8f3ea7ea-638a-4b1f-bb31-9a4746046a30",
+      "result": {
+        "details": "GPT-6 Luna • 1.3 credits"
+      },
+      "responseMarkdownInfo": [],
+      "modelState": {
+        "value": 1,
+        "completedAt": 1794779468737
+      },
+      "contentReferences": [],
+      "codeCitations": [],
+      "responseTimestamp": 1794834092180,
+      "timeSpentWaiting": 0,
+      "promptTokens": 51681,
+      "completionTokens": 9472,
+      "lastCallCompletionTokens": 4378,
+      "promptTokenDetails": [
+        {
+          "category": "System",
+          "label": "System prompt",
+          "percentageOfPrompt": 23
+        },
+        {
+          "category": "User Context",
+          "label": "Tool Results",
+          "percentageOfPrompt": 40
+        },
+        {
+          "category": "System",
+          "label": "Tool Definitions",
+          "percentageOfPrompt": 25
+        },
+        {
+          "category": "User Context",
+          "label": "Messages",
+          "percentageOfPrompt": 12
+        }
+      ],
+      "copilotCredits": 1.298071,
+      "modelTotals": [
+        {
+          "model": "GPT-6 Luna",
+          "inputTokens": 230012,
+          "cachedTokens": 178316,
+          "outputTokens": 9472
+        }
+      ],
+      "sessionCopilotCredits": 1.298071,
+      "sessionCopilotCreditsStatus": "complete",
+      "elapsedMs": 93296
+    },
+    {
+      "requestId": "21cdce53-fc21-48c0-9296-35160360dc35",
+      "message": {
+        "parts": [
+          {
+            "range": {
+              "start": 0,
+              "endExclusive": 119
+            },
+            "editorRange": {
+              "startLineNumber": 1,
+              "startColumn": 1,
+              "endLineNumber": 1,
+              "endColumn": 120
+            },
+            "text": "could you please add that table as a markdown table under the \"attack surface mapping\" heading in security-analysis.md?",
+            "kind": "text"
+          }
+        ],
+        "text": "could you please add that table as a markdown table under the \"attack surface mapping\" heading in security-analysis.md?"
+      },
+      "variableData": {
+        "variables": [
+          {
+            "kind": "file",
+            "id": "file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md",
+            "name": "file:security-analysis.md",
+            "value": {
+              "$mid": 1,
+              "fsPath": "c:\\Users\\wildm\\Documents\\Projects\\cs763-wildman-final-project\\cs763-wildman-final-project\\security-analysis.md",
+              "_sep": 1,
+              "external": "file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md",
+              "path": "/c:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md",
+              "scheme": "file"
+            }
+          }
+        ]
+      },
+      "response": [
+        {
+          "value": "I’ll add the attack-surface table under the existing heading and preserve the surrounding analysis text.",
+          "isTrusted": false,
+          "supportThemeIcons": false,
+          "supportHtml": false,
+          "supportAlertSyntax": false
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "call_4pqS0kL4MKmFJPSj53th87ol",
+          "toolId": "view",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Read [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "summary": {
+            "kind": "unknown"
+          },
+          "resultDetails": {
+            "input": "{\n  \"path\": \"C:\\\\Users\\\\wildm\\\\Documents\\\\Projects\\\\cs763-wildman-final-project\\\\cs763-wildman-final-project\\\\security-analysis.md\"\n}",
+            "inputLanguage": "json",
+            "output": [
+              {
+                "type": "embed",
+                "value": "\ndiff --git a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md\nindex 0000000..0000000 100644\n--- a/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md\n+++ b/C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md\n@@ -1,90 +1,90 @@\n # Security Analysis\n \n ## Security requirements\n - Passwords must contain at least 16 characters with an uppercase letter, lowercase letter, number and special character.\n - All endpoints other than the login endpoint must require authentication, including GET requests.\n - Accounts must be delineated into role-based access control (RBAC) through admin, faculty, and student roles.\n - All account provisioning must only be controlled by admins.\n - Actuator endpoints must only be accessible by admins.\n - Faculty and student users must be assigned to courses and projects, and must only be able to access/post to those assigned endpoints.\n - Mass downloads such as the comment manifest must be restricted to faculty and admin roles.\n - All user input that may contain HTML markup (rich text) must be sanitized of malicious tags at the input stage.\n - Only the author of a post may be permitted to modify it. Even administrators may not modify other posts while moderation privileges are present.\n - Users must be restricted to no more than 50 API requests per minute.\n \n ## Abuse cases\n - AC1: As an attacker, I want to be able to access high-privilege capabilities so that add other high-privilege users, edit/delete other user's posts, and access the moderation endpoint.\n - AC2: As an attacker, I want to be able to access credential information so that I can begin finding valid credentials of users with high-privilege capabilities.\n - AC3: As an attacker, I want to be able to serve malicious content so that I can deface the site or expand the attack to legitimate users.\n - AC4: As an attacker, I want to be able to disrupt availability of the application so that legitimate users can no longer use it.\n - AC5: As an attacker, I want to be able to craft malicious inputs so that I can get the application to return valuable information from the database.\n - AC6: As an attacker, I want to be able to gain information about the system so that I can better plan my attacks.\n - AC7: As an attacker, I want to be able to find sensitive information about users or the organization so that I can better plan my attacks.\n \n ## Attack trees\n I tried to focus the contents of these attack trees on potentially exploitable weaknesses in the application, so there is not any focus in these trees on social engineering/physical security.\n ### AC1\n See [AC1 Attack Tree in docs](functional-codebase/docs/Attack%20Trees%20PA2%20-%20AC1.png)\n \n Or: ![AC1 Attack Tree in docs](functional-codebase/docs/Attack%20Trees%20PA2%20-%20AC1.png)\n \n ### AC3\n See [AC3 Attack Tree in docs](functional-codebase/docs/Attack%20Trees%20PA2%20-%20AC3.png)\n \n Or: ![AC3 Attack Tree in docs](functional-codebase/docs/Attack%20Trees%20PA2%20-%20AC3.png)\n \n ### AC4\n See [AC4 Attack Tree in docs](functional-codebase/docs/Attack%20Trees%20PA2%20-%20AC4.png)\n \n Or: ![AC4 Attack Tree in docs](functional-codebase/docs/Attack%20Trees%20PA2%20-%20AC4.png)\n \n ## Attack surface mapping\n \n \n ## STRIDE threat modeling (DFD)\n \n ## Proposed mitigations\n ### CWE-1004 Sensitive Cookie Without 'HttpOnly' Flag\n Remove the .withHttpOnlyFalse() configuration.\n \n Relates to: AC3\n \n ### CWE-521 Weak Password Requirements (https://cwe.mitre.org/data/definitions/521.html)\n Enforce stronger password requirements. For the purposes of this application, replace regex and error message to reflect at least 16 characters and at least one uppercase, lowercase, digit, and special character ().\n \n Regex: `^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^A-Za-z0-9])[^\\r\\n]{16,72}$` ([log-link])\n \n Relates to: AC2\n \n ### CWE-614 Sensitive Cookie in HTTPS Session Without 'Secure' Attribute (https://cwe.mitre.org/data/definitions/614.html)\n N/A, false positive\n \n ### CWE-200: Exposure of Sensitive Information to an Unauthorized Actor (https://cwe.mitre.org/data/definitions/200.html)\n Require authentication as an admin to reach the health endpoint.\n \n Relates to: AC6\n \n ### CWE-400 Uncontrolled Resource Consumption (https://cwe.mitre.org/data/definitions/400.html)\n Implement rate limiting. For the purposes of this assignment, a simple custom filter-based rate limiter for something like 50 requests per minute (or less for demo purposes) seems appropriate (https://www.geeksforgeeks.org/advance-java/implementing-rate-limiting-in-a-spring-boot-application/).\n \n Relates to: AC4\n \n ### CWE-862 Missing Authorization (https://cwe.mitre.org/data/definitions/862.html)\n Refactor code so that users must be added by administrators. Make only the login endpoint public-facing, and everything else must require authentication. For authorization, users should continue being separated by Role-Based Access Control (RBAC), but student/faculty users should also be explicitly assigned to courses and projects, and should only be permitted to access those endpoints.\n \n Relates to: AC7\n \n ### CWE-285 Improper Authorization (https://cwe.mitre.org/data/definitions/285.html)\n While administrators should be granted high-privilege permissions, not all permissions are necessary to fulfill the role. An admin should not be permitted to change the contents of another user's existing post, or delete existing posts, as long as there is moderation functionality.\n \n Relates to: AC1, AC3\n \n ### CWE-204 Observable Response Discrepancy (https://cwe.mitre.org/data/definitions/204.html)\n This vulnerability will be addressed by the proposed mitigation for CWE-862. As long as users can only be added by administrators, only administrators would receive confirmation of existing accounts, which is part of their expected high-privilege capabilities.\n \n Relates to: AC2\n \n ### CWE-79 Improper Neutralization of Input During Web Page Generation - Stored/Persistent XSS (https://cwe.mitre.org/data/definitions/79.html)\n Sanitize post/comment body input using Java's HTML Sanitizer (https://owasp.org/projects/java-html-sanitizer).\n \n Relates to: AC3\n",
+                "isText": true,
+                "mimeType": "text/plain"
+              }
+            ],
+            "isError": false
+          }
+        },
+        {
+          "kind": "thinking",
+          "id": "61cd8bf5-ea28-4b6f-970d-3c1d0604ab83",
+          "value": "**Creating a Markdown table**\n\nI need to create a Markdown table for current security requirements, ensuring accuracy based on previous documents. This table should include details like endpoint access, entry/exit points, and existing data protections. I want to capture endpoint routes and configurations while reusing previous answers. It’s important to make the table robust, escaping pipe characters and using the correct syntax. I’ll list relevant security aspects without unnecessary explanations, focusing on a clean, concise presentation.",
+          "reasoningTimingSource": "provider",
+          "reasoningStartedAt": 1794831867531,
+          "reasoningDurationMs": 1376,
+          "generatedTitle": "Creating a Markdown table"
+        },
+        {
+          "kind": "toolInvocationSerialized",
+          "toolCallId": "custom_call_PdU1nOL5cpnTzN2CkJSqsZiu",
+          "toolId": "apply_patch",
+          "source": {
+            "type": "internal",
+            "label": "Built-In"
+          },
+          "invocationMessage": {
+            "value": "Edit [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "pastTenseMessage": {
+            "value": "Edit [](file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md)",
+            "isTrusted": false,
+            "supportThemeIcons": false,
+            "supportHtml": false,
+            "supportAlertSyntax": false
+          },
+          "isConfirmed": {
+            "type": 1
+          },
+          "isComplete": true,
+          "presentation": "hidden",
+          "summary": {
+            "kind": "edit",
+            "resources": [
+              {
+                "uri": {
+                  "$mid": 1,
+                  "external": "file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md",
+                  "path": "/c:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md",
+                  "scheme": "file"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "kind": "externalEdit",
+          "uri": {
+            "$mid": 1,
+            "external": "file:///c%3A/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md",
+            "path": "/c:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md",
+            "scheme": "file"
+          },
+          "editKind": "edit",
+          "beforeContentUri": {
+            "$mid": 1,
+            "path": "/c:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md",
+            "scheme": "vscode-agent-host",
+            "authority": "local",
+            "query": "_ah=eyJzY2hlbWUiOiJzZXNzaW9uLWRiIiwicXVlcnkiOiJ7XCJzZXNzaW9uVXJpXCI6XCJhaHAtc2Vzc2lvbjovY2I2ZGFjN2QtNWMwNS00ZTMzLWE3NmEtNzFkNTgyYTM0MTFkXCIsXCJ0b29sQ2FsbElkXCI6XCJjdXN0b21fY2FsbF9QZFUxbk9MNWNwblR6TjJDa0pTcXNaaXVcIixcImZpbGVQYXRoXCI6XCJjOlxcXFxVc2Vyc1xcXFx3aWxkbVxcXFxEb2N1bWVudHNcXFxcUHJvamVjdHNcXFxcY3M3NjMtd2lsZG1hbi1maW5hbC1wcm9qZWN0XFxcXGNzNzYzLXdpbGRtYW4tZmluYWwtcHJvamVjdFxcXFxzZWN1cml0eS1hbmFseXNpcy5tZFwiLFwicGFydFwiOlwiYmVmb3JlXCJ9IiwiY29udGVudFJlZiI6dHJ1ZSwiZmlsZVVyaSI6ImZpbGU6Ly8vYyUzQS9Vc2Vycy93aWxkbS9Eb2N1bWVudHMvUHJvamVjdHMvY3M3NjMtd2lsZG1hbi1maW5hbC1wcm9qZWN0L2NzNzYzLXdpbGRtYW4tZmluYWwtcHJvamVjdC9zZWN1cml0eS1hbmFseXNpcy5tZCJ9"
+          },
+          "afterContentUri": {
+            "$mid": 1,
+            "path": "/c:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md",
+            "scheme": "vscode-agent-host",
+            "authority": "local",
+            "query": "_ah=eyJzY2hlbWUiOiJzZXNzaW9uLWRiIiwicXVlcnkiOiJ7XCJzZXNzaW9uVXJpXCI6XCJhaHAtc2Vzc2lvbjovY2I2ZGFjN2QtNWMwNS00ZTMzLWE3NmEtNzFkNTgyYTM0MTFkXCIsXCJ0b29sQ2FsbElkXCI6XCJjdXN0b21fY2FsbF9QZFUxbk9MNWNwblR6TjJDa0pTcXNaaXVcIixcImZpbGVQYXRoXCI6XCJjOlxcXFxVc2Vyc1xcXFx3aWxkbVxcXFxEb2N1bWVudHNcXFxcUHJvamVjdHNcXFxcY3M3NjMtd2lsZG1hbi1maW5hbC1wcm9qZWN0XFxcXGNzNzYzLXdpbGRtYW4tZmluYWwtcHJvamVjdFxcXFxzZWN1cml0eS1hbmFseXNpcy5tZFwiLFwicGFydFwiOlwiYWZ0ZXJcIn0iLCJjb250ZW50UmVmIjp0cnVlLCJmaWxlVXJpIjoiZmlsZTovLy9jJTNBL1VzZXJzL3dpbGRtL0RvY3VtZW50cy9Qcm9qZWN0cy9jczc2My13aWxkbWFuLWZpbmFsLXByb2plY3QvY3M3NjMtd2lsZG1hbi1maW5hbC1wcm9qZWN0L3NlY3VyaXR5LWFuYWx5c2lzLm1kIn0"
+          },
+          "diff": {
+            "added": 10,
+            "removed": 0
+          },
+          "undoStopId": "custom_call_PdU1nOL5cpnTzN2CkJSqsZiu"
+        },
+        {
+          "value": "\n\n**Task completed:**\n\nAdded the attack-surface table and a brief note about file/storage surfaces and public discussion reads/downloads under “Attack surface mapping” in [security-analysis.md](</C:/Users/wildm/Documents/Projects/cs763-wildman-final-project/cs763-wildman-final-project/security-analysis.md>).",
+          "isTrusted": false,
+          "supportThemeIcons": false,
+          "supportHtml": false,
+          "supportAlertSyntax": false
+        }
+      ],
+      "agent": {
+        "id": "agent-host-copilotcli",
+        "name": "agent-host-copilotcli",
+        "fullName": "Copilot",
+        "description": "Copilot SDK agent running in the local agent host process",
+        "extensionId": {
+          "value": "vscode.agent-host",
+          "_lower": "vscode.agent-host"
+        },
+        "extensionPublisherId": "vscode",
+        "extensionDisplayName": "Agent Host",
+        "isDefault": false,
+        "isDynamic": true,
+        "isCore": true,
+        "metadata": {
+          "themeIcon": {
+            "id": "copilot"
+          }
+        },
+        "slashCommands": [],
+        "locations": [
+          "panel"
+        ],
+        "modes": [
+          "agent",
+          "ask"
+        ],
+        "disambiguation": []
+      },
+      "timestamp": 1794831860845,
+      "modelId": "agent-host-copilotcli:gpt-6-luna",
+      "responseId": "response_363ef6e2-c597-4d37-ae41-f953cae06074",
+      "result": {
+        "details": "GPT-6 Luna • 0.8 credits"
+      },
+      "responseMarkdownInfo": [],
+      "modelState": {
+        "value": 1,
+        "completedAt": 1794831873258
+      },
+      "contentReferences": [],
+      "codeCitations": [],
+      "responseTimestamp": 1794834092181,
+      "timeSpentWaiting": 0,
+      "promptTokens": 54102,
+      "completionTokens": 964,
+      "lastCallCompletionTokens": 96,
+      "promptTokenDetails": [
+        {
+          "category": "System",
+          "label": "System prompt",
+          "percentageOfPrompt": 22
+        },
+        {
+          "category": "User Context",
+          "label": "Tool Results",
+          "percentageOfPrompt": 44
+        },
+        {
+          "category": "System",
+          "label": "Tool Definitions",
+          "percentageOfPrompt": 24
+        },
+        {
+          "category": "User Context",
+          "label": "Messages",
+          "percentageOfPrompt": 10
+        }
+      ],
+      "copilotCredits": 0.8297235,
+      "modelTotals": [
+        {
+          "model": "GPT-6 Luna",
+          "inputTokens": 159304,
+          "cachedTokens": 105196,
+          "outputTokens": 964
+        }
+      ],
+      "sessionCopilotCredits": 2.1277945,
+      "sessionCopilotCreditsStatus": "complete",
+      "elapsedMs": 12413
+    }
+  ]
+}

@@ -1,5 +1,10 @@
 # SAST Triage Report
 
+## AI Deliverable Metadata Block
+This document was written with...
+AI contribution: 0%
+Human contribution: 100%
+
 ## Scan findings
 ### Semgrep
 <b>No findings</b>
@@ -59,7 +64,7 @@ This issue refers to SecurityConfiguration.java, line 42.
     
     return CookieCsrfTokenRepository.withHttpOnlyFalse();
 
-<b>Explanation:</b> This setting is common for applications which have a JavaScript front-end and must be able to read the CSRF cookie (see [log-link]). Since this application does not have a front end, this finding is valid.
+<b>Explanation:</b> This setting is common for applications which have a JavaScript front-end and must be able to read the CSRF cookie (see AI logs). Since this application does not have a front end, this finding is valid.
 
 ## Manual findings
 Manual findings were <b>not</b> detected by scanning tools.
@@ -92,7 +97,7 @@ application.properties contains...
 
     server.servlet.session.cookie.secure=${SESSION_COOKIE_SECURE:false}
 
-<b>Explanation:</b> I kept this "finding" since I did note it to review later, so I consider this a manual false positive. Since this is local development without HTTPS, this setting is necessary [log-link].  
+<b>Explanation:</b> I kept this "finding" since I did note it to review later, so I consider this a manual false positive. Since this is local development without HTTPS, this setting is necessary (see AI logs).  
 
 <b>CWE:</b> CWE-200: Exposure of Sensitive Information to an Unauthorized Actor (https://cwe.mitre.org/data/definitions/200.html)
 

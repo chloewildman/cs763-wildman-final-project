@@ -4,6 +4,11 @@
 * **Assigned Domain Module:** Domain 4: The Research Blog & Project Discussion Board
 * **Core Technology Stack:** Java/Spring Boot
 
+## AI Deliverable Metadata Block
+This document was written with...
+AI contribution: 0%
+Human contribution: 100%
+
 \================================================================================
 
 ## SECTION 1: SYSTEM ENVIRONMENT & TOOL SPECIFICATION
@@ -45,21 +50,20 @@ The response DTO and HTTP response is then returned to the client.
 
 As far as design patterns, the AI followed what I believe to be a standard Spring Boot REST/MVC layered structure with repository and service layers. 
 
-Of note, the AI generated code also included an endpoint that was not requested to allow PATCH requests to moderation endpoints by authenticated admins and faculty. I assume this is to meet the requirement, "Provide an administrative moderation workflow to enforce community standards across text inputs. The service must support state transitions (active, reported, hidden_by_moderator) applied independently to either root posts or child comments, allowing faculty roles to flag inputs and trigger cascading visibility adjustments across the board."
+Of note, the AI generated code also included an endpoint that was not requested to allow PATCH requests to moderation endpoints by authenticated admins and faculty (aside from endpoints related to authentication, which were intentionally not provided in the specs). This appears to have been done to meet the requirement, "Provide an administrative moderation workflow to enforce community standards across text inputs. The service must support state transitions (active, reported, hidden_by_moderator) applied independently to either root posts or child comments, allowing faculty roles to flag inputs and trigger cascading visibility adjustments across the board."
 
 
 ### 2.2 Defensive Edge-Case Evaluation (Line-by-Line Code Review)
 
 *Perform a line-by-line human audit of the generated source code. Identify where the AI tool completely failed to account for edge cases, unusual boundaries, or unexpected system properties prior to running your pipeline scanners. (e.g., What happens if an integer balance value scales to a negative integer? How does the routing loop handle an invalid JSON payload sequence?)*
 
-Authentication: Weak password policy. Requires at least 12 characters, but no diversity in characters/symbols.
+The most glaring security boundary that AI did not account for relates to authentication, authorization, and information disclosure. While sending Postman requests and completing code review, I realized that the authentication configuration had a weak password policy of just 12 characters and no diversity of character sets. In terms of authorization, posts/comments were all publicly visible even to anonymous users, and only creating/modifying posts and comments, or accessing high-privilege permissions like moderation, required authentication. Moreover, registration itself was on a public page. Any anonymous user could register and become a "student", allowing them to make posts and comments freely. Since that registration page is public, and produces a message about a username already in use (located during code review), this allows for username enumeration. 
 
-Authorization: Anyone can register -- very little consideration for access control despite the context of course projects and roles. UserAccountService.java persistUser() allows for username enumeration. Since anyone can register for an account, this becomes more of a security concern. GET requests under /api/v1/discussions/ have the .permitAll() rule, so authentication isn't required to view discussions about projects.
-
-Input: User input is not sanitized before it is returned in the response.
+While submitting postman requests, I also noted that submitting a post body that contains script tags is not sanitized before being returned. This allows harmful tags to be stored in the database, and then potentially be returned to users if not handled properly when rendering.
 
 Config: Check application.properties for SESSION_COOKIE_SECURE=false, meaning session cookie might not always be encrypted through HTTPS. Health/info actuator endpoints are exposed and could help with basic reconaissance.
 
+Finally, in reflecting on what other vulnerabilties that I've seen previously could apply here, I considered denial of service attacks. I reviewed the code for any implementation of API rate limiting, and did not note any.
 
 ### 2.3 The AI Agent's "Security Sins" (Evaluating Code Deficiencies)
 
@@ -77,13 +81,15 @@ Config: Check application.properties for SESSION_COOKIE_SECURE=false, meaning se
 
 *Detail exactly how you collaborated with your chosen AI tools to construct your written security requirements, abuse cases, attack trees, and threat modeling frameworks.*
 
-> **\[STUDENT DOCUMENT PROMPTING NARRATIVE HERE\]** *Describe the sequencing of prompts used to generate the security text. Did you utilize role-playing, constraint-based prompting, or multi-turn chaining?*
+I did not use AI when working on the final deliverables for security-analysis.md. I worked on these deliverables based on my working knowledge of the application from code review. For the DFD, I used the example in the module reading as inspiration and paired it with my explanation in Section 2.1 of this document. For the STRIDE matrix table, I consulted the reading as well as online examples. Based on Steve's recommendation, I included IDs throughout and paired them with the mitigations in the document so that there are clear connections. I did attempt to get AI assistance on the attack surface mapping and dataflow diagram/STRIDE documentation originally, but the output it provided did not align with what I believed was expected, so I scrapped it (see AI logs).
+
+Admittedly, this project took considerable time (21 hours as I am writing this), so after having little success with the attack surface mapping, I felt it was better to complete that part of the assignment with my working knowledge rather than wrestle with AI for assistance.
 
 ### 3.2 Evaluation of Automated Conceptual "Blind Spots"
 
 *Analyze the output your document-authoring AI generated. Did the tool hallucinate security threat concepts, overlook critical domain-specific logical risks (like over-allocating hardware inventory pools), or suggest generic text summaries that lacked rigorous engineering context? Detail how you manually audited and revised the AI's structural concepts to match real-world parameters.*
 
-> **\[STUDENT CONCEPTUAL AUDIT TEXT HERE\]**
+As noted above, I did not use AI generated content for my security-analysis.md document. When I did try to prompt it for assistance on the attack surface mapping and DFD/STRIDE deliverables, the recommendation was too far from what I felt was expected for the assignment to warrant using it in any capacity. I also felt I was running low on time, and it would be more resource intensive to interrogate AI work than to document the information myself based on my working knowledge.
 
 \================================================================================
 
