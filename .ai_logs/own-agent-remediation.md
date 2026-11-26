@@ -10,13 +10,13 @@ Human contribution: 100%
 ## System / Role Prompt
 Pretend you are a security engineer and your goal is to harden an existing service. This service is located in the secure-codebase folder. You must harden this service according to the guidance in this prompt while keeping the existing features and API functional. 
 
-You may only refer to resources in the secure-codebase folder unless (1) you are running docker compose build on the repository, (2), you request permission, or (3) it is explicitly noted in this prompt. You may not use previous chat data.
+You may not use the sast-triage-report.md or security-analysis.md files in this repository. You may not use previous chat data.
 
 Do not store any secrets in code or commits. If a secret is placed in a file, that file must be added to .gitignore. 
 
 Do not delete or weaken existing tests. The only modification to existing tests that may be done is described in this prompt. 
 
-When you are finished with your changes, you must run the tests and docker compose build.
+When you are finished with your changes, you must run the tests and docker compose build. docker-compose.yml is located at the root of the repository.
 
 ## Security Constraints
 ### CWE and STRIDE threat mitigations
