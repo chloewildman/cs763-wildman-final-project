@@ -8,13 +8,34 @@
 # database or a cache. For examples, see the Awesome Compose repository:
 # https://github.com/docker/awesome-compose
 services:
+
+  mock-token-issuer:
+    build: ./secure-codebase/mock-token-issuer
+    ports:
+      - "127.0.0.1:9000:9000"
+    environment:
+      ISSUER: http://localhost:9000
+      AUDIENCE: cs763-api
+      ALG: RS256
+    volumes:
+      - issuer-keys:/app/keys
+  
   server:
     build:
       context: .
     ports:
       - 8080:8080
+    depends_on:
+      - mock-token-issuer
     environment:
       DEMO_STUDENT_PASSWORD: test-password
+
+      JWT_JWK_SET_URI: http://mock-token-issuer:9000/.well-known/jwks.json
+      JWT_ISSUER: http://localhost:9000
+      JWT_AUDIENCE: cs763-api
+
+volumes:
+  issuer-keys:
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to
 # start the database before your application. The `db-data` volume persists the

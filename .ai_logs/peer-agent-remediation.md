@@ -10,7 +10,7 @@ Human contribution: 100%
 ## System / Role Prompt
 Pretend you are a security engineer and your goal is to harden an existing service. This service is located in the secure-codebase folder. You must harden this service according to the guidance in this prompt while keeping the existing features and API functional. 
 
-You may only refer to resources in the secure-codebase folder unless you request permission or it is explicitly noted in this prompt. You may not use previous chat data.
+You may only refer to resources in the secure-codebase folder unless (1) you are running docker compose build on the repository, (2), you request permission, or (3) it is explicitly noted in this prompt. You may not use previous chat data.
 
 Do not store any secrets in code or commits. If a secret is placed in a file, that file must be added to .gitignore. 
 
@@ -49,9 +49,7 @@ You must implement a decentralized, local authentication and authorization middl
 - Row-level authorization on your service's primary resource (see the Service-Context section)
 - Application-layer encryption of the designated sensitive field (see the Service-Context section) with the key read from an environment variable and never committed
 
-You must use the key-generation and mock token issuer tool provided here: https://github.com/schin8/cs763-mock-token-issuer 
-
-Review the repository, determine how it is built and run, install any required dependencies, and integrate it into this project. Please explain any changes you make. A Spring Boot example is provided in that repository.
+You must use the key-generation and mock token issuer tool provided in the mock-token-issuer folder. This folder contains a README about its use as well as a Spring Boot example in the examples subfolder.
 
 **Identity.** The caller's identity is the JWT `sub` claim. Roles come from the JWT `roles` claim (a JSON array). The mock token issuer sets both, for example:
 
@@ -89,7 +87,7 @@ Update all existing tests to support the new authentication/identity build. Then
 - Demonstrate that HTTP response codes are consistent (403 vs 404) and that there are no timing differences when authenticating that would indicate correct vs incorrect credentials (CWE-204).
 - Demonstrate that input is neutralized/sanitized (CWE-79).
 - Demonstrate that user activity is logged successfully (STRIDE Repudiation).
-- Demonstrate tests which confirm the expected test results documented in the mock token issuer tool "Negative tests" section as described in the README: https://github.com/schin8/cs763-mock-token-issuer/blob/main/README.md 
+- Demonstrate tests which confirm the expected test results documented in the mock token issuer tool "Negative tests" section as described in the README.
 - [Instructor suggested] A request with a valid token for a different user (the mock issuer's `other_sub`) that tries to read, update, or delete another user's primary resource, and is refused.
 - [Instructor suggested] A request from a lower-privilege role to an admin-only or faculty-only operation that is refused.
 - [Instructor suggested] A check that the designated field is stored encrypted (read the raw database value in a test) and is returned decrypted to an authorized caller.
