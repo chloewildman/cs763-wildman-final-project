@@ -14,12 +14,12 @@ import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.UserProvisionReque
 import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.UserResponse;
 import edu.bu.met.wildmancs763.discussions.service.UserAccountService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/v1/admin/users")
@@ -32,8 +32,12 @@ public class AdminUserController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public UserResponse provisionUser(@Valid @RequestBody UserProvisionRequest request) {
-        return userAccountService.provision(request);
+    public ResponseEntity<UserResponse> provisionUser(@Valid @RequestBody UserProvisionRequest request) {
+        UserResponse response = userAccountService.provision(request);
+        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest()
+                        .path("/{userId}")
+                        .buildAndExpand(response.id())
+                        .toUri())
+                .body(response);
     }
 }

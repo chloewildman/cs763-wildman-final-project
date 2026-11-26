@@ -33,8 +33,11 @@ public class DiscussionUser {
     @Column(nullable = false, unique = true, length = 30)
     private String username;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 200)
     private String passwordHash;
+
+    @Column(name = "password_set")
+    private Boolean passwordSet;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
@@ -49,7 +52,19 @@ public class DiscussionUser {
     public DiscussionUser(String username, String passwordHash, UserRole role) {
         this.username = username;
         this.passwordHash = passwordHash;
+        this.passwordSet = passwordHash != null && !passwordHash.startsWith("UNSET:");
         this.role = role;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+        this.passwordSet = true;
+    }
+
+    public boolean isPasswordSet() {
+        return passwordSet == null
+                ? passwordHash != null && !passwordHash.startsWith("UNSET:")
+                : passwordSet;
     }
 
     @PrePersist

@@ -22,17 +22,16 @@ services:
   
   server:
     build:
-      context: .
+      context: ./secure-codebase
     ports:
       - 8080:8080
     depends_on:
       - mock-token-issuer
     environment:
-      DEMO_STUDENT_PASSWORD: test-password
-
       JWT_JWK_SET_URI: http://mock-token-issuer:9000/.well-known/jwks.json
       JWT_ISSUER: http://localhost:9000
       JWT_AUDIENCE: cs763-api
+      FIELD_ENCRYPTION_KEY: ${FIELD_ENCRYPTION_KEY:-}
 
 volumes:
   issuer-keys:

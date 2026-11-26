@@ -12,6 +12,8 @@ package edu.bu.met.wildmancs763.discussions.domain;
 
 public enum UserRole {
     STUDENT,
+    STUDENT_PEER,
+    FACULTY_INSTRUCTOR,
     FACULTY,
     ADMIN
 }

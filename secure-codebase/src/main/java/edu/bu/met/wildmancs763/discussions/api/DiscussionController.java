@@ -16,8 +16,8 @@ import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.CommentUpdateReque
 import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.ModerationRequest;
 import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.PostRequest;
 import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.PostResponse;
-import edu.bu.met.wildmancs763.discussions.domain.PostCategory;
 import edu.bu.met.wildmancs763.discussions.domain.ModerationStatus;
+import edu.bu.met.wildmancs763.discussions.domain.PostCategory;
 import edu.bu.met.wildmancs763.discussions.service.DiscussionService;
 import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -56,7 +56,7 @@ public class DiscussionController {
     public ResponseEntity<PostResponse> createPost(
             @Valid @RequestBody PostRequest request,
             Authentication authentication) {
-        PostResponse response = discussionService.createPost(request, authentication.getName());
+        PostResponse response = discussionService.createPost(request, authentication);
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest()
                         .path("/{postId}")
                         .buildAndExpand(response.id())
@@ -75,14 +75,15 @@ public class DiscussionController {
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
             OffsetDateTime from,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-            OffsetDateTime to) {
+            OffsetDateTime to,
+            Authentication authentication) {
         return discussionService.listPosts(
-                keyword, projectId, courseId, labId, category, authorHandle, from, to);
+                keyword, projectId, courseId, labId, category, authorHandle, from, to, authentication);
     }
 
     @GetMapping("/posts/{postId}")
-    public PostResponse getPost(@PathVariable UUID postId) {
-        return discussionService.getPost(postId);
+    public PostResponse getPost(@PathVariable UUID postId, Authentication authentication) {
+        return discussionService.getPost(postId, authentication);
     }
 
     @PutMapping("/posts/{postId}")
@@ -91,14 +92,14 @@ public class DiscussionController {
             @Valid @RequestBody PostRequest request,
             Authentication authentication) {
         return discussionService.updatePost(
-                postId, request, authentication.getName(), isAdministrator(authentication));
+                postId, request, authentication);
     }
 
     @DeleteMapping("/posts/{postId}")
     public ResponseEntity<Void> deletePost(
             @PathVariable UUID postId,
             Authentication authentication) {
-        discussionService.deletePost(postId, authentication.getName(), isAdministrator(authentication));
+        discussionService.deletePost(postId, authentication);
         return ResponseEntity.noContent().build();
     }
 
@@ -111,8 +112,10 @@ public class DiscussionController {
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
             OffsetDateTime from,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-            OffsetDateTime to) {
-        return discussionService.scopeTimeline(scopeType, scopeId, keyword, category, from, to);
+            OffsetDateTime to,
+            Authentication authentication) {
+        return discussionService.scopeTimeline(
+                scopeType, scopeId, keyword, category, from, to, authentication);
     }
 
     @PostMapping("/posts/{postId}/comments")
@@ -121,7 +124,7 @@ public class DiscussionController {
             @Valid @RequestBody CommentRequest request,
             Authentication authentication) {
         CommentResponse response = discussionService.createComment(
-                postId, request, authentication.getName());
+                postId, request, authentication);
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest()
                         .path("/{commentId}")
                         .buildAndExpand(response.id())
@@ -138,9 +141,10 @@ public class DiscussionController {
             OffsetDateTime from,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
             OffsetDateTime to,
-            @RequestParam(defaultValue = "json") String format) {
+            @RequestParam(defaultValue = "json") String format,
+            Authentication authentication) {
         List<CommentResponse> comments = discussionService.listComments(
-                postId, keyword, authorHandle, from, to);
+                postId, keyword, authorHandle, from, to, authentication);
         if ("json".equalsIgnoreCase(format)) {
             return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(comments);
         }
@@ -162,8 +166,9 @@ public class DiscussionController {
     @GetMapping("/posts/{postId}/comments/{commentId}")
     public CommentResponse getComment(
             @PathVariable UUID postId,
-            @PathVariable UUID commentId) {
-        return discussionService.getComment(postId, commentId);
+            @PathVariable UUID commentId,
+            Authentication authentication) {
+        return discussionService.getComment(postId, commentId, authentication);
     }
 
     @PutMapping("/posts/{postId}/comments/{commentId}")
@@ -173,7 +178,7 @@ public class DiscussionController {
             @Valid @RequestBody CommentUpdateRequest request,
             Authentication authentication) {
         return discussionService.updateComment(
-                postId, commentId, request, authentication.getName(), isAdministrator(authentication));
+                postId, commentId, request, authentication);
     }
 
     @DeleteMapping("/posts/{postId}/comments/{commentId}")
@@ -181,28 +186,24 @@ public class DiscussionController {
             @PathVariable UUID postId,
             @PathVariable UUID commentId,
             Authentication authentication) {
-        discussionService.deleteComment(
-                postId, commentId, authentication.getName(), isAdministrator(authentication));
+        discussionService.deleteComment(postId, commentId, authentication);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/posts/{postId}/moderation")
     public PostResponse moderatePost(
             @PathVariable UUID postId,
-            @Valid @RequestBody ModerationRequest request) {
-        return discussionService.moderatePost(postId, request.status());
+            @Valid @RequestBody ModerationRequest request,
+            Authentication authentication) {
+        return discussionService.moderatePost(postId, request, authentication);
     }
 
     @PatchMapping("/posts/{postId}/comments/{commentId}/moderation")
     public CommentResponse moderateComment(
             @PathVariable UUID postId,
             @PathVariable UUID commentId,
-            @Valid @RequestBody ModerationRequest request) {
-        return discussionService.moderateComment(postId, commentId, request.status());
-    }
-
-    private boolean isAdministrator(Authentication authentication) {
-        return authentication.getAuthorities().stream()
-                .anyMatch(authority -> "ROLE_ADMIN".equals(authority.getAuthority()));
+            @Valid @RequestBody ModerationRequest request,
+            Authentication authentication) {
+        return discussionService.moderateComment(postId, commentId, request, authentication);
     }
 }

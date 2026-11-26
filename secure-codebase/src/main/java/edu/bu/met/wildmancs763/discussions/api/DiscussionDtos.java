@@ -24,6 +24,9 @@ import java.util.UUID;
 
 public final class DiscussionDtos {
 
+    private static final String PASSWORD_PATTERN =
+            "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^*()_+\\-=\\[\\]{}.,?:;])[^<>/&\"']{16,72}$";
+
     private DiscussionDtos() {
     }
 
@@ -51,7 +54,11 @@ public final class DiscussionDtos {
             String authorHandle,
             ModerationStatus moderationStatus,
             OffsetDateTime createdAt,
-            OffsetDateTime updatedAt) {
+            OffsetDateTime updatedAt,
+            boolean adminModified,
+            String adminModifiedBy,
+            String moderationNote,
+            String moderatedBySub) {
     }
 
     public record CommentRequest(
@@ -71,32 +78,34 @@ public final class DiscussionDtos {
             String authorHandle,
             ModerationStatus moderationStatus,
             OffsetDateTime createdAt,
-            OffsetDateTime updatedAt) {
+            OffsetDateTime updatedAt,
+            boolean adminModified,
+            String adminModifiedBy,
+            String moderationNote,
+            String moderatedBySub) {
     }
 
-    public record ModerationRequest(@NotNull ModerationStatus status) {
-    }
-
-    public record UserRegistrationRequest(
-            @NotBlank @Pattern(regexp = "^[A-Za-z0-9._-]{3,30}$") String username,
-            @NotBlank @Size(min = 12, max = 72) String password) {
-    }
-
-    public record UserLoginRequest(
-            @NotBlank @Size(max = 30) String username,
-            @NotBlank @Size(max = 72) String password) {
+    public record ModerationRequest(
+            @NotNull ModerationStatus status,
+            @Size(max = 1000) String note) {
     }
 
     public record UserProvisionRequest(
             @NotBlank @Pattern(regexp = "^[A-Za-z0-9._-]{3,30}$") String username,
-            @NotBlank @Size(min = 12, max = 72) String password,
             @NotNull UserRole role) {
+    }
+
+    public record PasswordSetRequest(
+            @NotBlank
+            @Pattern(regexp = PASSWORD_PATTERN,
+                    message = "must be 16 to 72 characters and include uppercase, lowercase, a digit, and an allowed special character")
+            String password) {
     }
 
     public record UserResponse(UUID id, String username, UserRole role, OffsetDateTime createdAt) {
     }
 
-    public record CsrfResponse(String token) {
+    public record IdentityResponse(String subject, List<String> roles) {
     }
 
     public record ApiError(String error) {

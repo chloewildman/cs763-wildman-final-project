@@ -65,9 +65,24 @@ public class DiscussionPost {
     @Column(nullable = false, length = 100)
     private String authorHandle;
 
+    @Column(name = "owner_sub", length = 100)
+    private String ownerSub;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 30)
     private ModerationStatus moderationStatus = ModerationStatus.ACTIVE;
+
+    @Column(name = "moderation_note", length = 2048)
+    private String moderationNoteCiphertext;
+
+    @Column(name = "moderated_by_sub", length = 100)
+    private String moderatedBySub;
+
+    @Column(name = "admin_modified")
+    private Boolean adminModified = false;
+
+    @Column(name = "admin_modified_by", length = 100)
+    private String adminModifiedBy;
 
     @Column(nullable = false, updatable = false)
     private OffsetDateTime createdAt;
@@ -153,12 +168,52 @@ public class DiscussionPost {
         this.authorHandle = authorHandle;
     }
 
+    public String getOwnerSub() {
+        return ownerSub == null ? authorHandle : ownerSub;
+    }
+
+    public void setOwnerSub(String ownerSub) {
+        this.ownerSub = ownerSub;
+    }
+
     public ModerationStatus getModerationStatus() {
         return moderationStatus;
     }
 
     public void setModerationStatus(ModerationStatus moderationStatus) {
         this.moderationStatus = moderationStatus;
+    }
+
+    public String getModerationNoteCiphertext() {
+        return moderationNoteCiphertext;
+    }
+
+    public void setModerationNoteCiphertext(String moderationNoteCiphertext) {
+        this.moderationNoteCiphertext = moderationNoteCiphertext;
+    }
+
+    public String getModeratedBySub() {
+        return moderatedBySub;
+    }
+
+    public void setModeratedBySub(String moderatedBySub) {
+        this.moderatedBySub = moderatedBySub;
+    }
+
+    public boolean isAdminModified() {
+        return Boolean.TRUE.equals(adminModified);
+    }
+
+    public void setAdminModified(boolean adminModified) {
+        this.adminModified = adminModified;
+    }
+
+    public String getAdminModifiedBy() {
+        return adminModifiedBy;
+    }
+
+    public void setAdminModifiedBy(String adminModifiedBy) {
+        this.adminModifiedBy = adminModifiedBy;
     }
 
     public OffsetDateTime getCreatedAt() {

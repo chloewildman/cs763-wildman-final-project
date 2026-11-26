@@ -1,22 +1,10 @@
-/* 
-Architectural Header
-
-Language stack: Java/Spring Boot
-AI contribution: 100%
-Human verification trails:
-- I did not have time to write my own unit tests, but existing tests pass.
-- Manual API testing using Postman, see conceptual journal
-*/
-
 package edu.bu.met.wildmancs763.discussions.service;
 
 import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.UserProvisionRequest;
-import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.UserRegistrationRequest;
 import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.UserResponse;
 import edu.bu.met.wildmancs763.discussions.api.ResourceConflictException;
 import edu.bu.met.wildmancs763.discussions.api.ResourceNotFoundException;
 import edu.bu.met.wildmancs763.discussions.domain.DiscussionUser;
-import edu.bu.met.wildmancs763.discussions.domain.UserRole;
 import edu.bu.met.wildmancs763.discussions.repository.DiscussionUserRepository;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,12 +12,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 @Service
 @Transactional
 public class UserAccountService {
+
+    private static final Pattern USERNAME_PATTERN = Pattern.compile("^[A-Za-z0-9._-]{3,30}$");
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile(
+            "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^*()_+\\-=\\[\\]{}.,?:;])[^<>/&\"']{16,72}$");
 
     private final DiscussionUserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -41,50 +33,58 @@ public class UserAccountService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public UserResponse register(UserRegistrationRequest request) {
-        return createUser(request.username(), request.password(), UserRole.STUDENT);
-    }
-
     public UserResponse provision(UserProvisionRequest request) {
-        return createUser(request.username(), request.password(), request.role());
-    }
-
-    public UserResponse getUser(String username) {
-        return userRepository.findByUsername(normalizeUsername(username))
-                .map(this::toResponse)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found."));
-    }
-
-    public void createBootstrapAdmin(String username, String password) {
-        String normalizedUsername = normalizeUsername(username);
-        validatePasswordBytes(password);
-        DiscussionUser existingUser = userRepository.findByUsername(normalizedUsername).orElse(null);
-        if (existingUser != null) {
-            if (existingUser.getRole() != UserRole.ADMIN) {
-                throw new IllegalStateException(
-                        "The configured bootstrap administrator username is already assigned to a non-admin user.");
-            }
-            return;
+        String username = normalizeUsername(request.username());
+        if (userRepository.existsByUsername(username)) {
+            throw new ResourceConflictException("User could not be provisioned.");
         }
-        persistUser(normalizedUsername, password, UserRole.ADMIN);
-    }
-
-    private UserResponse createUser(String username, String password, UserRole role) {
-        String normalizedUsername = normalizeUsername(username);
-        validatePasswordBytes(password);
-        if (userRepository.existsByUsername(normalizedUsername)) {
-            throw new ResourceConflictException("Username is already registered.");
-        }
-        return toResponse(persistUser(normalizedUsername, password, role));
-    }
-
-    private DiscussionUser persistUser(String username, String password, UserRole role) {
         try {
-            return userRepository.saveAndFlush(new DiscussionUser(
-                    username, passwordEncoder.encode(password), role));
+            DiscussionUser user = userRepository.saveAndFlush(
+                    new DiscussionUser(username, "UNSET:", request.role()));
+            return toResponse(user);
         } catch (DataIntegrityViolationException exception) {
-            throw new ResourceConflictException("Username is already registered.");
+            throw new ResourceConflictException("User could not be provisioned.");
         }
+    }
+
+    public void setPassword(String subject, String password) {
+        if (!isValidPassword(password)) {
+            throw new IllegalArgumentException(
+                    "Password must be 16 to 72 characters and include uppercase, lowercase, a digit, and an allowed special character.");
+        }
+        String username = normalizeUsername(subject);
+        DiscussionUser user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User account not found."));
+        user.setPasswordHash(passwordEncoder.encode(password));
+        userRepository.saveAndFlush(user);
+    }
+
+    @Transactional(readOnly = true)
+    public boolean isProvisioned(String subject) {
+        if (!StringUtils.hasText(subject)) {
+            return false;
+        }
+        String normalized = subject.trim().toLowerCase(Locale.ROOT);
+        return USERNAME_PATTERN.matcher(normalized).matches()
+                && userRepository.existsByUsername(normalized);
+    }
+
+    @Transactional(readOnly = true)
+    public boolean isPasswordSet(String subject) {
+        if (!StringUtils.hasText(subject)) {
+            return false;
+        }
+        String normalized = subject.trim().toLowerCase(Locale.ROOT);
+        if (!USERNAME_PATTERN.matcher(normalized).matches()) {
+            return false;
+        }
+        return userRepository.findByUsername(normalized)
+                .map(DiscussionUser::isPasswordSet)
+                .orElse(false);
+    }
+
+    private boolean isValidPassword(String password) {
+        return password != null && PASSWORD_PATTERN.matcher(password).matches();
     }
 
     private String normalizeUsername(String username) {
@@ -92,19 +92,10 @@ public class UserAccountService {
             throw new IllegalArgumentException("Username must contain 3 to 30 letters, numbers, dots, underscores, or hyphens.");
         }
         String normalized = username.trim().toLowerCase(Locale.ROOT);
-        if (!normalized.matches("^[a-z0-9._-]{3,30}$")) {
+        if (!USERNAME_PATTERN.matcher(normalized).matches()) {
             throw new IllegalArgumentException("Username must contain 3 to 30 letters, numbers, dots, underscores, or hyphens.");
         }
         return normalized;
-    }
-
-    private void validatePasswordBytes(String password) {
-        if (password.length() < 12) {
-            throw new IllegalArgumentException("Password must contain at least 12 characters.");
-        }
-        if (password.getBytes(StandardCharsets.UTF_8).length > 72) {
-            throw new IllegalArgumentException("Password must be no more than 72 UTF-8 bytes.");
-        }
     }
 
     private UserResponse toResponse(DiscussionUser user) {
