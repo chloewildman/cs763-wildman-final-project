@@ -34,12 +34,12 @@ jobs:
       - name: Install Semgrep
         run: python -m pip install --disable-pip-version-check semgrep
       - name: Run tests
-        working-directory: ./functional-codebase
+        working-directory: ./secure-codebase
         run: ../mvnw -B test
       - name: Scan source with Semgrep
-        run: semgrep scan --config p/default --metrics=off ./functional-codebase
+        run: semgrep scan --config p/default --metrics=off ./secure-codebase
       - name: Package application
-        working-directory: ./functional-codebase
+        working-directory: ./secure-codebase
         run: ../mvnw -B package -DskipTests
       - name: Cache SonarQube packages
         uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
@@ -54,20 +54,20 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Run SonarQube analysis
-        working-directory: ./functional-codebase
+        working-directory: ./secure-codebase
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FUNCTIONAL }}
-        run: ../mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=chloewildman_cs763-functional-codebase
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_SECURE }}
+        run: ../mvnw -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=chloewildman_cs763-secure-codebase
       - name: Scan repository with Trivy
         uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: fs
-          scan-ref: ./functional-codebase
+          scan-ref: ./secure-codebase
           format: table
           exit-code: '0'
           severity: CRITICAL,HIGH
       - name: Build Docker image
-        run: docker build --tag "$IMAGE_NAME" ./functional-codebase
+        run: docker build --tag "$IMAGE_NAME" ./secure-codebase
       - name: Scan Docker image with Trivy
         uses: aquasecurity/trivy-action@v0.36.0
         with:
