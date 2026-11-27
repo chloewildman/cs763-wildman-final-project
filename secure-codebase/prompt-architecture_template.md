@@ -151,8 +151,13 @@ One row per iteration per repository.
 
 | Date | Repository | Iteration | Agent stop reason | Scan tool(s) | Findings before / after | Notes |
 |---|---|---|---|---|---|---|
-| [2026-11-26] | Own | 1 | Agent completed code updates and docker compose build. | Semgrep, SonarQube, Trivy | 0 Semgrep findings; 1 Trivy finding (outdated Trivy version); 2 SonarQube security issues (disabled CSRF protection, PASSWORD detected in expression) | [ ] |
+| [2026-11-26] | Own | 1 | Agent completed code updates and docker compose build. | Semgrep, SonarQube, Trivy | 0 Semgrep findings; 1 Trivy finding (outdated Trivy version); 2 SonarQube security issues (disabled CSRF protection, PASSWORD detected in expression) | See notes beneath table |
 | [2026-11-27] | Peer | 1 | Agent completed code updates and docker compose build. | Semgrep | 0 Semgrep findings | No notes |
+
+Own repo scanner notes
+- Outdated Trivy version: I reviewed the Github repo, and latest published version for Actions still aligns with mine (https://github.com/aquasecurity/trivy-action). Considering a false positive.
+- Disabled CSRF protection: This warranted the most investigation. I reviewed an online resource (https://www.baeldung.com/csrf-stateless-rest-api) and asked the AI agent to explain this change (see AI logs). The AI agent designed the service as a stateless API, which validates the JWTs through the Authorization: Bearer header, not through a cookie. This design reduces exposure to traditional CSRF attacks because browsers do not automatically attach Authorization headers to cross-site requests. However, the JWT would need to be stored somewhere in the client, which opens up a larger attack surface for XSS, so the application must be well-protected in that regard.
+- PASSWORD detected in expression: False positive. It is referring to the "PASSWORD_PATTERN" variable name in DiscussionDtos.java, which only stores the password regex.
 
 ================================================================================
 
@@ -164,4 +169,6 @@ Summarize changes made after the pa3-measured tag and how they were made (AI, HU
 
 | Commit tag | Change | Reason |
 |---|---|---|
-| [HUMAN: / HYBRID: / AI:] | [ ] | [ ] |
+| [HUMAN: / HYBRID: / AI:] | Fix post/comment body sanitization | CWE-79 remediation sanitized ALL HTML markup, but specs require that post and comment bodies can be rich text. |
+| [HUMAN: / HYBRID: / AI:] | Fix faculty moderator access issues | The introduction of the sensitive field and new moderator rules seemed to influence the AI to allow faculty moderators to view hidden content even of courses/projects they are not assigned to. |
+| [HUMAN: / HYBRID: / AI:] | Fix lack of log storage | While audit logs are generated, they are not stored in a way that would be useful for non-repudiation. |
