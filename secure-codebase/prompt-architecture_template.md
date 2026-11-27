@@ -160,7 +160,7 @@ SECTION 5: POST-MEASURED HARDENING (OWN REPOSITORY ONLY)
 
 ================================================================================
 
-Summarize changes made after the pa3-measured tag and how they were made (AI, HUMAN, or HYBRID commits).
+Summarize changes made after the pa3-measured tag and how they were made (AI, HUMAN, or HYBRID commits). 
 
 | Commit tag | Change | Reason |
 |---|---|---|
