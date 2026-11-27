@@ -1,3 +1,11 @@
+/* 
+Architectural Header
+
+Language stack: Java/Spring Boot
+AI contribution: 100%
+
+*/
+
 package edu.bu.met.wildmancs763.discussions;
 
 import edu.bu.met.wildmancs763.discussions.api.DiscussionDtos.UserProvisionRequest;

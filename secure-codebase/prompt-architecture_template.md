@@ -22,9 +22,9 @@ AI DELIVERABLE METADATA BLOCK
 
 Conceptual AI Contribution to this document: 0%
 
-Summary of design-aid prompts: [One or two sentences]
+Summary of design-aid prompts: I did not prompt AI to help with this .md file.
 
-Chat share link(s) or appendix path in ./.ai_logs/: [Insert link or path]
+Chat share link(s) or appendix path in ./.ai_logs/: [AI logs path PA3 release](../.ai_logs/project-3-release/)
 
 ================================================================================
 
@@ -44,16 +44,20 @@ SECTION 1: ENGINE AND RUN METADATA
 
 1.2 Test/Production Generation Order
 
-Order used: [Production-first / Test-first / Together]
+Order used: Production-first in both own and peer repo.
 
-Brief reason: [One or two sentences]
+Brief reason: 
+
+In own repo, the agent provided the reasoning, "The security model and production implementation were established first because moving from sessions to issuer-validated JWTs changed the authentication boundary, role mapping, and account lifecycle." (see AGENTMADE-prompt-architecture.md)
+
+In peer repo, the agent provided the reasoning, "The authentication and persistence controls span shared middleware and routes, so I added integrated tests after wiring them in, while retaining the existing functional assertions." (see AI logs)
 
 1.3 Iteration Count (measured run, maximum 2 per repository)
 
 | Repository | Starting tag | Iterations used | Ending tag | Build result at pa3-measured |
 |---|---|---|---|---|
-| Own | project-2-release | [1 or 2] | pa3-measured | [Builds / Broken by agent] |
-| Peer | v2.0.0 | [1 or 2] | pa3-measured | [Builds / Broken by agent] |
+| Own | project-2-release | 1 | pa3-measured | Builds |
+| Peer | v2.0.0 | 1 | pa3-measured | Builds |
 
 ================================================================================
 
@@ -134,8 +138,8 @@ Iteration 2 may add only the scan output from iteration 1. State what was added.
 
 | Repository | Scan output added (tool, file or excerpt location) |
 |---|---|
-| Own | [ ] |
-| Peer | [ ] |
+| Own | Not used |
+| Peer | Not used |
 
 ================================================================================
 
@@ -147,8 +151,8 @@ One row per iteration per repository.
 
 | Date | Repository | Iteration | Agent stop reason | Scan tool(s) | Findings before / after | Notes |
 |---|---|---|---|---|---|---|
-| [2026-xx-xx] | Own | 1 | [ ] | [Semgrep, SonarQube, Trivy] | [ ] | [ ] |
-| [2026-xx-xx] | Peer | 1 | [ ] | [Semgrep] | [ ] | [ ] |
+| [2026-11-26] | Own | 1 | Agent completed code updates and docker compose build. | Semgrep, SonarQube, Trivy | 0 Semgrep findings; 1 Trivy finding (outdated Trivy version); 2 SonarQube security issues (disabled CSRF protection, PASSWORD detected in expression) | [ ] |
+| [2026-11-27] | Peer | 1 | Agent completed code updates and docker compose build. | Semgrep | 0 Semgrep findings | No notes |
 
 ================================================================================
 

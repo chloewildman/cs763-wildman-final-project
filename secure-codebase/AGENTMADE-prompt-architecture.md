@@ -1,5 +1,12 @@
 # Security Architecture and Verification
 
+## AI Contribution Header
+AI contribution: 99%
+
+Human contribution: 1%
+
+This file was written by the AI agent after making the changes requested in my secure prompt. The only change I made was moving information it placed in the README into this file to keep AI generated information in one place.
+
 ## Identity and roles
 
 The service is a stateless Spring Boot resource server. It validates bearer JWTs from the configured mock issuer or a compatible identity provider. `POST /api/v1/auth/login` accepts a validated bearer token and returns its subject and effective roles; it does not issue tokens or accept username/password credentials. Every other API route, including actuator endpoints, requires authentication.
@@ -63,3 +70,11 @@ Set the generated Base64 value as `FIELD_ENCRYPTION_KEY` in `.env`, then run `do
 ## Test/production generation order
 
 **Production-first.** The security model and production implementation were established first because moving from sessions to issuer-validated JWTs changed the authentication boundary, role mapping, and account lifecycle. The existing functional tests were then adapted to the bearer-token identity model, and focused security tests were added for the new authorization, validation, encryption, rate-limit, and audit behavior.
+
+## Secure service runtime
+
+The discussion service accepts RS256 or ES256 bearer tokens from the mock issuer configured by Docker Compose. Only `POST /api/v1/auth/login` is public; send the token in the `Authorization: Bearer ...` header. Other API and actuator routes require authentication, and actuator routes require the `admin` role.
+
+Set a Base64-encoded 32-byte `FIELD_ENCRYPTION_KEY` in the root `.env` file before starting the service. The root `.env.example` is a placeholder, `.env` is ignored by Git, and the same environment variable is passed to the container. Account records are provisioned by administrators; a provisioned user must set a 16–72 character compliant password before using other protected APIs.
+
+See the repository-root [prompt-architecture.md](../prompt-architecture.md) for role mappings, mock memberships, authorization semantics, encryption, rate limiting, and the production/test generation order.

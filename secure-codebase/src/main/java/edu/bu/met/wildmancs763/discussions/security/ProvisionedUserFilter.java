@@ -1,3 +1,11 @@
+/* 
+Architectural Header
+
+Language stack: Java/Spring Boot
+AI contribution: 100%
+
+*/
+
 package edu.bu.met.wildmancs763.discussions.security;
 
 import edu.bu.met.wildmancs763.discussions.service.UserAccountService;

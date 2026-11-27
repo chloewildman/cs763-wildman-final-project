@@ -16,9 +16,9 @@ AI DELIVERABLE METADATA BLOCK
 
 Conceptual AI Contribution to this document: 0%
 
-Summary of design-aid prompts: \[One or two sentences\] 
+Summary of design-aid prompts: I did not prompt AI to help with this .md file.
 
-Chat share link(s) or appendix path in ./.ai\_logs/: \[Insert link or path\]
+Chat share link(s) or appendix path in ./.ai\_logs/: [AI logs path PA3 release](../.ai_logs/project-3-release/)
 
 \================================================================================
 
@@ -34,8 +34,8 @@ SECTION 1: REPOSITORIES
 | Stack | Java/Spring Boot/H2 | Python/FastAPI/PostgreSQL |
 | Starting tag | project-2-release | v2.0.0 |
 | pa3-measured tag | pa3-measured | pa3-measured |
-| Iterations used (max 2\) | \[ \] | \[ \] |
-| Builds in Docker at pa3-measured | \[Yes / No, broken by agent\] | \[Yes / No, broken by agent\] |
+| Iterations used (max 2) | 1 | 1 |
+| Builds in Docker at pa3-measured | Yes | Yes |
 | Scan tool(s) used | Semgrep, SonarQube, Trivy | Semgrep |
 
 \================================================================================
